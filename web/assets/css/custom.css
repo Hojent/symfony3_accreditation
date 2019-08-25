@@ -1,0 +1,33 @@
+.bc-collection-list > li {
+    padding: 5px 10px;
+    list-style-type: none;
+}
+
+.pagination-meta {
+    padding-left: 0;
+}
+
+.pagination.pagination-no-margin, .pagination-meta.pagination-no-margin {
+    margin: 5px;
+}
+
+.pagination-meta>li {
+    display: inline;
+}
+
+.widget-chart-5-inline ul li {
+    width: 19%;
+}
+.widget-chart-7-inline ul li {
+    width: 14%;
+}
+
+#topnav .topbar-main .dropdown-menu-min-300 {
+    min-width: 300px;
+}
+
+.clickToken {width:300px; cursor: pointer;}
+.token {display: inline;}
+.hide {display: none;}
+
+.modal-body h4 span {color: #00b19d;}
