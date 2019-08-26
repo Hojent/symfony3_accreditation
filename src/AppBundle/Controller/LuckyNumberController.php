@@ -12,12 +12,16 @@ class LuckyNumberController extends  Controller
     /**
      * @Route("/lucky", name="lucky_nomer")
      */
-    public function numAction()
+    public function numberAction()
     {
         $number = random_int(0, 100);
 
-        return new Response(
-            '<html><body>Lucky number: '.$number.'</body></html>'
-        );
+        //return new Response(
+        //    '<html><body>Lucky number: '.$number.'</body></html>'
+        //);
+
+        return $this->render('lucky/number.html.twig', [
+            'number' => $number,
+        ]);
     }
 }
