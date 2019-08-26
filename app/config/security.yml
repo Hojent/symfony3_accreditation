@@ -4,8 +4,10 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+    # loadUserByUsername() method [from userRepository] will be call on somebody login
+        pgsql_provider:
+            entity:
+                class: AppBundle:User
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
