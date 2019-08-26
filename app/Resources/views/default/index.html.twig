@@ -13,8 +13,12 @@
                     Your application is now ready. You can start working on it at:
                     <code>{{ base_dir }}</code>
 
-                    <a href="{{ path ('app_default_admin') }}">Admin</a>
-                    <a href="{{ path('app_registration_new') }}">Registration</a>
+                    {% if is_granted ('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+                    <h2>Привет, {{ app.user.username }} !</h2>
+                    {% else %}
+                        <a href="{{ path('app_registration_new') }}" class="list-group-item list-group-item-action bg-light">Регистрация</a>
+                    {% endif %}
+
 
                 </p>
             </div>

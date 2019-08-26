@@ -5,6 +5,7 @@ security:
     encoders:
         AppBundle\Entity\User:
             algorithm: bcrypt
+            cost: 12
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
@@ -32,10 +33,19 @@ security:
                   login_path: login
                   check_path: login
                   csrf_token_generator: security.csrf.token_manager
+            remember_me:
+                  secret:   '%kernel.secret%'
+                  lifetime: 604800 # 1 week in seconds
+                  path:     /
+            logout:
+                  path:     /logout
 
     access_control:
                 # require ROLE_ADMIN for /admin*
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
 
+    role_hierarchy:
+            ROLE_MODERATOR:           [ROLE_USER]
+            ROLE_ADMIN:               [ROLE_USER, ROLE_MODERATOR]
