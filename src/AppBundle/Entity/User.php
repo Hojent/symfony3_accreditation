@@ -3,10 +3,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @UniqueEntity(fields="username", message="Username already taken")
+ *
  */
 class User implements UserInterface, \Serializable
 {
@@ -23,9 +27,23 @@ class User implements UserInterface, \Serializable
     private $username;
 
     /**
+     * @Assert\NotBlank
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
+
+    /**
+     * The below length depends on the "algorithm" you use for encoding
+     * the password, but this works well with bcrypt.
+     *
      * @ORM\Column(type="string", length=64)
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles;
 
     /**
      * @ORM\Column(type="string", length=254, unique=true)
@@ -40,8 +58,39 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->isActive = true;
+        $this->roles = ['ROLE_USER'];
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+
+        // guarantees that a user always has at least one role for security
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
 
     public function getUsername()
@@ -49,11 +98,19 @@ class User implements UserInterface, \Serializable
         return $this->username;
     }
 
-    public function getSalt()
+    public function setUsername($username)
     {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
-        return null;
+        $this->username = $username;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
     }
 
     public function getPassword()
@@ -61,9 +118,16 @@ class User implements UserInterface, \Serializable
         return $this->password;
     }
 
-    public function getRoles()
+    public function setPassword($password)
     {
-        return ['ROLE_USER'];
+        $this->password = $password;
+    }
+
+    public function getSalt()
+    {
+        // The bcrypt and argon2i algorithms don't require a separate salt.
+        // You *may* need a real salt if you choose a different encoder.
+        return null;
     }
 
     public function eraseCredentials()
