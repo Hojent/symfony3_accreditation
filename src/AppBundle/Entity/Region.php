@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Region
@@ -27,7 +28,6 @@ class Region
      * @ORM\Column(name="name", type="string", length=128)
      */
     private $name;
-
 
     /**
      * Get id
@@ -67,5 +67,8 @@ class Region
     {
         return $this->getName();
     }
+
+
+
 }
 

@@ -4,11 +4,12 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\City;
 
+use AppBundle\Entity\CityFilterEntity;
+use AppBundle\Form\CityRegionFilterType;
 use AppBundle\Form\CityType;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -18,22 +19,42 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CityController extends Controller
 {
+    protected const PER_PAGE = 25;
+
     /**
      * Lists all city entities.
      *
+     *
      * @Route("/", name="city_index")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        //$fieldsRepository = $this->get('AppBundle\Form\CityRegionFilterType');
+
+        //$user = $this->getUser();
+
+        /** @var CityFilterEntity $fieldsFilterEntity */
+        $cityFilterEntity = new CityFilterEntity();
+
+        /** @var CityRegionFilterType $formFilterClass */
+        $formFilterClass = CityRegionFilterType::class;
+
+        $formFilter = $this->createForm($formFilterClass, $cityFilterEntity);
+        $formFilter->handleRequest($request);
+
         $em = $this->getDoctrine()->getManager();
 
-        $cities = $em->getRepository('AppBundle:City')->findAll();
+        $cities = $em->getRepository('AppBundle:City')->getItemList($cityFilterEntity);
 
         return $this->render('city/index.html.twig', [
-            'cities' => $cities,
-        ]);
+                'cities' => $cities,
+                'formFilter'  => $formFilter->createView(),
+            ]
+        );
+
     }
+
 
     /**
      * Creates a new city entity.

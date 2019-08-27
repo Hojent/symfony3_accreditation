@@ -11,15 +11,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CityType extends AbstractType
+class CityRegionFilterType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
-            ->add('name',TextType::class)
             ->add('region', EntityType::class, [
                 'class' => Region::class,
                 'query_builder' => function (EntityRepository $er) {
@@ -29,26 +29,12 @@ class CityType extends AbstractType
 
                 'attr' => ['class' => 'form-control']
             ])
+
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => City::class]
-        );
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'city';
-    }
+
 
 
 }

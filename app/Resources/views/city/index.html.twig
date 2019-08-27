@@ -2,8 +2,31 @@
 
 {% block title %} Города {% endblock %}
 
+
+
 {% block body %}
     <h1>Города</h1>
+    {% if formFilter|length %}
+        <div class="card-box">
+            {{ form_start(formFilter) }}
+            <div class="row m-b-10">
+                <div class="col-lg-2 m-b-5">
+                    {{ form_row(formFilter.region) }}
+                </div>
+                <div class="col-lg-2 m-b-5">
+                    <div class="form-group">
+                        <!-- just for correct top padding -->
+                        <label class="control-label">&nbsp;</label>
+                        <div class="input-group">
+                            <button name="filter" type="submit" class="btn btn-success w-md">Выбрать</button>
+                            <a class="btn btn-default w-md" href="{{ path('city_index') }}">Reset</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(formFilter) }}
+        </div>
+    {% endif %}
 
     <table class="table">
         <thead>
