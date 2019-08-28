@@ -12,18 +12,17 @@
                 <p>
                     Your application is now ready. You can start working on it at:
                     <code>{{ base_dir }}</code>
-
-                    {% if is_granted ('ROLE_USER') or is_granted('ROLE_ADMIN') %}
-                    <h2>Привет, {{ app.user.username }} !</h2>
-                    {% else %}
-                        <a href="{{ path('app_registration_new') }}" class="list-group-item list-group-item-action bg-light">Регистрация</a>
-                    {% endif %}
-
-
                 </p>
+                    {% if app.user  %}
+                    <h2>Привет, {{ app.user.username | capitalize }} ! Glad to see you!</h2>
+                        {% if reRegister %}
+                            <h4>Вы уже зарегистрированы. Ваш login - <b>{{ app.user.username }}</b>.</h4>
+                        {% endif %}
+                    {% else %}
+                        <p><a href="{{ path ('login') }}" class="btn btn-success">Login</a>  <a href="{{ path('app_registration_new') }}" class="btn btn-info">Регистрация</a></p>
+                    {% endif %}
             </div>
-
-        </div>
+s        </div>
     </div>
 {% endblock %}
 

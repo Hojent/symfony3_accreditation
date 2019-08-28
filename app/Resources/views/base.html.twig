@@ -30,8 +30,7 @@
                 {% else %}
                     <a href="{{ path('app_registration_new') }}" class="list-group-item list-group-item-action bg-light">Регистрация</a>
                 {% endif %}
-                <a href="#" class="list-group-item list-group-item-action bg-light">Памятка</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Обзор</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">О проекте</a>
                 {% if is_granted ('ROLE_USER') %}
                     <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
                     <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
@@ -53,7 +52,7 @@
                     </li>
                     {% if is_granted ('ROLE_USER') or is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Выход</a>
+                            <a class="nav-link" href="{{ path('logout') }}">Выход</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
@@ -73,7 +72,7 @@
                                 <a class="dropdown-item" href="#">СМИ</a>
                                 <div class="dropdown-divider"></div>
                                 <div class="dropdown-item">
-                                    <a class="dropdown-item" href="#">Создать модератора</a>
+                                    <a class="dropdown-item" href="#">Создать</a>
                                 </div>
                             </div>
                         </li>
