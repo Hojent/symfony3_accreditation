@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Region;
+
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -15,21 +17,30 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class RegionController extends Controller
 {
+    const PER_PAGE = 3;
+
     /**
      * Lists all region entities.
      *
      * @Route("/", name="region_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request, PaginatorInterface $paginator)
     {
+        //$em = $this->get('doctrine.orm.entity_manager');
         $em = $this->getDoctrine()->getManager();
 
-        $regions = $em->getRepository('AppBundle:Region')->findAll();
+        $regionsQuery = $em->getRepository(Region::class)->listAll();
 
-        return $this->render('region/index.html.twig', array(
-            'regions' => $regions,
-        ));
+        $pagination = $paginator->paginate(
+            $regionsQuery, /* query NOT result */
+            $request->query->get('page', 1), /*page number*/
+            self:: PER_PAGE /*limit per page*/
+        );
+
+        return $this->render('region/index.html.twig', [
+            'regions' => $pagination,
+        ]);
     }
 
     /**

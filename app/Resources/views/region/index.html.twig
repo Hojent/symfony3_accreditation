@@ -30,6 +30,10 @@
         {% endfor %}
         </tbody>
     </table>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(regions) }}
+    </div>
 
     <a href="{{ path('region_new') }}" class = "btn btn-primary">Create new</a>
 {% endblock %}

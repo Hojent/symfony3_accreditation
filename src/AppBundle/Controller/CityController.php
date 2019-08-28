@@ -30,10 +30,6 @@ class CityController extends Controller
      */
     public function indexAction(Request $request)
     {
-        //$fieldsRepository = $this->get('AppBundle\Form\CityRegionFilterType');
-
-        //$user = $this->getUser();
-
         /** @var CityFilterEntity $fieldsFilterEntity */
         $cityFilterEntity = new CityFilterEntity();
 
