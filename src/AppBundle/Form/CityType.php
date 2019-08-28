@@ -29,6 +29,7 @@ class CityType extends AbstractType
 
                 'attr' => ['class' => 'form-control']
             ])
+            ->setMethod('GET')
         ;
     }
 

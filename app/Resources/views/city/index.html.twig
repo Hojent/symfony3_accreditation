@@ -31,28 +31,32 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Город</th>
-                <th>Область</th>
                 <th>Изменить</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Id', 'c.id') }}</th>
+                <th{% if pagination.isSorted('c.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'c.name') }}</th>
+                <th>Область</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-        {% for city in cities %}
+        {% for city in pagination %}
             <tr>
+                <td>{{ city.id }}</td>
                 <td><a href="{{ path('city_show', { 'id': city.id }) }}">{{ city.name }}</a></td>
                 <td>{{ city.region }}</td>
-                <td>
-                    <a class="btn-default" href="{{ path('city_edit', { 'id': city.id }) }}">edit</a>
+                <td><a class="btn-default" href="{{ path('city_edit', { 'id': city.id }) }}">edit</a>
+
 
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    {{ knp_pagination_render(pagination) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('city_new') }}">Добавить</a>
-        </li>
-    </ul>
+            <a  class = "btn btn-primary" href="{{ path('city_new') }}">Добавить</a>
+
+
 {% endblock %}

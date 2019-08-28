@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * City controller.
@@ -19,17 +20,16 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CityController extends Controller
 {
-    protected const PER_PAGE = 25;
+    protected const PER_PAGE = 6;
 
     /**
      * Lists all city entities.
-     *
-     *
      * @Route("/", name="city_index")
-     * @Method({"GET","POST"})
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, PaginatorInterface $paginator)
     {
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:City');
+
         /** @var CityFilterEntity $fieldsFilterEntity */
         $cityFilterEntity = new CityFilterEntity();
 
@@ -39,13 +39,17 @@ class CityController extends Controller
         $formFilter = $this->createForm($formFilterClass, $cityFilterEntity);
         $formFilter->handleRequest($request);
 
-        $em = $this->getDoctrine()->getManager();
+        $cityQuery = $repository->getItemList($cityFilterEntity);
 
-        $cities = $em->getRepository('AppBundle:City')->getItemList($cityFilterEntity);
+        $pagination = $paginator->paginate(
+            $cityQuery, /* query NOT result */
+            $request->query->get('page', 1), /*page number*/
+            self:: PER_PAGE /*limit per page*/
+        );
 
         return $this->render('city/index.html.twig', [
-                'cities' => $cities,
                 'formFilter'  => $formFilter->createView(),
+                'pagination' => $pagination,
             ]
         );
 
@@ -114,14 +118,14 @@ class CityController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('city_edit', array('id' => $city->getId()));
+            return $this->redirectToRoute('city_edit', ['id' => $city->getId()]);
         }
 
-        return $this->render('city/edit.html.twig', array(
+        return $this->render('city/edit.html.twig', [
             'city' => $city,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        ]);
     }
 
     /**

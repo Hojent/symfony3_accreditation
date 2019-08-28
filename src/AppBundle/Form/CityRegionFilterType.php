@@ -29,6 +29,7 @@ class CityRegionFilterType extends AbstractType
 
                 'attr' => ['class' => 'form-control']
             ])
+            ->setMethod('GET')
 
         ;
     }

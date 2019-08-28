@@ -3,16 +3,15 @@
 {% block title %}Справочник регионов {% endblock %}
 
 {% block body %}
-    <h1>Region index</h1>
+    <h1>Regions</h1>
 
     <table class="table">
-        <thead>
         <tr>
-            <th>Id</th>
-            <th>Region</th>
-            <th>actions</th>
+            {# sorting of properties based on query components #}
+            <th>{{ knp_pagination_sortable(regions, 'Id', 'r.id') }}</th>
+            <th{% if regions.isSorted('r.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(regions, 'Title', 'r.name') }}</th>
+            <th>Action</th>
         </tr>
-        </thead>
         <tbody>
         {% for region in regions %}
             <tr>

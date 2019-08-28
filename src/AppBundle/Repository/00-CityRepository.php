@@ -18,7 +18,7 @@ class CityRepository extends EntityRepository
      *
      */
 
-    public function getItemList($cityFilterEntity)
+    public function getItemList(CityFilterEntity $cityFilterEntity)
     {
                $query = $this->createQueryBuilder('cities')
                    ->select('c')
@@ -31,11 +31,19 @@ class CityRepository extends EntityRepository
                    ->setParameter('regionSelected', $cityFilterEntity->getRegion() );
                 }
 
-               $result = $query->getQuery()->getResult();
+               $result =$query->getQuery()->getResult();
 
                return $result;
 
     }
+
+//    public function listAll () {
+//        $qb = $this->createQueryBuilder('c')
+//            ->orderBy('c.name', 'ASC')
+//            ->getQuery();
+//
+//        return $qb;
+//    }
 
 }
 
