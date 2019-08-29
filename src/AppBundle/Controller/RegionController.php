@@ -76,6 +76,7 @@ class RegionController extends Controller
      * @Method("GET")
      */
     public function showAction(Region $region)
+
     {
         $deleteForm = $this->createDeleteForm($region);
 
@@ -91,6 +92,20 @@ class RegionController extends Controller
      * @Route("/{id}/edit", name="region_edit")
      * @Method({"GET", "POST"})
      */
+    // автоматическое использование ParamConverter.
+    // Вместо ожидаемого $id даем функции объекта типа "объект" Region
+    // ParamConverter автоматически запрашивает объект id которого совпадает с {id} и
+    // выдаст 404 страницу если не найдет. В данном случае в форм билдер отдается
+    // целиком весь объект Region с id = {id}
+    // В данном случае работает без конфигурации, т.к. имя заполнителя {id} совпадает
+    // с именем свойства сущености [ Region имеет свойство ID]
+    // Если имена не свопадают можно запросить сущность вручную, передав в параметры
+    // значение переменной
+    // Или добавить в анностацию, например для сущности Post
+    // @ParamConverter("post", options={"mapping"={"postSlug"="slug"}})
+    // свойство slug есть у объекта post
+
+
     public function editAction(Request $request, Region $region)
     {
         $deleteForm = $this->createDeleteForm($region);

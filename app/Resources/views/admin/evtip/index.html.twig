@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}Справочник - типы мероприятий {% endblock %}
+{% block body %}
+    <h1>Типы мероприятий</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evtip in evtips %}
+            <tr>
+                <td><a href="{{ path('admin_evtip_show', { 'id': evtip.id }) }}">{{ evtip.id }}</a></td>
+                <td>{{ evtip.name }}</td>
+                <td>
+                    <a href="{{ path('admin_evtip_edit', { 'id': evtip.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+            <a href="{{ path('admin_evtip_new') }}" class = "btn btn-primary">Create a new evtip</a>
+{% endblock %}

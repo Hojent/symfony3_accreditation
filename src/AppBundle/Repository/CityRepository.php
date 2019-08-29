@@ -20,9 +20,9 @@ class CityRepository extends EntityRepository
 
     public function getItemList($cityFilterEntity)
     {
-               $query = $this->createQueryBuilder('cities')
-                   ->select('c')
-                   ->from('AppBundle:City','c')
+               $query = $this->createQueryBuilder('c')
+                   //->select('c')
+                   //->from('AppBundle:City','c')
                    ->orderBy('c.name', 'ASC')
                ;
                if ($cityFilterEntity->getRegion()) {
@@ -31,7 +31,8 @@ class CityRepository extends EntityRepository
                    ->setParameter('regionSelected', $cityFilterEntity->getRegion() );
                 }
 
-               $result = $query->getQuery()->getResult();
+               //$result = $query->getQuery()->getResult();
+               $result = $query->getQuery();
 
                return $result;
 

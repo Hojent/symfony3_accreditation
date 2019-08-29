@@ -31,9 +31,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Город</th>
-                <th>Изменить</th>
                 <th>{{ knp_pagination_sortable(pagination, 'Id', 'c.id') }}</th>
                 <th{% if pagination.isSorted('c.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'c.name') }}</th>
                 <th>Область</th>
