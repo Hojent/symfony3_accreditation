@@ -108,13 +108,21 @@ class RegionController extends Controller
 
     public function editAction(Request $request, Region $region)
     {
+
+        if (!isset($region) ) { //не работает Ошибка перехватывается раньше этого места.
+            throw $this->createNotFoundException('The object does not exist');
+        }
+
         $deleteForm = $this->createDeleteForm($region);
         $editForm = $this->createForm('AppBundle\Form\RegionType', $region);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $this->addFlash(
+                'notice',
+                'Your changes were saved!'
+            );
             return $this->redirectToRoute('region_edit', array('id' => $region->getId()));
         }
 

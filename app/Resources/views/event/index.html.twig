@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Events list</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>N</th>
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Начало</th>
+                <th>Окончание</th>
+                {% if is_granted ('ROLE_ADMIN') %}
+                <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td><a href="{{ path('event_show', { 'id': event.id }) }}">{{ event.id }}</a></td>
+                <td><a href="{{ path('event_show', { 'id': event.id }) }}">{{ event.title }}</a></td>
+                <td>{{ event.brief }}</td>
+                <td>{{ event.dataStart|date('d.m.Y - H:i') }}</td>
+                <td>{{ event.dataEnd |date('d.m.Y -  H:i') }}</td>
+               {% if is_granted ('ROLE_ADMIN') %}
+                <td>
+                    <a href="{{ path('event_edit', { 'id': event.id }) }}" class="btn btn-primary">edit</a>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('event_new') }}">Create a new event</a>
+        </li>
+    </ul>
+{% endblock %}

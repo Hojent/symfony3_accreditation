@@ -71,6 +71,11 @@ class City
         return $this->name;
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
     /**
      * Set region
      *
@@ -94,6 +99,7 @@ class City
     {
         return $this->region;
     }
+
 
 
 }
