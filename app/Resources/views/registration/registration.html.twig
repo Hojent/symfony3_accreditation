@@ -4,12 +4,24 @@
 
 {% block body %}
     <h1>User's Registration</h1>
-
+  <div class="row justify-content-md-center">
     {{ form_start(form) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
-    {{ form_row(form.email) }}
-    <button type="submit">Register!</button>
+          <div class ="form-group">
+              {{ form_label(form.username, 'Ваш логин') }}
+              {{ form_row(form.username) }}
+          </div>
+           <div class="form-group">
+                {{ form_label(form.plainPassword, 'Создайте пароль') }}
+                {{ form_row(form.plainPassword.first) }}
+                {{ form_row(form.plainPassword.second,
+                    {'attr':{'placeholder':'Repeat password'}}) }}
+          </div>
+          <div class="form-group">
+                {{ form_label(form.email, 'Ваш e-mail') }}
+                {{ form_row(form.email) }}
+          </div>
+    <button class= "btn btn-info" type="submit">Register!</button>
     {{ form_end(form) }}
+  </div>
+
 {% endblock %}
