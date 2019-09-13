@@ -47,7 +47,7 @@ class RegionController extends Controller
      * Creates a new region entity.
      *
      * @Route("/new", name="region_new")
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      */
     public function newAction(Request $request)
     {
@@ -60,7 +60,7 @@ class RegionController extends Controller
             $em->persist($region);
             $em->flush();
 
-            return $this->redirectToRoute('region_show', array('id' => $region->getId()));
+            return $this->redirectToRoute('region_index');
         }
 
         return $this->render('region/new.html.twig', array(
@@ -69,28 +69,11 @@ class RegionController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a region entity.
-     *
-     * @Route("/{id}", name="region_show")
-     * @Method("GET")
-     */
-    public function showAction(Region $region)
-
-    {
-        $deleteForm = $this->createDeleteForm($region);
-
-        return $this->render('region/show.html.twig', array(
-            'region' => $region,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
+     /**
      * Displays a form to edit an existing region entity.
      *
      * @Route("/{id}/edit", name="region_edit")
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      */
     // автоматическое использование ParamConverter.
     // Вместо ожидаемого $id даем функции объекта типа "объект" Region
@@ -104,7 +87,6 @@ class RegionController extends Controller
     // Или добавить в анностацию, например для сущности Post
     // @ParamConverter("post", options={"mapping"={"postSlug"="slug"}})
     // свойство slug есть у объекта post
-
 
     public function editAction(Request $request, Region $region)
     {
@@ -123,7 +105,7 @@ class RegionController extends Controller
                 'notice',
                 'Your changes were saved!'
             );
-            return $this->redirectToRoute('region_edit', array('id' => $region->getId()));
+            return $this->redirectToRoute('region_index');
         }
 
         return $this->render('region/edit.html.twig', array(

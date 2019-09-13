@@ -1,16 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Smitip creation</h1>
+    <h1>Создать тип СМИ</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+    {{ form_widget(form) }}
+    <input type="submit" class="btn btn-secondary" value="Создать" />
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_smitip_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <p><a href="{{ path('admin_smitip_index') }}">К списку</a></p>
 {% endblock %}

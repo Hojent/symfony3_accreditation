@@ -48,28 +48,12 @@ class EvtipController extends Controller
             $em->persist($evtip);
             $em->flush();
 
-            return $this->redirectToRoute('admin_evtip_show', array('id' => $evtip->getId()));
+            return $this->redirectToRoute('admin_evtip_index');
         }
 
-        return $this->render('admin/smitip/new.html.twig', [
+        return $this->render('admin/evtip/new.html.twig', [
             'evtip' => $evtip,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * Finds and displays a evtip entity.
-     *
-     * @Route("/{id}", name="admin_evtip_show")
-     * @Method("GET")
-     */
-    public function showAction(Evtip $evtip)
-    {
-        $deleteForm = $this->createDeleteForm($evtip);
-
-        return $this->render('admin/evtip/show.html.twig', [
-            'evtip' => $evtip,
-            'delete_form' => $deleteForm->createView(),
         ]);
     }
 
@@ -91,7 +75,7 @@ class EvtipController extends Controller
             return $this->redirectToRoute('admin_evtip_edit', array('id' => $evtip->getId()));
         }
 
-        return $this->render('admin/evitip/edit.html.twig', [
+        return $this->render('admin/evtip/edit.html.twig', [
             'evtip' => $evtip,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

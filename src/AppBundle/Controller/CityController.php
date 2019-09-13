@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  */
 class CityController extends Controller
 {
-    protected const PER_PAGE = 6;
+    protected const PER_PAGE = 4;
 
     /**
      * Lists all city entities.
@@ -77,7 +77,7 @@ class CityController extends Controller
             $em->persist($city);
             $em->flush();
 
-            return $this->redirectToRoute('city_show', array('id' => $city->getId()));
+            return $this->redirectToRoute('city_index');
         }
 
         return $this->render('city/new.html.twig', array(
@@ -86,25 +86,7 @@ class CityController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a city entity.
-     *
-     * @Route("/{id}", name="city_show")
-     * @Method("GET")
-     */
-    public function showAction(City $city)
-    {
-
-        $deleteForm = $this->createDeleteForm($city);
-
-        return $this->render('city/show.html.twig', [
-            'city' => $city,
-            'delete_form' => $deleteForm->createView(),
-        ]);
-    }
-
-
-    /**
+        /**
      * Displays a form to edit an existing city entity.
      *
      * @Route("/{id}/edit", name="city_edit")
@@ -119,7 +101,7 @@ class CityController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('city_edit', ['id' => $city->getId()]);
+            return $this->redirectToRoute('city_index');
         }
 
         return $this->render('city/edit.html.twig', [

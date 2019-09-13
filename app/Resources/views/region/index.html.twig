@@ -3,28 +3,20 @@
 {% block title %}Справочник регионов {% endblock %}
 
 {% block body %}
-    <h1>Regions</h1>
+    <h1>Регионы</h1>
 
     <table class="table">
         <tr>
             {# sorting of properties based on query components #}
             <th>{{ knp_pagination_sortable(regions, 'Id', 'r.id') }}</th>
-            <th{% if regions.isSorted('r.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(regions, 'Title', 'r.name') }}</th>
-            <th>Action</th>
+            <th{% if regions.isSorted('r.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(regions, 'Регион', 'r.name') }}</th>
+
         </tr>
         <tbody>
         {% for region in regions %}
             <tr>
                 <td>{{ region.id }}</td>
-                <td>{{ region.name }}</td>
-                <td>
-                    <a href="{{ path('region_show', {'id': region.id}) }}">show</a>
-                    <a href="{{ path('region_edit', {'id': region.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
+                <td><a href="{{ path('region_edit', {'id': region.id}) }}">{{ region.name }}</a></td>
             </tr>
         {% endfor %}
         </tbody>
@@ -34,5 +26,5 @@
         {{ knp_pagination_render(regions) }}
     </div>
 
-    <a href="{{ path('region_new') }}" class = "btn btn-primary">Create new</a>
+    <a href="{{ path('region_new') }}" class = "btn btn-primary">Добавить</a>
 {% endblock %}

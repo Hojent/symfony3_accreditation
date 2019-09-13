@@ -19,14 +19,14 @@ class CityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',TextType::class)
+            ->add('name',TextType::class, ['label' => false])
             ->add('region', EntityType::class, [
                 'class' => Region::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('r')
                         ->orderBy('r.name', 'ASC');
                 },
-
+                'label' => 'Область',
                 'attr' => ['class' => 'form-control']
             ])
             ->setMethod('GET')

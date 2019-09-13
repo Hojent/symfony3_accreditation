@@ -19,7 +19,7 @@
                         <label class="control-label">&nbsp;</label>
                         <div class="input-group">
                             <button name="filter" type="submit" class="btn btn-success w-md">Выбрать</button>
-                            <a class="btn btn-default w-md" href="{{ path('city_index') }}">Reset</a>
+                            <a class="btn btn-default w-md" href="{{ path('city_index') }}">Сбросить фильтр</a>
                         </div>
                     </div>
                 </div>
@@ -32,19 +32,16 @@
         <thead>
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'Id', 'c.id') }}</th>
-                <th{% if pagination.isSorted('c.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'c.name') }}</th>
+                <th{% if pagination.isSorted('c.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Город', 'c.name') }}</th>
                 <th>Область</th>
-                <th>Action</th>
             </tr>
         </thead>
         <tbody>
         {% for city in pagination %}
             <tr>
                 <td>{{ city.id }}</td>
-                <td><a href="{{ path('city_show', { 'id': city.id }) }}">{{ city.name }}</a></td>
+                <td><a href="{{ path('city_edit', { 'id': city.id }) }}">{{ city.name }}</a></td>
                 <td>{{ city.region }}</td>
-                <td><a class="btn-default" href="{{ path('city_edit', { 'id': city.id }) }}">edit</a>
-
 
                 </td>
             </tr>

@@ -48,32 +48,16 @@ class SmitipController extends Controller
             $em->persist($smitip);
             $em->flush();
 
-            return $this->redirectToRoute('admin_smitip_show', array('id' => $smitip->getId()));
+            return $this->redirectToRoute('admin_smitip_index');
         }
 
-        return $this->render('admin/smitip/new.html.twig', array(
+        return $this->render('admin/smitip/new.html.twig', [
             'smitip' => $smitip,
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
-    /**
-     * Finds and displays a smitip entity.
-     *
-     * @Route("/{id}", name="admin_smitip_show")
-     * @Method("GET")
-     */
-    public function showAction(Smitip $smitip)
-    {
-        $deleteForm = $this->createDeleteForm($smitip);
-
-        return $this->render('admin/smitip/show.html.twig', array(
-            'smitip' => $smitip,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
+     /**
      * Displays a form to edit an existing smitip entity.
      *
      * @Route("/{id}/edit", name="admin_smitip_edit")
@@ -88,7 +72,7 @@ class SmitipController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_smitip_edit', array('id' => $smitip->getId()));
+            return $this->redirectToRoute('admin_smitip_index');
         }
 
         return $this->render('admin/smitip/edit.html.twig', array(

@@ -1,29 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Smitips list</h1>
+    <h1>Типы СМИ</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Actions</th>
+                <th>ID</th>
+                <th>Название</th>
+
             </tr>
         </thead>
         <tbody>
         {% for smitip in smitips %}
             <tr>
-                <td><a href="{{ path('admin_smitip_show', { 'id': smitip.id }) }}">{{ smitip.id }}</a></td>
-                <td>{{ smitip.name }}</td>
-                <td>
-                    <a href="{{ path('admin_smitip_show', { 'id': smitip.id }) }}">show</a>
-                </td>
+                <td>{{ smitip.id }}</td>
+                <td><a href="{{ path('admin_smitip_edit', { 'id': smitip.id }) }}">{{ smitip.name }}</td>
+
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-            <a href="{{ path('admin_smitip_new') }}" class = "btn btn-primary">Create a new smitip</a>
+            <a href="{{ path('admin_smitip_new') }}" class = "btn btn-primary">Добавить</a>
 
 {% endblock %}

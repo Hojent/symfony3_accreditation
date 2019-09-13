@@ -27,7 +27,8 @@ class CityRegionFilterType extends AbstractType
                         ->orderBy('r.name', 'ASC');
                 },
 
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
+                'label' => 'Выберите регион',
             ])
             ->setMethod('GET')
 

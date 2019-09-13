@@ -17,13 +17,14 @@ class EventType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('brief', TextareaType::class, ['attr' => ['class' => 'CKeditor'],])
+            ->add('brief', TextareaType::class, ['attr' => ['class' => 'text_editor'],])
             ->add('dataStart')
             ->add('dataEnd')
             ->add('dataCreated')
             ->add('region')
             ->add('city')
-            ->add('evtip');
+            ->add('evtip')
+            ->setMethod('GET');
     }/**
      * {@inheritdoc}
      */
