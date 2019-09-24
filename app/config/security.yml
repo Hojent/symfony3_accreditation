@@ -3,17 +3,17 @@
 security:
 
     encoders:
-        AppBundle\Entity\User:
-            algorithm: bcrypt
-            cost: 12
+        FOS\UserBundle\Model\UserInterface: bcrypt
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
     # loadUserByUsername() method [from userRepository] will be call on somebody login
-        pgsql_provider:
-            entity:
-                class: AppBundle:User
-                property: username
+#        pgsql_provider:
+#            entity:
+#                class: AppBundle:User
+#                property: username
+        fos_userbundle:
+              id: fos_user.user_provider.username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -21,30 +21,40 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+#        main:
+#            anonymous: ~
+#            # activate different ways to authenticate
+#
+#            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+#            http_basic: ~
+#
+#            # https://symfony.com/doc/current/security/form_login_setup.html
+#            form_login:
+#                  login_path: login
+#                  check_path: login
+#                  csrf_token_generator: security.csrf.token_manager
+#            remember_me:
+#                  secret:   '%kernel.secret%'
+#                  lifetime: 604800 # 1 week in seconds
+#                  path:     /
+#            logout:
+#                  path:     /logout
+
         main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
+            pattern: ^/
+            user_checker: security.user_checker
             form_login:
-                  login_path: login
-                  check_path: login
-                  csrf_token_generator: security.csrf.token_manager
-            remember_me:
-                  secret:   '%kernel.secret%'
-                  lifetime: 604800 # 1 week in seconds
-                  path:     /
-            logout:
-                  path:     /logout
+                    provider: fos_userbundle
+                    csrf_token_generator: security.csrf.token_manager
+
+            logout:       true
+            anonymous:    true
 
     access_control:
                 # require ROLE_ADMIN for /admin*
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/registration, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, role: ROLE_ADMIN }
 
     role_hierarchy:
             ROLE_MODERATOR:           [ROLE_USER]

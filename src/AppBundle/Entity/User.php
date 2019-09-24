@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use FOS\UserBundle\Model\User as BaseUser ;
 
 /**
  * @ORM\Table(name="users")
@@ -12,25 +13,25 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields="username", message="Username already taken")
  *
  */
-class User implements UserInterface, \Serializable
+class User extends BaseUser implements UserInterface, \Serializable
 {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
      */
-    private $username;
+    protected $username;
 
     /**
      * @Assert\NotBlank
      * @Assert\Length(max=4096)
      */
-    private $plainPassword;
+    protected $plainPassword;
 
     /**
      * The below length depends on the "algorithm" you use for encoding
@@ -38,25 +39,26 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="string", length=64)
      */
-    private $password;
+    protected $password;
 
     /**
      * @ORM\Column(type="array")
      */
-    private $roles;
+    protected $roles;
 
     /**
      * @ORM\Column(type="string", length=254, unique=true)
      */
-    private $email;
+    protected $email;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
-    private $isActive;
+    protected $isActive;
 
     public function __construct()
     {
+        parent::__construct();
         $this->isActive = true;
         $this->roles = ['ROLE_USER'];
         // may not be needed, see section on salt below
