@@ -8,10 +8,10 @@ security:
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
     # loadUserByUsername() method [from userRepository] will be call on somebody login
-#        pgsql_provider:
-#            entity:
-#                class: AppBundle:User
-#                property: username
+        pgsql_provider:
+            entity:
+                class: AppBundle:User
+                property: username
         fos_userbundle:
               id: fos_user.user_provider.username
 
@@ -52,9 +52,9 @@ security:
 
     access_control:
                 # require ROLE_ADMIN for /admin*
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/registration, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
 
     role_hierarchy:
             ROLE_MODERATOR:           [ROLE_USER]

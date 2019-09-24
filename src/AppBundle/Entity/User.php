@@ -22,36 +22,7 @@ class User extends BaseUser implements UserInterface, \Serializable
      */
     protected $id;
 
-    /**
-     * @ORM\Column(type="string", length=25, unique=true)
-     */
-    protected $username;
-
-    /**
-     * @Assert\NotBlank
-     * @Assert\Length(max=4096)
-     */
-    protected $plainPassword;
-
-    /**
-     * The below length depends on the "algorithm" you use for encoding
-     * the password, but this works well with bcrypt.
-     *
-     * @ORM\Column(type="string", length=64)
-     */
-    protected $password;
-
-    /**
-     * @ORM\Column(type="array")
-     */
-    protected $roles;
-
-    /**
-     * @ORM\Column(type="string", length=254, unique=true)
-     */
-    protected $email;
-
-    /**
+     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
     protected $isActive;

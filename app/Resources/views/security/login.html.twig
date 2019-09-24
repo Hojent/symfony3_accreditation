@@ -1,11 +1,12 @@
 {# app/Resources/views/security/login.html.twig #}
 {% extends 'base.html.twig' %}
 {% block body %}
+    {% trans_default_domain 'FOSUserBundle' %}
 {% if error %}
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 <div class="container">
-<form action="{{ path('login') }}" method="post">
+<form action="{{ path('fos_user_security_check') }}" method="post">
     <div class="form-row">
         <div class="col-3">
      <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" placeholder="login"/>
@@ -20,7 +21,11 @@
         is redirected to on success (more details below)
         <input type="hidden" name="_target_path" value="/account"/>
     #}
+    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
     <button class= "btn btn-primary" type="submit">login</button>
 </form>
 </div>
 {% endblock %}
+
