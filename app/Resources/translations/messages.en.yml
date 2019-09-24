@@ -1,0 +1,17 @@
+forms:
+    buttons:
+        remove: Delete
+        edit: Edit
+        create: Create
+        login: Login
+        registration: Registration
+    labels:
+        regions: Regions
+messages:
+    tolist: List
+headers:
+    admin:
+        eventtip: Event type
+        eventtips: Events types
+        smitip:   Mass-media type
+        smitips:   Mass-media types

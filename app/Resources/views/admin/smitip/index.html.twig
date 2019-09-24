@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Типы СМИ</h1>
+    <h1>{{'headers.admin.smitips'|trans }}</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Название</th>
+                <th>{{'tables.title' |trans }}</th>
 
             </tr>
         </thead>
@@ -21,6 +21,6 @@
         {% endfor %}
         </tbody>
     </table>
-            <a href="{{ path('admin_smitip_new') }}" class = "btn btn-primary">Добавить</a>
+            <a href="{{ path('admin_smitip_new') }}" class = "btn btn-primary">{{'forms.buttons.create' |trans }}</a>
 
 {% endblock %}

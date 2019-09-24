@@ -7,14 +7,14 @@
         <li class="list-inline-item">
             {{ form_start(edit_form) }}
             {{ form_widget(edit_form) }}
-            <input type="submit" class="btn btn-secondary" value="Редактировать" />
+            <input type="submit" class="btn btn-secondary" value="{{'forms.buttons.save'|trans }}" />
             {{ form_end(edit_form) }}
         </li>
         <li class="list-inline-item">
             {{ form_start(delete_form) }}
-            <input type="submit" class="btn btn-danger" value="Удалить">
+            <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
             {{ form_end(delete_form) }}
         </li>
     </ul>
-    <p><a href="{{ path('region_index') }}">К списку</a></p>
+    <p><a href="{{ path('region_index') }}">{{'messages.tolist'|trans }}</a></p>
 {% endblock %}

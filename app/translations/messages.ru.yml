@@ -1,7 +1,0 @@
-forms:
-    buttons:
-        remove: Удалить
-        edit: Редактировать
-        create: Добавить
-    labels:
-        regions: Области

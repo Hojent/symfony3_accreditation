@@ -1,0 +1,25 @@
+forms:
+    buttons:
+        remove: Удалить
+        edit: Редактировать
+        save: Сохранить
+        create: Добавить
+        login: Войти
+        registration: Регистрация
+        reset: Сбросить
+        choose: Выбрать
+    labels:
+        regions: Области
+messages:
+    tolist: К списку
+headers:
+    admin:
+        eventtip: Тип мероприятия
+        eventtips: Типы мероприятий
+        smitip:   Тип СМИ
+        smitips:   Типы СМИ
+        cities: Города
+        city: Город
+        region: Область
+tables:
+    title: Название

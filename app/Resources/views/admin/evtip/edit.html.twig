@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Тип мероприятия</h1>
+    <h1>{{ 'headers.admin.eventtip'|trans }}</h1>
 <ul class="list-inline">
     <li class="list-inline-item">
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" class="btn btn-secondary" value="Редактировать" />
+        <input type="submit" class="btn btn-secondary" value="{{ 'forms.buttons.edit'|trans }}" />
     {{ form_end(edit_form) }}
     </li>
     <li class="list-inline-item">
     {{ form_start(delete_form) }}
-    <input type="submit" class="btn btn-danger" value="Удалить">
+    <input type="submit" class="btn btn-danger" value="{{ 'forms.buttons.remove'|trans }}">
     {{ form_end(delete_form) }}
     </li>
 </ul>
-    <p><a href="{{ path('admin_evtip_index') }}">К списку</a></p>
+    <p><a href="{{ path('admin_evtip_index') }}">{{ 'messages.tolist'|trans }}</a></p>
 {% endblock %}

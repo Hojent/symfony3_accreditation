@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Events list</h1>
+    <h1>Список Мероприятий</h1>
 
     <table class="table">
         <thead>
@@ -26,7 +26,7 @@
                 <td>{{ event.dataEnd |date('d.m.Y -  H:i') }}</td>
                {% if is_granted ('ROLE_ADMIN') %}
                 <td>
-                    <a href="{{ path('event_edit', { 'id': event.id }) }}" class="btn btn-primary">Редактировать</a>
+                    <a href="{{ path('event_edit', { 'id': event.id }) }}" class="btn btn-primary">{{'forms.buttons.edit'|trans }}</a>
                 </td>
                 {% endif %}
             </tr>
@@ -34,9 +34,9 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('event_new') }}">Create a new event</a>
-        </li>
-    </ul>
+
+
+    <a href="{{ path('event_new') }}" class = "btn btn-primary">{{'forms.buttons.create'|trans }}</a>
+
+
 {% endblock %}

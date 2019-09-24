@@ -1,48 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Event</h1>
+    <h1>Мероприятие</h1>
+    <h5>Название: <b>{{ event.title }}</b></h5>
+    <p>Описание: {{ event.brief }}</p>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ event.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ event.title }}</td>
-            </tr>
-            <tr>
-                <th>Brief</th>
-                <td>{{ event.brief }}</td>
-            </tr>
-            <tr>
-                <th>Datastart</th>
-                <td>{{ event.dataStart |date('Y-m-d H:i:s')  }}</td>
-            </tr>
-            <tr>
-                <th>Dataend</th>
-                <td>{{ event.dataEnd |date('Y-m-d H:i:s')  }}</td>
-            </tr>
-            <tr>
-                <th>Datacreated</th>
-                <td>{% if event.dataCreated %}{{ event.dataCreated|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('event_index') }}">Back to the list</a>
-        </li>
-        <li>
+    <p><b>Дата начала:</b> {{ event.dataStart |date('Y-m-d H:i:s')  }}</p>
+    <p><b>Дата окончания:</b> {{ event.dataEnd |date('Y-m-d H:i:s')  }}</p>
+    <p><b>Создано:</b> {% if event.dataCreated %}{{ event.dataCreated|date('Y-m-d H:i:s') }}{% endif %}</p>
+    <ul class="list-inline">
+        <li class="list-inline-item">
             <a href="{{ path('event_edit', { 'id': event.id }) }}">Edit</a>
         </li>
-        <li>
+        <li class="list-inline-item">
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+            <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
             {{ form_end(delete_form) }}
         </li>
     </ul>
+    <p><a href="{{ path('event_index') }}">{{'messages.tolist'|trans }}</a></p>
+
 {% endblock %}

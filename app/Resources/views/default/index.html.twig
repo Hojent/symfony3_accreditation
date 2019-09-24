@@ -5,22 +5,24 @@
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>Welcome to</span> Symfony {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}</h1>
+                <h1><span>Система аккредитации</span> "Event Logger 1.2"</h1>
             </div>
 
             <div id="status">
                 <p>
-                    Your application is now ready. You can start working on it at:
-                    <code>{{ base_dir }}</code>
+                    (Разработка: - <a href="http://web-project.by">Альянс "Web Project"</a>)
                 </p>
                     {% if app.user  %}
-                    <h2>Привет, {{ app.user.username | capitalize }} ! Glad to see you!</h2>
+                    <h4>Здравствуйте, {{ app.user.username | capitalize }}! Рады видеть Вас!</h4>
                         {% if reRegister %}
                             <h4>Вы уже зарегистрированы. Ваш login - <b>{{ app.user.username }}</b>.</h4>
                         {% endif %}
                     {% else %}
-                        <p><a href="{{ path ('login') }}" class="btn btn-success">Login</a>  <a href="{{ path('app_registration_new') }}" class="btn btn-info">Регистрация</a></p>
+                        <p><a href="{{ path ('login') }}" class="btn btn-success">Вход</a>  <a href="{{ path('app_registration_new') }}" class="btn btn-info">Регистрация</a></p>
                     {% endif %}
+                    <p>Ближайшее мероприятие, на которое Вы аккредитованы:</p>
+                <p><b>День программиста в сш № 1144 г.Слонима - 24.24.24</b></p>
+                <p>C сожалением сообщаем, что Вам <b>отказано в аккредитации</b> на <b><u>VIP мероприятие №1</u></b>, в связи с ограниченностью мест в зале для пресс-конференции.<br> В случае изменения ситуации, мы обязательно Вас проинформируем.</p>
 
             </div>
         </div>

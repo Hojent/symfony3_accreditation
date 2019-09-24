@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bdbdc01a17875bd8bc7a2d14a476f9e1",
+    "content-hash": "3d0804fd860bf5398734e71d246436e2",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2437,16 +2437,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.4.30",
+            "version": "v3.4.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "4d911e98e1f70538edcca4576c65395ef0fbfa84"
+                "reference": "944e04808117477f46f804133d17913b77cf63d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/4d911e98e1f70538edcca4576c65395ef0fbfa84",
-                "reference": "4d911e98e1f70538edcca4576c65395ef0fbfa84",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/944e04808117477f46f804133d17913b77cf63d3",
+                "reference": "944e04808117477f46f804133d17913b77cf63d3",
                 "shasum": ""
             },
             "require": {
@@ -2465,7 +2465,7 @@
                 "symfony/polyfill-mbstring": "~1.0",
                 "symfony/polyfill-php56": "~1.0",
                 "symfony/polyfill-php70": "~1.6",
-                "twig/twig": "^1.40|^2.9"
+                "twig/twig": "^1.41|^2.10"
             },
             "conflict": {
                 "phpdocumentor/reflection-docblock": "<3.0||>=3.2.0,<3.2.2",
@@ -2544,7 +2544,7 @@
                 "ocramius/proxy-manager": "~0.4|~1.0|~2.0",
                 "phpdocumentor/reflection-docblock": "^3.0|^4.0",
                 "predis/predis": "~1.0",
-                "symfony/phpunit-bridge": "^3.4.19|^4.1.8|~5.0",
+                "symfony/phpunit-bridge": "^3.4.31|^4.3.4|~5.0",
                 "symfony/security-acl": "~2.8|~3.0"
             },
             "type": "library",
@@ -2563,7 +2563,8 @@
                     "Symfony\\Component\\": "src/Symfony/Component/"
                 },
                 "classmap": [
-                    "src/Symfony/Component/Intl/Resources/stubs"
+                    "src/Symfony/Component/Intl/Resources/stubs",
+                    "src/Symfony/Bridge/ProxyManager/Legacy/ProxiedMethodReturnExpression.php"
                 ],
                 "exclude-from-classmap": [
                     "**/Tests/"
@@ -2588,7 +2589,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2019-07-27T17:14:21+00:00"
+            "time": "2019-08-26T16:36:53+00:00"
         },
         {
             "name": "twig/twig",
