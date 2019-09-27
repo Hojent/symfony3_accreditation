@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Event
  *
@@ -54,11 +55,6 @@ class Event
      */
     private $dataCreated;
 
-    public function __construct()
-    {
-        $this->dataCreated = new \DateTime();
-    }
-
     /**
      * @var int
      * @ORM\ManyToOne(targetEntity="Region")
@@ -79,6 +75,18 @@ class Event
      * @ORM\JoinColumn(name="evtip_id", referencedColumnName="id")
      */
     private $evtip;
+
+    /**
+     * Many Events have Many Users.
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="events")
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->dataCreated = new \DateTime();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id

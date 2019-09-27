@@ -6,6 +6,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use FOS\UserBundle\Model\User as BaseUser ;
+use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\ManyToMany;
+use AppBundle\Entity\Event as Event;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Table(name="users")
@@ -22,6 +27,25 @@ class User extends BaseUser implements UserInterface, \Serializable
      */
     protected $id;
 
+    /**
+     * One User has One UserProfile.
+     * @ORM\OneToOne(targetEntity="UserProfile", mappedBy="user")
+     */
+    private $userprofile;
+
+    /**
+     * Many Users have Many Events.
+     * @ORM\ManyToMany(targetEntity="Event", inversedBy="users")
+     * @ORM\JoinTable(name="users_groups")
+     */
+    private $events;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Smi", inversedBy="users")
+     * @ORM\JoinColumn(name="smi_id", referencedColumnName="id")
+     */
+    private $smi;
+
      /**
      * @ORM\Column(name="is_active", type="boolean")
      */
@@ -34,6 +58,7 @@ class User extends BaseUser implements UserInterface, \Serializable
         $this->roles = ['ROLE_USER'];
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
+        $this->events = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -129,5 +154,70 @@ class User extends BaseUser implements UserInterface, \Serializable
             // see section on salt below
             // $this->salt
             ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+
+    /**
+     * Set event
+     *
+     * @param integer $event
+     *
+     * @return UserProfile
+     */
+    public function setEvents($event)
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * Get event
+     *
+     * @return int
+     */
+    public function getEvents()
+    {
+        return $this->event;
+    }
+
+    /**
+     * Set smi
+     *
+     * @param integer $smi
+     *
+     * @return UserProfile
+     */
+    public function setSmi($smi)
+    {
+        $this->smi = $smi;
+
+        return $this;
+    }
+
+    /**
+     * Get smi
+     *
+     * @return int
+     */
+    public function getSmi()
+    {
+        return $this->smi;
+    }
+
+    /**
+     * @param mixed $userprofile
+     */
+    public function setUserprofile($userprofile): void
+    {
+        $this->userprofile = $userprofile;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserprofile()
+    {
+        return $this->userprofile;
     }
 }
