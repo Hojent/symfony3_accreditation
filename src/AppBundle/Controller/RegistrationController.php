@@ -7,10 +7,14 @@ use AppBundle\Form\Type\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use AppBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
+use FOS\UserBundle\Controller\RegistrationController as FOSRegistr;
 
 class RegistrationController extends Controller
 {
@@ -29,11 +33,10 @@ class RegistrationController extends Controller
         if (!$this->security->isGranted('ROLE_USER')) {
             // 1) build the form
             $user = new User();
-            $form = $this->createForm(RegistrationType::class, $user);
+            $form = $this->createForm(FormType::class, $user);
 
             // 2) handle the submit (will only happen on POST)
             $form->handleRequest($request);
-
 
             if ($form->isSubmitted() && $form->isValid()) {
 

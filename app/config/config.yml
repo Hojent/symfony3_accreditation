@@ -70,11 +70,20 @@ doctrine_migrations:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: '%mailer_transport%'
-    host: '%mailer_host%'
-    username: '%mailer_user%'
-    password: '%mailer_password%'
-    spool: { type: memory }
+    transport:  "%mailer_transport%"
+    encryption: "%mailer_encryption%"
+    host:       "%mailer_host%"
+    port:       "%mailer_port%"
+    username:   "%mailer_user%"
+    password:   "%mailer_password%"
+    auth_mode:  "%mailer_auth_mode%"
+    logging:    true
+    spool:      { type: memory }
+    stream_options:
+            ssl:
+                allow_self_signed: true
+                verify_peer: false
+                verify_peer_name: false
 
 sensio_framework_extra:
    router:
@@ -97,11 +106,11 @@ knp_paginator:
 
 # FOS UserBundle Configuration
 fos_user:
-            db_driver: orm # other valid values are 'mongodb' and 'couchdb'
-            firewall_name: main
-            user_class: AppBundle\Entity\User
+            db_driver: 'orm'
+            firewall_name: 'main'
+            user_class: 'AppBundle\Entity\User'
             service:
-                mailer: fos_user.mailer.twig_swift
+                mailer: 'fos_user.mailer.twig_swift'
             from_email:
                 address: "%mailer_user%"
                 sender_name: "Logger"
@@ -109,16 +118,16 @@ fos_user:
                 confirmation:
                     enabled: true
                     from_email:
-                          address:        registration@example.com
-                          sender_name:    Demo Registration
+                          address:        "%mailer_user%"
+                          sender_name:    "Demo Registration"
                     template:   '@FOSUser/Registration/email.txt.twig'
-                form:
-                    type: AppBundle\Form\Type\RegistrationType
+              #  form:
+              #      type: AppBundle\Form\Type\RegistrationType
             resetting:
                  email:
                     from_email:
-                         address:        resetting@example.com
-                         sender_name:    Demo Resetting
-            profile:
-                 form:
-                    type: AppBundle\Form\Type\ProfileType
+                         address:        'resetting@example.com'
+                         sender_name:    'Demo Resetting'
+            #profile:
+            #     form:
+            #        type: AppBundle\Form\Type\ProfileType

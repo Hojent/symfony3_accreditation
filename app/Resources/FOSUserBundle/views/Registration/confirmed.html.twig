@@ -1,6 +1,11 @@
-{% extends "@FOSUser/layout.html.twig" %}
-
+{% extends "base.html.twig" %}
 {% trans_default_domain 'FOSUserBundle' %}
+{% block name %}
+    <span class="text-info">
+       <h1>Поздравляем!</h1>
+   </span>
+    <hr/>
+{% endblock name %}
 
 {% block fos_user_content %}
     <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
