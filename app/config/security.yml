@@ -60,6 +60,7 @@ security:
         - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/registration, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/profile, role: ROLE_USER}
 
     role_hierarchy:
             ROLE_MODERATOR:           [ROLE_USER]

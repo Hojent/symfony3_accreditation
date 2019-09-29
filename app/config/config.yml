@@ -119,7 +119,7 @@ fos_user:
                     enabled: true
                     from_email:
                           address:        "%mailer_user%"
-                          sender_name:    "Demo Registration"
+                          sender_name:    "Event Logger 1.2 - подтверждение регистрации"
                     template:   '@FOSUser/Registration/email.txt.twig'
               #  form:
               #      type: AppBundle\Form\Type\RegistrationType
@@ -127,7 +127,7 @@ fos_user:
                  email:
                     from_email:
                          address:        'resetting@example.com'
-                         sender_name:    'Demo Resetting'
+                         sender_name:    'Event Logger 1.2 - сброс пароля'
             #profile:
             #     form:
             #        type: AppBundle\Form\Type\ProfileType
