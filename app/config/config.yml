@@ -3,12 +3,6 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
 
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
-parameters:
-    locale: ru
-    mailer_user: adm@mypro.ddd
-
 framework:
     esi: ~
     translator:
@@ -110,4 +104,21 @@ fos_user:
                 mailer: fos_user.mailer.twig_swift
             from_email:
                 address: "%mailer_user%"
-                sender_name: "%mailer_user%"
+                sender_name: "Logger"
+            registration:
+                confirmation:
+                    enabled: true
+                    from_email:
+                          address:        registration@example.com
+                          sender_name:    Demo Registration
+                    template:   '@FOSUser/Registration/email.txt.twig'
+                form:
+                    type: AppBundle\Form\Type\RegistrationType
+            resetting:
+                 email:
+                    from_email:
+                         address:        resetting@example.com
+                         sender_name:    Demo Resetting
+            profile:
+                 form:
+                    type: AppBundle\Form\Type\ProfileType

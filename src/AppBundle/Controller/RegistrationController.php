@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Form\Type\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use AppBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -28,7 +29,7 @@ class RegistrationController extends Controller
         if (!$this->security->isGranted('ROLE_USER')) {
             // 1) build the form
             $user = new User();
-            $form = $this->createForm(UserType::class, $user);
+            $form = $this->createForm(RegistrationType::class, $user);
 
             // 2) handle the submit (will only happen on POST)
             $form->handleRequest($request);
@@ -48,7 +49,7 @@ class RegistrationController extends Controller
                 // ... do any other work - like sending them an email, etc
                 // maybe set a "flash" success message for the user
 
-                return $this->redirectToRoute('login');
+                return $this->redirectToRoute('fos_user_security_login');
             }
 
             return $this->render(

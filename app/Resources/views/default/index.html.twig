@@ -18,7 +18,7 @@
                             <h4>Вы уже зарегистрированы. Ваш login - <b>{{ app.user.username }}</b>.</h4>
                         {% endif %}
                     {% else %}
-                        <p><a href="{{ path ('login') }}" class="btn btn-success">Вход</a>  <a href="{{ path('app_registration_new') }}" class="btn btn-info">Регистрация</a></p>
+                        <p><a href="{{ path ('fos_user_security_login') }}" class="btn btn-success">Вход</a>  <a href="{{ path('fos_user_registration_register') }}" class="btn btn-info">Регистрация</a></p>
                     {% endif %}
                     <p>Ближайшее мероприятие, на которое Вы аккредитованы:</p>
                 <p><b>День программиста в сш № 1144 г.Слонима - 24.24.24</b></p>

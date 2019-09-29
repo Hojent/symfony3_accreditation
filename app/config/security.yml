@@ -47,14 +47,19 @@ security:
                     provider: fos_userbundle
                     csrf_token_generator: security.csrf.token_manager
 
+            http_basic: ~
             logout:       true
             anonymous:    true
+            remember_me:
+                    secret:   '%kernel.secret%'
+                    lifetime: 604800 # 1 week in seconds
+                    path:     /
 
     access_control:
                 # require ROLE_ADMIN for /admin*
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/registration, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, role: ROLE_ADMIN }
 
     role_hierarchy:
             ROLE_MODERATOR:           [ROLE_USER]

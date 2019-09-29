@@ -1,26 +1,17 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
 
-{% block title %}Регистрация{% endblock %}
-
-{% block body %}
-    <h1>Регистрация пользователя</h1>
-  <div class="row justify-content-md-center">
+    {% block name %}
+        <span class="text-info">
+               <h1>Регистрация в системе</h1>
+            </span>
+        <hr/>
+    {% endblock name %}
+    {% block fos_user_content %}
+  <div class="row">
     {{ form_start(form) }}
-          <div class ="form-group">
-              {{ form_label(form.username, 'Ваш логин') }}
-              {{ form_row(form.username) }}
-          </div>
-           <div class="form-group">
-                {{ form_label(form.plainPassword, 'Создайте пароль') }}
-                {{ form_row(form.plainPassword.first) }}
-                {{ form_row(form.plainPassword.second,
-                    {'attr':{'placeholder':'Повторите пароль'}}) }}
-          </div>
-          <div class="form-group">
-                {{ form_label(form.email, 'Ваш e-mail') }}
-                {{ form_row(form.email) }}
-          </div>
-    <button class= "btn btn-info" type="submit">{{'forms.buttons.registration'|trans }}</button>
+      {{ form_widget(form) }}
+    <button class= "btn btn-info" type="submit">{{'registration.submit'|trans }}</button>
     {{ form_end(form) }}
   </div>
 

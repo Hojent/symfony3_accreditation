@@ -33,3 +33,9 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    # services for FOSUserBundle
+    AppBundle\Form\Type\RegistrationType:
+
+    AppBundle\Form\Type\ProfileType:
+
