@@ -1,6 +1,5 @@
-{% extends 'base.html.twig' %}
-{% block stylesheets %}
-{% endblock %}
+﻿{% extends 'base.html.twig' %}
+
 {% block body %}
     <div id="wrapper">
         <div id="container">
@@ -20,10 +19,6 @@
                     {% else %}
                         <p><a href="{{ path ('fos_user_security_login') }}" class="btn btn-success">Вход</a>  <a href="{{ path('fos_user_registration_register') }}" class="btn btn-info">Регистрация</a></p>
                     {% endif %}
-                    <p>Ближайшее мероприятие, на которое Вы аккредитованы:</p>
-                <p><b>День программиста в сш № 1144 г.Слонима - 24.24.24</b></p>
-                <p>C сожалением сообщаем, что Вам <b>отказано в аккредитации</b> на <b><u>VIP мероприятие №1</u></b>, в связи с ограниченностью мест в зале для пресс-конференции.<br> В случае изменения ситуации, мы обязательно Вас проинформируем.</p>
-
             </div>
         </div>
     </div>
