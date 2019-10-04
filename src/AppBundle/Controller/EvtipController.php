@@ -107,7 +107,7 @@ class EvtipController extends Controller
      *
      * @param Evtip $evtip The evtip entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface The form
      */
     private function createDeleteForm(Evtip $evtip)
     {

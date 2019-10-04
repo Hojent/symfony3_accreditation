@@ -48,7 +48,7 @@ class CityType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'city';
+        return 'app_bundle_city';
     }
 
 

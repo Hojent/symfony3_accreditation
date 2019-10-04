@@ -134,5 +134,10 @@ class Smi
     {
         return $this->unp;
     }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }
 

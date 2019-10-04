@@ -31,7 +31,7 @@ class EvtipType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_evtip';
+        return 'app_bundle_evtip';
     }
 
 

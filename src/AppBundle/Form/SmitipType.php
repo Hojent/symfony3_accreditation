@@ -31,7 +31,7 @@ class SmitipType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_smitip';
+        return 'app_bundle_smitip';
     }
 
 

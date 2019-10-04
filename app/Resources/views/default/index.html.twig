@@ -1,27 +1,27 @@
 ﻿{% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
+    <div id="wrapper" class="login-form login-wrap">
+        <div id="container" >
             <div id="welcome">
-                <h1><span>Система аккредитации</span> "Event Logger 1.2"</h1>
+                <h1>Event Logger 1.2</h1>
             </div>
-
-            <div id="status">
-                <p>
-                    (Разработка: - <a href="http://web-project.by">Альянс "Web Project"</a>)
-                </p>
+            <div id="status" >
                     {% if app.user  %}
-                    <h4>Здравствуйте, {{ app.user.username | capitalize }}! Рады видеть Вас!</h4>
+                    <h4>Здравствуйте, {{ app.user.userprofile | capitalize }}!<br> Рады видеть Вас!</h4>
                         {% if reRegister %}
                             <h4>Вы уже зарегистрированы. Ваш login - <b>{{ app.user.username }}</b>.</h4>
                         {% endif %}
                     {% else %}
-                        <p><a href="{{ path ('fos_user_security_login') }}" class="btn btn-success">Вход</a>  <a href="{{ path('fos_user_registration_register') }}" class="btn btn-info">Регистрация</a></p>
+                        <a href="{{ path ('fos_user_security_login') }}" class="btn btn-success btn-lg btn-block">Вход</a>
+                        <a href="{{ path('fos_user_registration_register') }}" class="btn btn-info btn-block">Регистрация</a>
                     {% endif %}
             </div>
         </div>
     </div>
+    {% if app.user  %}
+        <h3>Список ближайших мероприятий, на которые Вы аккредитованы:</h3>
+    {% endif %}
 {% endblock %}
 
 

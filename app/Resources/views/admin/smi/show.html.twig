@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Smi</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ smi.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ smi.title }}</td>
+            </tr>
+            <tr>
+                <th>Owner</th>
+                <td>{{ smi.owner }}</td>
+            </tr>
+            <tr>
+                <th>Unp</th>
+                <td>{{ smi.unp }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('smi_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('smi_edit', { 'id': smi.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

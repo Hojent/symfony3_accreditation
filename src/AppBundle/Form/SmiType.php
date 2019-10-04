@@ -5,25 +5,22 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class RegionType extends AbstractType
+class SmiType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, ['label' => false,])
-                ->setMethod('GET');
-
+        $builder->add('title')->add('owner')->add('unp');
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Region'
+            'data_class' => 'AppBundle\Entity\Smi'
         ));
     }
 
@@ -32,7 +29,7 @@ class RegionType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'app_bundle_region';
+        return 'appbundle_smi';
     }
 
 

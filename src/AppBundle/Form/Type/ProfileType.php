@@ -48,7 +48,7 @@ class ProfileType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'app_user_profile';
+        return 'app_bundle_user_profile';
     }
 }
 

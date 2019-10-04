@@ -35,7 +35,10 @@ services:
     #         $someArgument: 'some_value'
 
     # services for FOSUserBundle
-    AppBundle\Form\Type\RegistrationType:
+    app.form.type.registration:
+        class: AppBundle\Form\Type\RegistrationType
+        tags:
+            - { name: form.type, aliase: app_user_registration2}
 
-    AppBundle\Form\Type\ProfileType:
+    #AppBundle\Form\Type\ProfileType:
 

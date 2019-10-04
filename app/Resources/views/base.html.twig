@@ -107,6 +107,7 @@
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
                     <ul class="sub">
+                        <li><a class="" href="{{ path('event_index') }}">Беларусь</a></li>
                         <li><a class="" href="#">Минск</a></li>
                         <li><a class="" href="#">Брестcкая область</a></li>
                         <li><a class="" href="#">Витебская область</a></li>
@@ -123,7 +124,7 @@
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
                     <ul class="sub">
-                        <li><a class="" href="basic_table.html">Basic Table</a></li>
+                        <li><a class="" href="#">Basic Table</a></li>
                     </ul>
                 </li>
                 {% if is_granted ('ROLE_ADMIN') %}
@@ -147,7 +148,7 @@
                             <span class="menu-arrow arrow_carrot-right"></span>
                         </a>
                         <ul class="sub">
-                            <li><a class="" href="#">СМИ</a></li>
+                            <li><a class="" href="{{ path('admin_smi_index') }}">СМИ</a></li>
                             <li><a class="" href="#">Пользователи</a></li>
                         </ul>
                     </li>

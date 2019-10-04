@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Smis list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Owner</th>
+                <th>Unp</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for smi in smis %}
+            <tr>
+                <td><a href="{{ path('admin_smi_show', { 'id': smi.id }) }}">{{ smi.id }}</a></td>
+                <td>{{ smi.title }}</td>
+                <td>{{ smi.owner }}</td>
+                <td>{{ smi.unp }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_smi_show', { 'id': smi.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_smi_edit', { 'id': smi.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_smi_new') }}">Create a new smi</a>
+        </li>
+    </ul>
+{% endblock %}

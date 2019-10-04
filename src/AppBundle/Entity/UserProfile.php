@@ -35,28 +35,28 @@ class UserProfile
      *
      * @ORM\Column(name="family", type="string", length=128, nullable=true)
      */
-    private $family;
+    protected $family;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=128, nullable=true)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string
      *
      * @ORM\Column(name="secondname", type="string", length=128, nullable=true)
      */
-    private $secondname;
+    protected $secondname;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="databorn", type="date", nullable=true)
      */
-    private $databorn;
+    protected $databorn;
 
     //passport issues ********************************************************
 
@@ -65,42 +65,42 @@ class UserProfile
      *
      * @ORM\Column(name="privatenum", type="integer", nullable=true, unique=true)
      */
-    private $privatenum;
+    protected $privatenum;
 
     /**
      * @var int
      *
      * @ORM\Column(name="passportnum", type="integer", nullable=true)
      */
-    private $passportnum;
+    protected $passportnum;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="issuedata", type="date", nullable=true)
      */
-    private $issuedata;
+    protected $issuedata;
 
     /**
      * @var string
      *
      * @ORM\Column(name="ruvd", type="string", length=256, nullable=true)
      */
-    private $ruvd;
+    protected $ruvd;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="enddata", type="date", nullable=true)
      */
-    private $enddata;
+    protected $enddata;
 
     /**
      * @var string
      *
      * @ORM\Column(name="place", type="text", nullable=true)
      */
-    private $place;
+    protected $place;
 
     // user's contacts **************************************************
 
@@ -109,14 +109,14 @@ class UserProfile
      *
      * @ORM\Column(name="phone", type="integer", nullable=true, unique=true)
      */
-    private $phone;
+    protected $phone;
 
     /**
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
-    private $address;
+    protected $address;
 
     // user's files **************************************************
 
