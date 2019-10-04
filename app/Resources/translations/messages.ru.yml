@@ -10,6 +10,21 @@ forms:
         choose: Выбрать
     labels:
         regions: Области
+        family: Фамилия
+        name: Имя
+        secondname: Отчество
+        databorn: 'Дата рождения:'
+        privatenum: 'Личный номер:'
+        passportnum: 'Серия и номер паспорта: '
+        issuedata: 'Дата выдачи паспорта: '
+        ruvd: 'Кем выдан: '
+        enddata: 'Срок действия паспорта: '
+        place: 'Место рождения: '
+        phone: 'Телефон: '
+        address: 'Адрес регистрации: '
+        photo: 'Фото (max: 300Кб) '
+        application: 'Скан заявки (max:300Kб) '
+        smi: 'Основное место работы: СМИ'
 messages:
     tolist: К списку
 headers:

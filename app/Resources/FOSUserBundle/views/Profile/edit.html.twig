@@ -2,7 +2,7 @@
 
 {% block name %}
     <span class="text-info">
-       <h1>Изменить учетные данные.</h1>
+       <h1>Изменить учетные данные</h1>
    </span>
     <hr/>
 {% endblock name %}
@@ -10,7 +10,7 @@
     {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
     {{ form_widget(form) }}
     <div>
-        <input type="submit" value="{{ 'forms.buttons.save'|trans }}" />
+        <input class ="btn btn-success" type="submit" value="{{ 'forms.buttons.save'|trans }}" />
     </div>
     {{ form_end(form) }}
 {% endblock fos_user_content %}

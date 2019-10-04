@@ -62,16 +62,19 @@
                             <span class="profile-ava">
                                 <img alt="" src="{{ asset('img/avatar1_small.jpg') }}">
                             </span>
-                        <span class="username">{{ 'username' }}</span>
+                        <span class="username">{{ app.user.userprofile }}</span>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu extended logout">
                         <div class="log-arrow-up"></div>
                         <li class="eborder-top">
-                            <a href="{{ path('fos_user_profile_show') }}"><i class="icon_profile"></i>Профиль</a>
+                            <a href="{{ path('user_profile_show') }}"><i class="icon_profile"></i>Профиль</a>
                         </li>
                         <li class="eborder-top">
-                            <a href="{{ path('fos_user_profile_edit') }}"><i class="icon_key_alt"></i>Изменить учетные данные </a>
+                            <a href="{{ path('fos_user_profile_edit') }}"><i class="icon_key_alt"></i>E-mail</a>
+                        </li>
+                        <li class="eborder-top">
+                            <a href="{{ path('user_profile_edit') }}"><i class="icon_key_alt"></i>Аккаунт</a>
                         </li>
                         <li>
                             <a href="{{ path('fos_user_security_logout') }}"><i class="icon_key_alt"></i>Выйти</a>

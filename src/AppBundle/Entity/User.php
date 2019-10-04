@@ -29,7 +29,8 @@ class User extends BaseUser implements UserInterface, \Serializable
 
     /**
      * One User has One UserProfile.
-     * @ORM\OneToOne(targetEntity="UserProfile", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="UserProfile", mappedBy="user", cascade="persist")
+     * @ORM\JoinColumn(name="userprofile_id", referencedColumnName="id")
      */
     private $userprofile;
 

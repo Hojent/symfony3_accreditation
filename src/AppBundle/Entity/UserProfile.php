@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\DBAL\Types\DateType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,7 +24,7 @@ class UserProfile
 
     /**
      * One UserProfile has One User.
-     * @ORM\OneToOne(targetEntity="User", inversedBy="userprofile")
+     * @ORM\OneToOne(targetEntity="User", inversedBy="userprofile", cascade="persist")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
@@ -52,30 +53,27 @@ class UserProfile
     protected $secondname;
 
     /**
-     * @var \DateTime
-     *
+     * @var DateType
      * @ORM\Column(name="databorn", type="date", nullable=true)
      */
     protected $databorn;
 
-    //passport issues ********************************************************
-
-    /**
-     * @var int
+     /**
+     * @var string
      *
-     * @ORM\Column(name="privatenum", type="integer", nullable=true, unique=true)
+     * @ORM\Column(name="privatenum", type="string", nullable=true, unique=true)
      */
     protected $privatenum;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="passportnum", type="integer", nullable=true)
+     * @ORM\Column(name="passportnum", type="string", nullable=true)
      */
     protected $passportnum;
 
     /**
-     * @var \DateTime
+     * @var DateType
      *
      * @ORM\Column(name="issuedata", type="date", nullable=true)
      */
@@ -89,7 +87,7 @@ class UserProfile
     protected $ruvd;
 
     /**
-     * @var \DateTime
+     * @var DateType
      *
      * @ORM\Column(name="enddata", type="date", nullable=true)
      */
@@ -98,7 +96,7 @@ class UserProfile
     /**
      * @var string
      *
-     * @ORM\Column(name="place", type="text", nullable=true)
+     * @ORM\Column(name="place", type="string", nullable=true)
      */
     protected $place;
 
@@ -259,7 +257,7 @@ class UserProfile
     /**
      * Get privatenum
      *
-     * @return int
+     * @return string
      */
     public function getPrivatenum()
     {
@@ -269,7 +267,7 @@ class UserProfile
     /**
      * Set issuedata
      *
-     * @param \DateTime $issuedata
+     * @param $issuedata
      *
      * @return UserProfile
      */
@@ -283,7 +281,7 @@ class UserProfile
     /**
      * Get issuedata
      *
-     * @return \DateTime
+     * @return DateType
      */
     public function getIssuedata()
     {
@@ -293,7 +291,7 @@ class UserProfile
     /**
      * Set enddata
      *
-     * @param \DateTime $enddata
+     * @param $enddata
      *
      * @return UserProfile
      */
@@ -307,7 +305,7 @@ class UserProfile
     /**
      * Get enddata
      *
-     * @return \DateTime
+     * @return DateType
      */
     public function getEnddata()
     {
@@ -437,7 +435,7 @@ class UserProfile
     /**
      * @return string
      */
-    public function getPlace(): string
+    public function getPlace()
     {
         return $this->place;
     }
@@ -445,7 +443,7 @@ class UserProfile
     /**
      * @param string $place
      */
-    public function setPlace(string $place): void
+    public function setPlace(string $place)
     {
         $this->place = $place;
     }
@@ -453,7 +451,7 @@ class UserProfile
     /**
      * @return string
      */
-    public function getApplication(): string
+    public function getApplication()
     {
         return $this->application;
     }
@@ -461,25 +459,30 @@ class UserProfile
     /**
      * @param string $application
      */
-    public function setApplication(string $application): void
+    public function setApplication(string $application)
     {
         $this->application = $application;
     }
 
     /**
-     * @return \DateTime
+     * @return DateType
      */
-    public function getDataborn(): \DateTime
+    public function getDataborn()
     {
         return $this->databorn;
     }
 
     /**
-     * @param \DateTime $databorn
+     * @param $databorn
      */
-    public function setDataborn(\DateTime $databorn): void
+    public function setDataborn($databorn): void
     {
         $this->databorn = $databorn;
+    }
+
+    public function __toString()
+    {
+        return ($this->getFamily().' '.$this->getName());
     }
 }
 

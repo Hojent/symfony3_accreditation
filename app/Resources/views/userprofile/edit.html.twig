@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block name %}
+        <span class="text-info">
+       <h1>Изменить личные данные</h1>
+   </span>
+        <hr/>
+    {% endblock name %}
+    {% block fos_user_content %}
+        {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input class ="btn btn-success" type="submit" value="{{'forms.buttons.save'|trans }}" />
+        {{ form_end(edit_form) }}
+    {% endblock %}
+{% endblock %}
