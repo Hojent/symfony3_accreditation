@@ -13,6 +13,7 @@ use AppBundle\Entity\Event as Event;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
+
 /**
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
@@ -37,8 +38,11 @@ class User extends BaseUser implements UserInterface, \Serializable
 
     /**
      * Many Users have Many Events.
-     * @ORM\ManyToMany(targetEntity="Event", inversedBy="users")
-     * @ORM\JoinTable(name="user_event")
+     * @ORM\ManyToMany(targetEntity="Event", inversedBy="users", cascade="persist")
+     * @ORM\JoinTable(name="user_event",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")}
+     * )
      */
     private $events;
 

@@ -1,6 +1,8 @@
 <?php
 
 namespace AppBundle\Controller;
+use AppBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use AppBundle\Entity\Event;
@@ -67,12 +69,16 @@ class EventController extends Controller
      */
     public function showAction(Event $event)
     {
+        $user = $this->getUser();
         $deleteForm = $this->createDeleteForm($event);
+        $applyForm = $this->createApplicateForm($event,$user);
 
-        return $this->render('event/show.html.twig', array(
+        return $this->render('event/show.html.twig', [
             'event' => $event,
+            'user' => $user,
             'delete_form' => $deleteForm->createView(),
-        ));
+            'apply_form' => $applyForm->createView(),
+        ]);
     }
 
     /**
@@ -121,10 +127,47 @@ class EventController extends Controller
     }
 
     /**
+     * Application for event.
+     *
+     * @Route("/{id}", name="event_applicate")
+     * @Method("POST")
+     */
+    public function applicateAction(Request $request, Event $event)
+    {
+        $user = $this->getUser();
+        $form = $this->createApplicateForm($event, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $user->addEvent($event);
+            $event->addUser($user);
+            $em->persist($user);
+            $em->flush();
+        }
+
+        /** @var Team $team */
+/*        $team = $this->entityManager->getRepository(Team::class)->findOneById(2);
+
+        $competition = new Competition();
+        $competition->setName('Euro League 3');
+        $competition->addTeam($team);
+
+        $team->addCompetition($competition);
+
+// This will not cause any problem so is optional as cascade={"persist"} will handle it for us.
+        $this->entityManager->persist($competition);
+//
+
+        $this->entityManager->flush();*/
+
+
+        return $this->redirectToRoute('event_index');
+    }
+
+
+    /**
      * Creates a form to delete a event entity.
-     *
      * @param Event $event The event entity
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm(Event $event)
@@ -135,4 +178,21 @@ class EventController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Creates a form for participation request.
+     * @param Event $event The event entity
+     * @param User $user
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createApplicateForm(Event $event, User $user)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('event_applicate', [
+                'id' => $event->getId()]))
+            ->setMethod('POST')
+            ->getForm()
+            ;
+    }
+
 }

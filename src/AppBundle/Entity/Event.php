@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 
+
+
 /**
  * Event
  *
@@ -81,7 +83,6 @@ class Event
     /**
      * Many Events have Many Users.
      * @ORM\ManyToMany(targetEntity="User", mappedBy="events")
-     * @ORM\JoinTable(name="user_event")
      */
     private $users;
 

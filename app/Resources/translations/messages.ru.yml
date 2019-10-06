@@ -8,6 +8,7 @@ forms:
         registration: Регистрация
         reset: Сбросить
         choose: Выбрать
+        apply: Аккредитация
     labels:
         regions: Области
         family: Фамилия
