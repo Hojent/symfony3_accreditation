@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\ManyToMany;
 use AppBundle\Entity\Event as Event;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Table(name="users")
@@ -37,7 +38,7 @@ class User extends BaseUser implements UserInterface, \Serializable
     /**
      * Many Users have Many Events.
      * @ORM\ManyToMany(targetEntity="Event", inversedBy="users")
-     * @ORM\JoinTable(name="users_groups")
+     * @ORM\JoinTable(name="user_event")
      */
     private $events;
 
@@ -59,7 +60,7 @@ class User extends BaseUser implements UserInterface, \Serializable
         $this->roles = ['ROLE_USER'];
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
-        $this->events = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     /**
@@ -157,36 +158,9 @@ class User extends BaseUser implements UserInterface, \Serializable
             ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 
-
-    /**
-     * Set event
-     *
-     * @param integer $event
-     *
-     * @return UserProfile
-     */
-    public function setEvents($event)
-    {
-        $this->event = $event;
-
-        return $this;
-    }
-
-    /**
-     * Get event
-     *
-     * @return int
-     */
-    public function getEvents()
-    {
-        return $this->event;
-    }
-
     /**
      * Set smi
-     *
      * @param integer $smi
-     *
      * @return UserProfile
      */
     public function setSmi($smi)
@@ -198,7 +172,6 @@ class User extends BaseUser implements UserInterface, \Serializable
 
     /**
      * Get smi
-     *
      * @return int
      */
     public function getSmi()
@@ -220,5 +193,27 @@ class User extends BaseUser implements UserInterface, \Serializable
     public function getUserprofile()
     {
         return $this->userprofile;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+        }
+        return $this;
+    }
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+        }
+        return $this;
     }
 }

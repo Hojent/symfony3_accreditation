@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 
 /**
@@ -79,13 +81,14 @@ class Event
     /**
      * Many Events have Many Users.
      * @ORM\ManyToMany(targetEntity="User", mappedBy="events")
+     * @ORM\JoinTable(name="user_event")
      */
     private $users;
 
     public function __construct()
     {
         $this->dataCreated = new \DateTime();
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     /**
@@ -283,6 +286,30 @@ class Event
     public function getEvtip()
     {
         return $this->evtip;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addEvent($this);
+        }
+        return $this;
+    }
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeEvent($this);
+        }
+        return $this;
     }
 }
 
