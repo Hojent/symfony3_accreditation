@@ -33,22 +33,28 @@ class Event
     private $title;
 
     /**
-     * @var string
-     * @ORM\Column(name="brief", type="string", length=255, nullable=true)
+     * @var text
+     * @ORM\Column(name="brief", type="text", nullable=true)
      */
     private $brief;
 
     /**
+     * @var text
+     * @ORM\Column(name="organizator", type="text", nullable=true)
+     */
+    private $organizator;
+
+    /**
      * timezone
-     * @var \DateTime
-     * @ORM\Column(name="data_start", type="datetimetz", nullable=true)
+     * @var string
+     * @ORM\Column(name="data_start", type="string", nullable=true)
      */
     private $dataStart;
 
     /**
      * timezone
-     * @var \DateTime
-     * @ORM\Column(name="data_end", type="datetimetz", nullable=true)
+     * @var string
+     * @ORM\Column(name="data_end", type="string", nullable=true)
      */
     private $dataEnd;
 
@@ -72,6 +78,12 @@ class Event
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      */
     private $city;
+
+    /**
+     * @var string
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
+     */
+    private $address;
 
     /**
      * @var int
@@ -124,7 +136,7 @@ class Event
 
     /**
      * Set brief
-     * @param string $brief
+     * @param text $brief
      * @return Event
      */
     public function setBrief($brief)
@@ -137,7 +149,7 @@ class Event
     /**
      * Get brief
      *
-     * @return string
+     * @return text
      */
     public function getBrief()
     {
@@ -145,10 +157,25 @@ class Event
     }
 
     /**
+     * @return text
+     */
+    public function getOrganizator()
+    {
+        return $this->organizator;
+    }
+
+    /**
+     * @param text $organizator
+     * @return Event
+     */
+    public function setOrganizator($organizator)
+    {
+        $this->organizator = $organizator;
+    }
+
+    /**
      * Set dataStart
-     *
      * @param \DateTime $dataStart
-     *
      * @return Event
      */
     public function setDataStart($dataStart)
@@ -266,6 +293,24 @@ class Event
     }
 
     /**
+     * Get address
+     * @return string
+     */
+    public function getAddress ()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param $address string
+     * @return Event
+     */
+    public function setAddress($address) {
+        $this->address = $address;
+        return $this;
+    }
+
+    /**
      * Set evtip
      *
      * @param integer $evtip
@@ -296,6 +341,7 @@ class Event
     {
         return $this->users;
     }
+
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {

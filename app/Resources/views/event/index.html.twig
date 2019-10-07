@@ -1,14 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Список Мероприятий</h1>
-
+    <h1>Список Мероприятий
+    {% if is_granted ('ROLE_ADMIN') %}
+       <a href="{{ path('event_new') }}" class = "btn btn-primary">{{'forms.buttons.create'|trans }}</a>
+    {% endif %}
+    </h1>
     <table class="table">
         <thead>
             <tr>
                 <th>N</th>
                 <th>Название</th>
-                <th>Описание</th>
+                <th>Место проведения</th>
                 <th>Начало</th>
                 <th>Окончание</th>
                 {% if is_granted ('ROLE_ADMIN') %}
@@ -21,22 +24,24 @@
             <tr>
                 <td><a href="{{ path('event_show', { 'id': event.id }) }}">{{ event.id }}</a></td>
                 <td><a href="{{ path('event_show', { 'id': event.id }) }}">{{ event.title }}</a></td>
-                <td>{{ event.brief }}</td>
+                <td>{{ event.region }},<br> {{ event.city }}</td>
                 <td>{{ event.dataStart|date('d.m.Y - H:i') }}</td>
                 <td>{{ event.dataEnd |date('d.m.Y -  H:i') }}</td>
                {% if is_granted ('ROLE_ADMIN') %}
                 <td>
-                    <a href="{{ path('event_edit', { 'id': event.id }) }}" class="btn btn-primary">{{'forms.buttons.edit'|trans }}</a>
+                    <a href="{{ path('event_edit', { 'id': event.id }) }}" class="btn btn-info">{{'forms.buttons.edit'|trans }}</a>
                 </td>
                 {% endif %}
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-
-
-    <a href="{{ path('event_new') }}" class = "btn btn-primary">{{'forms.buttons.create'|trans }}</a>
-
+<div class="col-lg-12">
+    <section class="panel">
+        <div class="panel-body">
+        Уважаемые коллеги! Перед тем, как подать заявку на аккредитацию, пожалуйста, <a href="{{ path('user_profile_edit') }}">проверьте свои персональные данные</a>.
+        </div>
+    </section>
+</div>
 
 {% endblock %}

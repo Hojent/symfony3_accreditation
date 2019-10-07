@@ -5,26 +5,47 @@
      <h1>{{ event.title }}</h1>
     <div class="row">
     <div class="col-sm-3">
-        <p><b>Даты проведения:</b><br>
-         {{ event.dataStart |date('Y-m-d - H:i')  }} - <br>
-         {{ event.dataEnd |date('Y-m-d - H:i') }}</p>
-        <p>
-            <b>Место проведения:</b><br>
-            {{ event.region }}, {{ event.city }}
-        </p>
+        <section class="panel">
+            <header class="panel-heading">
+                Время и место проведения
+            </header>
+            <div class="panel-body">
+                <p> {{ event.dataStart |date('Y-m-d - H:i')  }} - <br>
+                 {{ event.dataEnd |date('Y-m-d - H:i') }}</p>
+                <p>{{ event.region }}, {{ event.city }}</p>
+                <p>Адрес: </p>
+            </div>
+        </section>
+    </div>
+    <div class="col-sm-3">
+        <section class="panel">
+            <header class="panel-heading">
+                Организаторы и спонсоры
+            </header>
+            <div class="panel-body">
+                <p>kjkjkjkj</p>
+                <p>bkjkjjnkjnkjn</p>
 
+            </div>
+        </section>
     </div>
     <div class="col-lg-6">
-        <p><b>Информация для прессы:</b></p>
-        <p> {{ event.brief }}</p>
-        {% if app.user  %}
-            {{ form_start(apply_form) }}
-            <input type="submit" class="btn btn-info" value="{{'forms.buttons.apply'|trans }}">
-            {{ form_end(apply_form) }}
-        {% endif %}
+        <section class="panel">
+            <header class="panel-heading">
+                Информация для прессы
+            </header>
+            <div class="panel-body">
+                <p> {{ event.brief }}</p>
+                <p>Программа (скачать)</p>
+                {% if app.user  %}
+                    {{ form_start(apply_form) }}
+                    <input type="submit" class="btn btn-info" value="{{'forms.buttons.apply'|trans }}">
+                    {{ form_end(apply_form) }}
+                {% endif %}
+            </div>
+        </section>
     </div>
     </div>
-
        {% if is_granted ('ROLE_ADMIN') %}
             <div class="row">
 

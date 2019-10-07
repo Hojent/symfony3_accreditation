@@ -1,11 +1,65 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'form/field_event.html.twig' %}
 
 {% block body %}
     <h1>Создать мероприятие</h1>
-
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-    <input type="submit" class="btn btn-secondary" value="{{'forms.buttons.create'|trans }}" />
+       <div class="row">
+        <div class="col-sm-4">
+            <p>Название</p>
+            {{ form_widget(form.title) }}
+            <p>Даты проведения</p>
+            <div class="row">
+                <div class="col-sm-6">
+                {{ form_widget(form.dataStart, { 'attr': { 'placeholder': 'начало' }}) }}
+                </div>
+                <div class="col-sm-6">
+                {{ form_widget(form.dataEnd, { 'attr': { 'placeholder': 'окончание' }}) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                {{ form_label(form.region) }}
+                {{ form_widget(form.region) }}
+                </div>
+                <div class="col-sm-6">
+                    {{ form_label(form.city) }}
+                    {{ form_widget(form.city) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_label(form.address) }}
+                    {{ form_widget(form.address) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form_label(form.evtip) }}
+                    {{ form_widget(form.evtip) }}
+                </div>
+                <div class="col-sm-6">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+             <p>Информация для прессы</p>
+             {{ form_widget(form.brief, { 'attr': { 'placeholder': 'Краткий пресс-релиз, другая информации',
+                 'rows': '8' }}) }}
+            <p>Организаторы</p>
+            {{ form_widget(form.organizator, { 'attr': { 'rows': '4' }}) }}
+        </div>
+       </div>
+    <div class="row">
+        <hr>
+        <div class="col-lg-4">
+            <input type="submit" class="btn btn-primary btn-block" value="{{'forms.buttons.create'|trans }}" />
+        </div>
+        <div class="col-sm-6">
+            <b><a href="{{ path('event_index') }}">{{'messages.tolist'|trans }}</a></b>
+        </div>
+    </div>
     {{ form_end(form) }}
-           <p><a href="{{ path('event_index') }}">{{'messages.tolist'|trans }}</a></p>
+
 {% endblock %}

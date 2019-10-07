@@ -1,79 +1,5 @@
 var Script = function() {
 
-  //checkbox and radio btn
-
-  var d = document;
-  var safari = (navigator.userAgent.toLowerCase().indexOf('safari') != -1) ? true : false;
-  var gebtn = function(parEl, child) {
-    return parEl.getElementsByTagName(child);
-  };
-  onload = function() {
-
-
-    if (!d.getElementById || !d.createTextNode) return;
-    var ls = gebtn(d, 'label');
-    for (var i = 0; i < ls.length; i++) {
-      var l = ls[i];
-      if (l.className.indexOf('label_') == -1) continue;
-      var inp = gebtn(l, 'input')[0];
-      if (l.className == 'label_check') {
-        l.className = (safari && inp.checked == true || inp.checked) ? 'label_check c_on' : 'label_check c_off';
-        l.onclick = check_it;
-      };
-      if (l.className == 'label_radio') {
-        l.className = (safari && inp.checked == true || inp.checked) ? 'label_radio r_on' : 'label_radio r_off';
-        l.onclick = turn_radio;
-      };
-    };
-  };
-  var check_it = function() {
-    var inp = gebtn(this, 'input')[0];
-    if (this.className == 'label_check c_off' || (!safari && inp.checked)) {
-      this.className = 'label_check c_on';
-      if (safari) inp.click();
-    } else {
-      this.className = 'label_check c_off';
-      if (safari) inp.click();
-    };
-  };
-  var turn_radio = function() {
-    var inp = gebtn(this, 'input')[0];
-    if (this.className == 'label_radio r_off' || inp.checked) {
-      var ls = gebtn(this.parentNode, 'label');
-      for (var i = 0; i < ls.length; i++) {
-        var l = ls[i];
-        if (l.className.indexOf('label_radio') == -1) continue;
-        l.className = 'label_radio r_off';
-      };
-      this.className = 'label_radio r_on';
-      if (safari) inp.click();
-    } else {
-      this.className = 'label_radio r_off';
-      if (safari) inp.click();
-    };
-  };
-
-
-
-  $(function() {
-
-    // Tags Input
-    $(".tagsinput").tagsInput();
-
-    // Switch
-    $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
-
-  });
-
-
-
-  //color picker
-
-  $('.cp1').colorpicker({
-    format: 'hex'
-  });
-  $('.cp2').colorpicker();
-
 
   //date picker
 
@@ -83,11 +9,11 @@ var Script = function() {
   $(function() {
     window.prettyPrint && prettyPrint();
     $('#dp1').datepicker({
-      format: 'mm-dd-yyyy'
+      format: 'dd-mm-yyyy'
     });
     $('#dp2').datepicker();
     $('#dp3').datepicker();
-    $('#dp3').datepicker();
+    $('#dp4').datepicker();
     $('#dpYears').datepicker();
     $('#dpMonths').datepicker();
 
@@ -142,60 +68,6 @@ var Script = function() {
       checkout.hide();
     }).data('datepicker');
   });
-
-
-
-  //daterange picker
-
-  $('#reservation').daterangepicker();
-
-  $('#reportrange').daterangepicker({
-      ranges: {
-        'Today': ['today', 'today'],
-        'Yesterday': ['yesterday', 'yesterday'],
-        'Last 7 Days': [Date.today().add({
-          days: -6
-        }), 'today'],
-        'Last 30 Days': [Date.today().add({
-          days: -29
-        }), 'today'],
-        'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
-        'Last Month': [Date.today().moveToFirstDayOfMonth().add({
-          months: -1
-        }), Date.today().moveToFirstDayOfMonth().add({
-          days: -1
-        })]
-      },
-      opens: 'left',
-      format: 'MM/dd/yyyy',
-      separator: ' to ',
-      startDate: Date.today().add({
-        days: -29
-      }),
-      endDate: Date.today(),
-      minDate: '01/01/2012',
-      maxDate: '12/31/2013',
-      locale: {
-        applyLabel: 'Submit',
-        fromLabel: 'From',
-        toLabel: 'To',
-        customRangeLabel: 'Custom Range',
-        daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        firstDay: 1
-      },
-      showWeekNumbers: true,
-      buttonClasses: ['btn-danger']
-    },
-    function(start, end) {
-      $('#reportrange span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
-    }
-  );
-
-  //Set the initial state of the picker label
-  $('#reportrange span').html(Date.today().add({
-    days: -29
-  }).toString('MMMM d, yyyy') + ' - ' + Date.today().toString('MMMM d, yyyy'));
 
 
 }();

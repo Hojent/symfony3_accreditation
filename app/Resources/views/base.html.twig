@@ -62,7 +62,7 @@
                             <span class="profile-ava">
                                 <img alt="" src="{{ asset('img/avatar1_small.jpg') }}">
                             </span>
-                        <span class="username">{{ app.user.userprofile }}</span>
+                        <span class="username">{{ app.user.userprofile.family }}</span>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu extended logout">
@@ -164,13 +164,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-10">
                     {% block body %}
                             {% block name %} {% endblock %}
                             {% block fos_user_content %}{% endblock %}
                     {% endblock %}
                 </div>
-                <div class="col-md-3">Баннеры
+                <div class="col-md-2">Баннеры
                     <!-- List starts -->
                     <ul class="today-datas">
                         <!-- List #1 -->
@@ -244,8 +244,6 @@
     <script src="{{ asset('js/jquery.rateit.min.js') }}"></script>
     <!-- custom select -->
     <script src="{{ asset('js/jquery.customSelect.min.js') }}"></script>
-    <script src="{{ asset('assets/chart-master/Chart.js') }}"></script>
-
     <!--custome script for all page-->
     <script src="{{ asset('js/scripts.js') }}"></script>
     <!-- custom script for this page-->
@@ -261,7 +259,20 @@
     <script src="{{ asset('js/sparklines.js') }}"></script>
     <script src="{{ asset('js/charts.js') }}"></script>
     <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
-    <script>
+    <!-- bootstrap-wysiwyg -->
+    <script src="{{ asset('js/jquery.hotkeys.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-wysiwyg.js') }}"></script>
+    <script src="{{  asset('js/bootstrap-wysiwyg-custom.js') }}"></script>
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-colorpicker.js') }}"></script>
+    <script src="{{ asset('js/daterangepicker.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <!-- ck editor -->
+    <script type="text/javascript" src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
+    <!-- custom form component script for this page-->
+    <script src="{{  asset('js/form-component.js') }}"></script>
+
+      <script>
         //knob
         $(function() {
             $(".knob").knob({
