@@ -13,7 +13,7 @@
                 <p> {{ event.dataStart |date('Y-m-d - H:i')  }} - <br>
                  {{ event.dataEnd |date('Y-m-d - H:i') }}</p>
                 <p>{{ event.region }}, {{ event.city }}</p>
-                <p>Адрес: </p>
+                <p>Адрес: {{ event.address }}</p>
             </div>
         </section>
     </div>
@@ -23,8 +23,7 @@
                 Организаторы и спонсоры
             </header>
             <div class="panel-body">
-                <p>kjkjkjkj</p>
-                <p>bkjkjjnkjnkjn</p>
+                  <p>{{ event.organizator }}</p>
 
             </div>
         </section>
@@ -38,9 +37,13 @@
                 <p> {{ event.brief }}</p>
                 <p>Программа (скачать)</p>
                 {% if app.user  %}
-                    {{ form_start(apply_form) }}
-                    <input type="submit" class="btn btn-info" value="{{'forms.buttons.apply'|trans }}">
-                    {{ form_end(apply_form) }}
+                    {% if user in event.users %}
+                        <h3>Заявка направлена</h3>
+                    {% else %}
+                        {{ form_start(apply_form) }}
+                        <input type="submit" class="btn btn-info" value="{{'forms.buttons.apply'|trans }}">
+                        {{ form_end(apply_form) }}
+                    {% endif %}
                 {% endif %}
             </div>
         </section>
@@ -48,7 +51,6 @@
     </div>
        {% if is_granted ('ROLE_ADMIN') %}
             <div class="row">
-
             <ul class="list-inline">
                 <li class="list-inline-item">
                     <a class="btn btn-primary" href="{{ path('event_edit', { 'id': event.id }) }}">Edit</a>
@@ -59,11 +61,29 @@
                     {{ form_end(delete_form) }}
                 </li>
             </ul>
-
             </div>
        {% endif %}
-
        <p><a href="{{ path('event_index') }}">{{'messages.tolist'|trans }}</a></p>
+       {% if is_granted ('ROLE_ADMIN') %}
+       <div class="row">
+           <section class="panel">
+               <header class="panel-heading">
+                   Заявки на аккредитацию
+               </header>
+               <div class="panel-body">
+                   <table class="table">
+                       {% for user in event.users %}
+                       <tr>
+                           <td>{{ user.userprofile }}</td>
+                           <td class="col-sm-1">Принять</td>
+                           <td class="col-sm-1">Отклонить</td>
+                       </tr>
+                       {% endfor %}
+                   </table>
+               </div>
+           </section>s
+       </div>
+       {% endif %}
    </div>
 
 {% endblock %}

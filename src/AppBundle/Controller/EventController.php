@@ -144,23 +144,6 @@ class EventController extends Controller
             $em->persist($user);
             $em->flush();
         }
-
-        /** @var Team $team */
-/*        $team = $this->entityManager->getRepository(Team::class)->findOneById(2);
-
-        $competition = new Competition();
-        $competition->setName('Euro League 3');
-        $competition->addTeam($team);
-
-        $team->addCompetition($competition);
-
-// This will not cause any problem so is optional as cascade={"persist"} will handle it for us.
-        $this->entityManager->persist($competition);
-//
-
-        $this->entityManager->flush();*/
-
-
         return $this->redirectToRoute('event_index');
     }
 

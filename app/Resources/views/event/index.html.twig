@@ -14,6 +14,7 @@
                 <th>Место проведения</th>
                 <th>Начало</th>
                 <th>Окончание</th>
+                <th>Аккредитация</th>
                 {% if is_granted ('ROLE_ADMIN') %}
                 <th>Действие</th>
                 {% endif %}
@@ -27,6 +28,20 @@
                 <td>{{ event.region }},<br> {{ event.city }}</td>
                 <td>{{ event.dataStart|date('d.m.Y - H:i') }}</td>
                 <td>{{ event.dataEnd |date('d.m.Y -  H:i') }}</td>
+                <td>
+                    {% if apply_send is defined %}
+                        {% if apply_send == 0 %}
+                           0
+                        {% elseif apply_send == 1 %}
+                           1
+                        {% else %}
+                           ====
+                        {% endif %}
+                    {% else %}
+                        undefined
+                    {% endif %}
+
+                </td>
                {% if is_granted ('ROLE_ADMIN') %}
                 <td>
                     <a href="{{ path('event_edit', { 'id': event.id }) }}" class="btn btn-info">{{'forms.buttons.edit'|trans }}</a>

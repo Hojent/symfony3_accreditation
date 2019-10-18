@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
+    /*
+     * var $reRegister - if user try to duplicate register
+     */
     private $reRegister = 0;
 
     /**
@@ -18,9 +21,6 @@ class DefaultController extends Controller
     {
         $this->reRegister = $request->query->get('reRegister');
 
-        //var_dump($this->reRegister); //die();
-
-        // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir').DIRECTORY_SEPARATOR),
             'reRegister' => $this->reRegister,
