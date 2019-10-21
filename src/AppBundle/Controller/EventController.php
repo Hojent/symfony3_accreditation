@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 use AppBundle\Entity\User;
+use AppBundle\Entity\UserEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -156,7 +157,9 @@ class EventController extends Controller
     private function createDeleteForm(Event $event)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('event_delete', array('id' => $event->getId())))
+            ->setAction($this->generateUrl('event_delete', [
+                'id' => $event->getId()
+            ]))
             ->setMethod('DELETE')
             ->getForm()
         ;
@@ -172,10 +175,52 @@ class EventController extends Controller
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('event_applicate', [
-                'id' => $event->getId()]))
+                'id' => $event->getId()
+            ]))
             ->setMethod('POST')
             ->getForm()
             ;
     }
+
+    /** Administrator part only ======================================================== */
+
+    /**
+     * Confirm User's Application for event.
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/{id}", name="event_confirm")
+     * @Method("POST")
+     */
+    public function confirmAction(Request $request, Event $event, UserEvent $userEvent)
+    {
+        $user = $this->getUser();
+        $form = $this->confirmApplicateForm($event, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $userEvent->setStatus(1);
+            $em->persist($userEvent);
+            $em->flush();
+        }
+        return $this->redirectToRoute('event_index');
+    }
+
+    /**
+     * Creates a form for participation confirm.
+     * @param Event $event The event entity
+     * @param User $user
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function confirmApplicateForm(Event $event, User $user)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('event_confirm', [
+                'id' => $event->getId(),
+                'user_id' => $user->getId(),
+            ]))
+            ->setMethod('POST')
+            ->getForm()
+            ;
+    }
+
 
 }
