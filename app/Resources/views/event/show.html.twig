@@ -73,11 +73,16 @@
                <div class="panel-body">
                    <table class="table">
                        {% for user in event.users %}
-                       <tr>
-                           <td>{{ user.userprofile }}</td>
-                           <td class="col-sm-1">Принять</td>
-                           <td class="col-sm-1">Отклонить</td>
-                       </tr>
+                           <tr>
+                               <td>{{ user.userprofile }}</td>
+                               <td>{{ user.smi }}</td>
+                               <td class="col-sm-1">
+                                   <a class="btn btn-success" href="{{ path('event_confirm', { 'id': event.id, 'uid': user.id }) }}">{{'forms.buttons.confirm'|trans }}</a>
+                               </td>
+                               <td class="col-sm-1">
+
+                                   Отклонить</td>
+                           </tr>
                        {% endfor %}
                    </table>
                </div>

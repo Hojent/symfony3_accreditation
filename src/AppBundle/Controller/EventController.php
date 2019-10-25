@@ -145,7 +145,10 @@ class EventController extends Controller
             $em->persist($user);
             $em->flush();
         }
-        return $this->redirectToRoute('event_index');
+        return $this->redirectToRoute('event_applicate', [
+            'id' => $event->getId(),
+        ]
+        );
     }
 
 
@@ -201,7 +204,9 @@ class EventController extends Controller
             $em->persist($userEvent);
             $em->flush();
         }
-        return $this->redirectToRoute('event_index');
+        return $this->redirectToRoute('event_confirm',[
+            'id' => $event->getId(),
+        ]);
     }
 
     /**

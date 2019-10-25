@@ -9,6 +9,8 @@ forms:
         reset: Сбросить
         choose: Выбрать
         apply: Аккредитация
+        confirm: Принять
+        decline: Отклонить
     labels:
         regions: Области
         family: Фамилия
