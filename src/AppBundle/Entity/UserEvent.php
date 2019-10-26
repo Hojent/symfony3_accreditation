@@ -14,13 +14,14 @@ class UserEvent
 {
     /**
      * @var int
-     *
+     * @ORM\Id()
      * @ORM\Column(name="user_id", type="integer")
      */
     private $userId;
 
     /**
      * @var int
+     * @ORM\Id()
      * @ORM\Column(name="event_id", type="integer")
      */
     private $eventId;
@@ -38,9 +39,12 @@ class UserEvent
      */
     private $date;
 
-    public function __construct()
+    public function __construct($userId, $eventId)
     {
         $this->date = new \DateTime();
+        $this->userId = $userId;
+        $this->eventId = $eventId;
+
     }
 
 
@@ -86,5 +90,8 @@ class UserEvent
     public function getDate(): \DateTime
     {
         return $this->date;
-    }  }
+    }
+
+
+}
 

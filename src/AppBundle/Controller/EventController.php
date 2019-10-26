@@ -190,41 +190,32 @@ class EventController extends Controller
     /**
      * Confirm User's Application for event.
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/{id}", name="event_confirm")
-     * @Method("POST")
+     * @Route("/{id}/{uid}", name="event_confirm")
+     *
      */
-    public function confirmAction(Request $request, Event $event, UserEvent $userEvent)
+    public function confirmAction(Request $request, Event $event)
     {
-        $user = $this->getUser();
-        $form = $this->confirmApplicateForm($event, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $userEvent->setStatus(1);
-            $em->persist($userEvent);
-            $em->flush();
-        }
-        return $this->redirectToRoute('event_confirm',[
-            'id' => $event->getId(),
-        ]);
-    }
+        $entityManager = $this->getDoctrine()->getManager();
+        $userId = $request->get('uid');
+        $status = $request->get('status');
+        $userEvent = $entityManager
+            ->getRepository(UserEvent::class)
+            ->loadKeys($userId, $event->getId()
+            );
 
-    /**
-     * Creates a form for participation confirm.
-     * @param Event $event The event entity
-     * @param User $user
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function confirmApplicateForm(Event $event, User $user)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('event_confirm', [
-                'id' => $event->getId(),
-                'user_id' => $user->getId(),
-            ]))
-            ->setMethod('POST')
-            ->getForm()
-            ;
+        if (!$userEvent) {
+            throw $this->createNotFoundException(
+                'No user found for id '.$userId
+            );
+        }
+
+        $userEvent->setStatus($status);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('event_show',[
+            'id' => $event->getId(),
+            'uid' => $userId,
+        ]);
     }
 
 

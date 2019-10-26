@@ -77,11 +77,11 @@
                                <td>{{ user.userprofile }}</td>
                                <td>{{ user.smi }}</td>
                                <td class="col-sm-1">
-                                   <a class="btn btn-success" href="{{ path('event_confirm', { 'id': event.id, 'uid': user.id }) }}">{{'forms.buttons.confirm'|trans }}</a>
+                                   <a class="btn btn-success" href="{{ path('event_confirm', { 'id': event.id, 'uid': user.id, 'status':1 }) }}">{{'forms.buttons.confirm'|trans }}</a>
                                </td>
                                <td class="col-sm-1">
-
-                                   Отклонить</td>
+                                   <a class="btn btn-success" href="{{ path('event_confirm', { 'id': event.id, 'uid': user.id, 'status':2 }) }}">{{'forms.buttons.decline'|trans }}</a>
+                               </td>
                            </tr>
                        {% endfor %}
                    </table>
