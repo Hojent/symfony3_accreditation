@@ -25,7 +25,7 @@ class UserEventRepository extends \Doctrine\ORM\EntityRepository
         }
     }
 
-    public function loadUser($userId)
+    public function loadEventsByUser($userId)
     {
         return $this->createQueryBuilder('ue')
             ->where('ue.userId = :userId')
@@ -34,13 +34,27 @@ class UserEventRepository extends \Doctrine\ORM\EntityRepository
             ;
     }
 
-    public function loadEvent($eventId)
+    public function loadUsersByEvent($eventId)
     {
         return $this->createQueryBuilder('ue')
             ->where('ue.eventId = :eventId')
             ->setParameter('eventId', $eventId)
             ->getQuery()
+            ->execute()
             ;
+    }
+
+    public function getUserStatus($userId,$eventId)
+    {
+        try {
+            return $this->createQueryBuilder('ue')
+                ->where('ue.userId = :userId AND ue.eventId = :eventId')
+                ->setParameter('userId', $userId)
+                ->setParameter('eventId', $eventId)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+        }
     }
 
 

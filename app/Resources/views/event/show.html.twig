@@ -37,7 +37,7 @@
                 <p>Программа (скачать)</p>
                 {% if app.user  %}
                     {% if user in event.users %}
-                        <h3>Заявка направлена</h3>
+                        <h3>Заявка направлена {{ userevent.date | date('d.m.Y - H:i')}}</h3>
                         <div class= "alert apply{{ userevent.status }}" >{{ "forms.buttons.apply#{userevent.status}"|trans }}</div>
                     {% else %}
                         {{ form_start(apply_form) }}
@@ -64,7 +64,9 @@
             </div>
        {% endif %}
        <p><a href="{{ path('event_index') }}">{{'messages.tolist'|trans }}</a></p>
+       <hr>
        {% if is_granted ('ROLE_ADMIN') %}
+
        <div class="row">
            <section class="panel">
                <header class="panel-heading">
@@ -72,17 +74,46 @@
                </header>
                <div class="panel-body">
                    <table class="table">
+                       {% set i = 0 %}
+                       <thead>
+                       <tr>
+                           <th>Пользователь</th>
+                           <th>СМИ</th>
+                           <th>Дата</th>
+                           <th>Статус</th>
+                           <th>Принять</th>
+                           <th>Отклонить</th>
+                       </tr>
+                       </thead>
                        {% for user in event.users %}
+                         <tbody class="table-striped">
                            <tr>
                                <td>{{ user.userprofile }}</td>
                                <td>{{ user.smi }}</td>
-                               <td class="col-sm-1">
-                                   <a class="btn btn-success" href="{{ path('event_confirm', { 'id': event.id, 'uid': user.id, 'status':1 }) }}">{{'forms.buttons.confirm'|trans }}</a>
-                               </td>
-                               <td class="col-sm-1">
-                                   <a class="btn btn-danger" href="{{ path('event_confirm', { 'id': event.id, 'uid': user.id, 'status':2 }) }}">{{'forms.buttons.decline'|trans }}</a>
-                               </td>
+
+                                   {% for userA in userall %}
+                                       {% if userA.userId == user.id %}
+                                       <td>
+                                           {{ userA.date | date('d.m.Y') }}
+                                       </td>
+                                        <td>
+                                            <p class="confirm{{ userA.status }}">{{ "forms.buttons.confirm#{userA.status}"|trans }}</p>
+                                        </td>
+                                        <td class="col-sm-2">
+                                           {% if userA.status != 1 %}
+                                               <a class="btn btn-success" href="{{ path('event_confirm', { 'id': event.id, 'uid': user.id, 'status':1 }) }}">{{'forms.buttons.confirm'|trans }}</a>
+                                           {% endif %}
+                                        </td>
+                                        <td>
+                                           {% if userA.status != 2 %}
+                                               <a class="btn btn-danger" href="{{ path('event_confirm', { 'id': event.id, 'uid': user.id, 'status':2 }) }}">{{'forms.buttons.decline'|trans }}</a>
+                                           {% endif %}
+                                        </td>
+                                       {% endif %}
+                                   {% endfor %}
+
                            </tr>
+                           </tbody>
                        {% endfor %}
                    </table>
                </div>

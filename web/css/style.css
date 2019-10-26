@@ -7167,7 +7167,7 @@ ul.summary-list > li:last-child  {
 
 
 
-.activity.green h4 {
+.activity.green h4, confirm1 {
 
     color: #4cd964;
 

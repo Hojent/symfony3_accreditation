@@ -14,6 +14,9 @@ forms:
         apply0: 'На рассмотрении'
         apply1: 'Вы акрредитованы'
         apply2: 'Заявка отклонена'
+        confirm0: 'на рассмотрении'
+        confirm1: 'принята'
+        confirm2: 'отклонена'
     labels:
         regions: Области
         family: Фамилия

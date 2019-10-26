@@ -63,20 +63,22 @@ class EventController extends Controller
 
     /**
      * Finds and displays a event entity.
-     *
+     * var $userEvent - bind current user and event
      * @Route("/{id}", name="event_show")
      * @Method("GET")
      */
-    public function showAction(Event $event)
+    public function showAction(Request $request, Event $event)
     {
-        $user = $this->getUser();
         $entityManager = $this->getDoctrine()->getManager();
+        $repository = $entityManager->getRepository(UserEvent::class);
+        $user = $this->getUser();
         $deleteForm = $this->createDeleteForm($event);
         $applyForm = $this->createApplicateForm($event,$user);
-        $userEvent = $entityManager
-            ->getRepository(UserEvent::class)
+
+        $userEvent = $repository
             ->loadKeys($user->getId(), $event->getId()
             );
+        $userall = $repository->loadUsersByEvent($event->getId());
 
         return $this->render('event/show.html.twig', [
             'event' => $event,
@@ -84,6 +86,7 @@ class EventController extends Controller
             'delete_form' => $deleteForm->createView(),
             'apply_form' => $applyForm->createView(),
             'userevent' => $userEvent,
+            'userall' => $userall,
         ]);
     }
 
@@ -167,18 +170,18 @@ class EventController extends Controller
         $entityManager = $this->getDoctrine()->getManager();
         $userId = $request->get('uid');
         $status = $request->get('status');
-        $userEvent = $entityManager
+        $confirm = $entityManager
             ->getRepository(UserEvent::class)
             ->loadKeys($userId, $event->getId()
             );
 
-        if (!$userEvent) {
+        if (!$confirm) {
             throw $this->createNotFoundException(
                 'No user found for id '.$userId
             );
         }
 
-        $userEvent->setStatus($status);
+        $confirm->setStatus($status);
         $entityManager->flush();
 
         return $this->redirectToRoute('event_show',[
