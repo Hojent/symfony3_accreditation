@@ -70,14 +70,20 @@ class EventController extends Controller
     public function showAction(Event $event)
     {
         $user = $this->getUser();
+        $entityManager = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($event);
         $applyForm = $this->createApplicateForm($event,$user);
+        $userEvent = $entityManager
+            ->getRepository(UserEvent::class)
+            ->loadKeys($user->getId(), $event->getId()
+            );
 
         return $this->render('event/show.html.twig', [
             'event' => $event,
             'user' => $user,
             'delete_form' => $deleteForm->createView(),
             'apply_form' => $applyForm->createView(),
+            'userevent' => $userEvent,
         ]);
     }
 

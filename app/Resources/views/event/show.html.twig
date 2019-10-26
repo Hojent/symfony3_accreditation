@@ -38,6 +38,7 @@
                 {% if app.user  %}
                     {% if user in event.users %}
                         <h3>Заявка направлена</h3>
+                        <div class= "alert apply{{ userevent.status }}" >{{ "forms.buttons.apply#{userevent.status}"|trans }}</div>
                     {% else %}
                         {{ form_start(apply_form) }}
                         <input type="submit" class="btn btn-info" value="{{'forms.buttons.apply'|trans }}">
@@ -79,7 +80,7 @@
                                    <a class="btn btn-success" href="{{ path('event_confirm', { 'id': event.id, 'uid': user.id, 'status':1 }) }}">{{'forms.buttons.confirm'|trans }}</a>
                                </td>
                                <td class="col-sm-1">
-                                   <a class="btn btn-success" href="{{ path('event_confirm', { 'id': event.id, 'uid': user.id, 'status':2 }) }}">{{'forms.buttons.decline'|trans }}</a>
+                                   <a class="btn btn-danger" href="{{ path('event_confirm', { 'id': event.id, 'uid': user.id, 'status':2 }) }}">{{'forms.buttons.decline'|trans }}</a>
                                </td>
                            </tr>
                        {% endfor %}

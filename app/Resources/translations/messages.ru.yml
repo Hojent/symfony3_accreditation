@@ -11,6 +11,9 @@ forms:
         apply: Аккредитация
         confirm: Принять
         decline: Отклонить
+        apply0: 'На рассмотрении'
+        apply1: 'Вы акрредитованы'
+        apply2: 'Заявка отклонена'
     labels:
         regions: Области
         family: Фамилия
