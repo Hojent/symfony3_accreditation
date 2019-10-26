@@ -29,18 +29,10 @@
                 <td>{{ event.dataStart|date('d.m.Y - H:i') }}</td>
                 <td>{{ event.dataEnd |date('d.m.Y -  H:i') }}</td>
                 <td>
-                    {% if apply_send is defined %}
-                        {% if apply_send == 0 %}
-                           0
-                        {% elseif apply_send == 1 %}
-                           1
-                        {% else %}
-                           ====
-                        {% endif %}
+                    {% for user in event.users if user == app.user %}
+                        <i>заявка подана</i>
                     {% else %}
-                        undefined
-                    {% endif %}
-
+                    {% endfor %}
                 </td>
                {% if is_granted ('ROLE_ADMIN') %}
                 <td>

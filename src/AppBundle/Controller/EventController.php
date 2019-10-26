@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserEvent;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use AppBundle\Entity\Event;
@@ -151,6 +150,37 @@ class EventController extends Controller
         );
     }
 
+    /**
+     * Confirm User's Application for event.
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/{id}/{uid}", name="event_confirm")
+     *
+     */
+    public function confirmAction(Request $request, Event $event)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $userId = $request->get('uid');
+        $status = $request->get('status');
+        $userEvent = $entityManager
+            ->getRepository(UserEvent::class)
+            ->loadKeys($userId, $event->getId()
+            );
+
+        if (!$userEvent) {
+            throw $this->createNotFoundException(
+                'No user found for id '.$userId
+            );
+        }
+
+        $userEvent->setStatus($status);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('event_show',[
+            'id' => $event->getId(),
+        ]);
+    }
+
+    // Form creation part -----------------------------------------------------------------
 
     /**
      * Creates a form to delete a event entity.
@@ -185,38 +215,7 @@ class EventController extends Controller
             ;
     }
 
-    /** Administrator part only ======================================================== */
 
-    /**
-     * Confirm User's Application for event.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/{id}/{uid}", name="event_confirm")
-     *
-     */
-    public function confirmAction(Request $request, Event $event)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $userId = $request->get('uid');
-        $status = $request->get('status');
-        $userEvent = $entityManager
-            ->getRepository(UserEvent::class)
-            ->loadKeys($userId, $event->getId()
-            );
-
-        if (!$userEvent) {
-            throw $this->createNotFoundException(
-                'No user found for id '.$userId
-            );
-        }
-
-        $userEvent->setStatus($status);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('event_show',[
-            'id' => $event->getId(),
-            'uid' => $userId,
-        ]);
-    }
 
 
 }
