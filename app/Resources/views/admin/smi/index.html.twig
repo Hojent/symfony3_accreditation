@@ -1,43 +1,41 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Smis list</h1>
-
-    <table>
+    <h1>Список средств массовой информации
+        {% if is_granted ('ROLE_ADMIN') %}
+            <a href="{{ path('admin_smi_new') }}" class = "btn btn-primary">{{'forms.buttons.create'|trans }}</a>
+        {% endif %}
+    </h1>
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Owner</th>
-                <th>Unp</th>
-                <th>Actions</th>
+                <th{% if pagination.isSorted('c.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, "Название", "smi.title") }}</th>
+                <th>Учредитель</th>
+                <th>УНП</th>
+                <th>Регион+сортировка</th>
+                {% if is_granted ('ROLE_ADMIN') %}
+                    <th>Действие</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
-        {% for smi in smis %}
+        {% for smi in pagination %}
             <tr>
                 <td><a href="{{ path('admin_smi_show', { 'id': smi.id }) }}">{{ smi.id }}</a></td>
-                <td>{{ smi.title }}</td>
+                <td><a href="{{ path('admin_smi_show', { 'id': smi.id }) }}">{{ smi.title }}</a></td>
                 <td>{{ smi.owner }}</td>
                 <td>{{ smi.unp }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_smi_show', { 'id': smi.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_smi_edit', { 'id': smi.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
+                <td>привязка к области</td>
+                {% if is_granted ('ROLE_ADMIN') %}
+                    <td>
+                        <a href="{{ path('admin_smi_edit', { 'id': smi.id }) }}" class="btn btn-info">{{'forms.buttons.edit'|trans }}</a>
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    {{ knp_pagination_render(pagination) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_smi_new') }}">Create a new smi</a>
-        </li>
-    </ul>
 {% endblock %}

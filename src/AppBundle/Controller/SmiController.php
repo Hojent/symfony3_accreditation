@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Smi;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Smi controller.
@@ -14,20 +16,26 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class SmiController extends Controller
 {
+    private const PER_PAGE = 1;
+
     /**
-     * Lists all smi entities.
-     *
-     * @Route("/", name="admin_smi_index")
-     * @Method("GET")
+     * Lists all smi entities.     *
+     * @Route("/", name="admin_smi_index")     *
      */
-    public function indexAction()
+    public function indexAction(Request $request, PaginatorInterface $paginator)
     {
         $em = $this->getDoctrine()->getManager();
 
         $smis = $em->getRepository('AppBundle:Smi')->findAll();
 
+        $pagination = $paginator->paginate(
+            $smis, /* query NOT result */
+            $request->query->get('page', 1), /*page number*/
+            self:: PER_PAGE /*limit per page*/
+        );
+
         return $this->render('admin/smi/index.html.twig', array(
-            'smis' => $smis,
+            'pagination' => $pagination
         ));
     }
 
