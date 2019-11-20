@@ -1,40 +1,51 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Smi</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ smi.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ smi.title }}</td>
-            </tr>
-            <tr>
-                <th>Owner</th>
-                <td>{{ smi.owner }}</td>
-            </tr>
-            <tr>
-                <th>Unp</th>
-                <td>{{ smi.unp }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_smi_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('admin_smi_edit', { 'id': smi.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+<div class="container">
+    <h1>{{ smi.title }}</h1>
+    <div class="row">
+        <div class="col-sm-3">
+            <section class="panel">
+                <div class="panel-body">
+                    Учреждение:
+                    <p>{{ smi.owner }}</p>
+                    <p>Адрес: </p>
+                </div>
+            </section>
+        </div>
+        <div class="col-sm-3">
+            <section class="panel">
+                <div class="panel-body">
+                    <p>УНП: {{ smi.unp }}</p>
+                    <p>Руководитель</p>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-6">
+            <section class="panel">
+                <header class="panel-heading">
+                    Информация для прессы
+                </header>
+                <div class="panel-body">
+                    <p>Панель</p>
+                                   </div>
+            </section>
+        </div>
+    </div>
+    {% if is_granted ('ROLE_ADMIN') %}
+        <div class="row">
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a class="btn btn-primary" href="{{ path('admin_smi_edit', { 'id': smi.id }) }}">Редактировать</a>
+                </li>
+                <li class="list-inline-item">
+                    {{ form_start(delete_form) }}
+                    <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
+                    {{ form_end(delete_form) }}
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+    <p><a href="{{ path('admin_smi_index') }}">{{'messages.tolist'|trans }}</a></p>
+</div>
 {% endblock %}
