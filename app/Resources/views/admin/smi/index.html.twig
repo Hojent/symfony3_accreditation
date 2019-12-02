@@ -10,10 +10,10 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th{% if pagination.isSorted('c.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, "Название", "smi.title") }}</th>
-                <th>Учредитель</th>
-                <th>УНП</th>
-                <th>Регион+сортировка</th>
+                <th{% if pagination.isSorted('c.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, "Название СМИ", "smi.title") }}</th>
+                <th>{{'tables.body'|trans }}</th>
+                <th>{{'tables.unp'|trans }}</th>
+                <th>{{'tables.region'|trans }}</th>
                 {% if is_granted ('ROLE_ADMIN') %}
                     <th>Действие</th>
                 {% endif %}
@@ -24,9 +24,9 @@
             <tr>
                 <td><a href="{{ path('admin_smi_show', { 'id': smi.id }) }}">{{ smi.id }}</a></td>
                 <td><a href="{{ path('admin_smi_show', { 'id': smi.id }) }}">{{ smi.title }}</a></td>
-                <td>{{ smi.owner }}</td>
+                <td>{{ smi.body }}</td>
                 <td>{{ smi.unp }}</td>
-                <td>привязка к области</td>
+                <td>{{ smi.region }}</td>
                 {% if is_granted ('ROLE_ADMIN') %}
                     <td>
                         <a href="{{ path('admin_smi_edit', { 'id': smi.id }) }}" class="btn btn-info">{{'forms.buttons.edit'|trans }}</a>

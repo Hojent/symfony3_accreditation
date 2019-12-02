@@ -482,7 +482,9 @@ class UserProfile
 
     public function __toString()
     {
-        return ($this->getName().' '.$this->getFamily());
+        if ($this->getFamily()) {
+            return ($this->getName().' '.$this->getFamily());
+        }
     }
 }
 

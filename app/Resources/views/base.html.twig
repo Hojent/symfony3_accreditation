@@ -270,7 +270,7 @@
     <!-- ck editor -->
     <script type="text/javascript" src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
     <!-- custom form component script for this page-->
-    <script src="{{  asset('js/form-component.js') }}"></script>
+    <script src="{{ asset('js/form-component.js') }}"></script>
 
       <script>
         //knob
@@ -299,23 +299,6 @@
             $('select.styled').customSelect();
         });
 
-        /* ---------- Map ---------- */
-        $(function() {
-            $('#map').vectorMap({
-                map: 'world_mill_en',
-                series: {
-                    regions: [{
-                        values: gdpData,
-                        scale: ['#000', '#000'],
-                        normalizeFunction: 'polynomial'
-                    }]
-                },
-                backgroundColor: '#eef3f7',
-                onLabelShow: function(e, el, code) {
-                    el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-                }
-            });
-        });
     </script>
 {% endblock %}
 </body>

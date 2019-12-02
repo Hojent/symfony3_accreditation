@@ -94,7 +94,7 @@ class UserEvent
 
     public function __toString()
     {
-       return $this->getDate();
+        return $this->getDate();
     }
 
 }

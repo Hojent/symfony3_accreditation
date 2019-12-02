@@ -37,11 +37,47 @@ class Smi
     private $owner;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="body", type="string", length=512, nullable=true)
+     */
+    private $body;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="head", type="string", length=255, nullable=true)
+     */
+    private $head;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tel", type="string", nullable=true)
+     */
+    private $tel;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="unp", type="integer", unique=true)
      */
     private $unp;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Region")
+     * @ORM\JoinColumn(name="region_id", referencedColumnName="id")
+     */
+    private $region;
 
     /**
      * One smi has many users. This is the inverse side.
@@ -112,6 +148,70 @@ class Smi
     }
 
     /**
+     * @return string
+     */
+    public function getBody(): ?string
+    {
+        return $this->body;
+    }
+
+    /**
+     * @param string $body
+     */
+    public function setBody(string $body): void
+    {
+        $this->body = $body;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHead(): ?string
+    {
+        return $this->head;
+    }
+
+    /**
+     * @param string $head
+     */
+    public function setHead(string $head): void
+    {
+        $this->head = $head;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     */
+    public function setAddress(string $address): void
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    /**
+     * @param string $tel
+     */
+    public function setTel(string $tel): void
+    {
+        $this->tel = $tel;
+    }
+
+    /**
      * Set unp
      *
      * @param integer $unp
@@ -133,6 +233,37 @@ class Smi
     public function getUnp()
     {
         return $this->unp;
+    }
+
+    /**
+     * Set region
+     *
+     * @param integer $region
+     *
+     * @return Smi
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return int
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 
     public function __toString()

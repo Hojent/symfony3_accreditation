@@ -7,27 +7,30 @@
         <div class="col-sm-3">
             <section class="panel">
                 <div class="panel-body">
-                    Учреждение:
-                    <p>{{ smi.owner }}</p>
-                    <p>Адрес: </p>
+                    {{ 'tables.body'|trans }}:
+                    <p>{{ smi.body }}</p>
+                    <p>Адрес: {{ smi.address }}</p>
+                    <p>Телефон: <a href="tel:{{ smi.tel  }}">{{ smi.tel }}</a></p>
+
                 </div>
             </section>
         </div>
         <div class="col-sm-3">
             <section class="panel">
                 <div class="panel-body">
-                    <p>УНП: {{ smi.unp }}</p>
-                    <p>Руководитель</p>
+                    <p>{{ 'tables.unp'|trans }}: {{ smi.unp }}</p>
+                    <p>Руководитель:</p>
+                    <p>{{ smi.head }}</p>
                 </div>
             </section>
         </div>
         <div class="col-lg-6">
             <section class="panel">
                 <header class="panel-heading">
-                    Информация для прессы
+                    {{ 'tables.owner'|trans }}
                 </header>
                 <div class="panel-body">
-                    <p>Панель</p>
+                    <p>{{ smi.owner }}</p>
                                    </div>
             </section>
         </div>

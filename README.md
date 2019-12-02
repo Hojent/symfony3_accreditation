@@ -1,4 +1,4 @@
-Journalist accreditation System - "Event logger"
+Accreditation System - "Event logger"
 ========================
 The project is in Process. 
 

@@ -46,4 +46,8 @@ headers:
         city: Город
         region: Область
 tables:
-    title: Название
+    title: 'Название СМИ'
+    body: 'Учреждение'
+    owner: 'Учредитель'
+    unp: 'УНП'
+    region: 'Регион'

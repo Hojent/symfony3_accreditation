@@ -6,12 +6,11 @@ use AppBundle\Entity\Smi;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Smi controller.
- *
  * @Route("admin/smi")
  */
 class SmiController extends Controller
@@ -19,8 +18,9 @@ class SmiController extends Controller
     private const PER_PAGE = 1;
 
     /**
-     * Lists all smi entities.     *
-     * @Route("/", name="admin_smi_index")     *
+     * Lists all smi entities.
+     * @Route("/", name="admin_smi_index")
+     * @Method("GET")
      */
     public function indexAction(Request $request, PaginatorInterface $paginator)
     {
@@ -96,7 +96,7 @@ class SmiController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('smi_edit', array('id' => $smi->getId()));
+            return $this->redirectToRoute('admin_smi_show', array('id' => $smi->getId()));
         }
 
         return $this->render('admin/smi/edit.html.twig', array(
