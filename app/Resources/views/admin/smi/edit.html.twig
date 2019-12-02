@@ -1,20 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Средство массовой информации</h1>
-    <ul class="list-inline">
-        <li class="list-inline-item">
+    <h1>{{ smi.title }} </h1>
+<p><a href="{{ path('admin_smi_index') }}">{{ 'messages.tolist'|trans }}</a></p>
             {{ form_start(edit_form) }}
             {{ form_widget(edit_form) }}
-            <input type="submit" class="btn btn-secondary" value="{{'forms.buttons.edit'|trans }}" />
+            <input type="submit" class="btn btn-secondary" value="{{'forms.buttons.save'|trans }}" />
             {{ form_end(edit_form) }}
-        </li>
-        <li class="list-inline-item">
+
+   <br>
             {{ form_start(delete_form) }}
             <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
+   <br>
     <p><a href="{{ path('admin_smi_index') }}">{{ 'messages.tolist'|trans }}</a></p>
 
 
