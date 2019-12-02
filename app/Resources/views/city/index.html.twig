@@ -3,27 +3,19 @@
 {% block title %} {{'headers.admin.cities'|trans }} {% endblock %}
 
 
-
 {% block body %}
-    <h1>{{'headers.admin.cities'|trans }}</h1>
+    <h1>{{'headers.admin.cities'|trans }}
+        <a  class = "btn btn-primary" href="{{ path('city_new') }}">{{'forms.buttons.create'|trans }}</a>
+    </h1>
     {% if formFilter|length %}
         <div class="card-box">
             {{ form_start(formFilter) }}
-            <div class="row m-b-10">
-                <div class="col-lg-2 m-b-5">
+
                     {{ form_row(formFilter.region) }}
-                </div>
-                <div class="col-lg-2 m-b-5">
-                    <div class="form-group">
-                        <!-- just for correct top padding -->
-                        <label class="control-label"></label>
-                        <div class="input-group">
+
                             <button name="filter" type="submit" class="btn btn-success w-md">{{'forms.buttons.choose'|trans }}</button>
                             <a class="btn btn-default w-md" href="{{ path('city_index') }}">{{'forms.buttons.reset'|trans }}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             {{ form_end(formFilter) }}
         </div>
     {% endif %}
@@ -49,8 +41,5 @@
         </tbody>
     </table>
     {{ knp_pagination_render(pagination) }}
-
-            <a  class = "btn btn-primary" href="{{ path('city_new') }}">{{'forms.buttons.create'|trans }}</a>
-
 
 {% endblock %}

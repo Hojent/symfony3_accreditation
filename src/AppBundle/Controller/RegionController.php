@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class RegionController extends Controller
 {
-    const PER_PAGE = 3;
+    const PER_PAGE = 30;
 
     /**
      * Lists all region entities.

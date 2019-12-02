@@ -3,7 +3,7 @@
 {% block title %}{{'forms.labels.regions'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>{{'forms.labels.regions'|trans }}</h1>
+    <h1>{{'forms.labels.regions'|trans }} <a href="{{ path('region_new') }}" class = "btn btn-primary">{{'forms.buttons.create'|trans }}</a></h1>
 
     <table class="table">
         <tr>
@@ -26,5 +26,4 @@
         {{ knp_pagination_render(regions) }}
     </div>
 
-    <a href="{{ path('region_new') }}" class = "btn btn-primary">{{'forms.buttons.create'|trans }}</a>
 {% endblock %}
