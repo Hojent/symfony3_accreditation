@@ -26,7 +26,7 @@ class SmiController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $smis = $em->getRepository('AppBundle:Smi')->findAll();
+        $smis = $em->getRepository(Smi::class)->listAll();
 
         $pagination = $paginator->paginate(
             $smis, /* query NOT result */

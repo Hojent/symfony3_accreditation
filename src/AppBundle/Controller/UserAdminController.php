@@ -25,7 +25,7 @@ class UserAdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $clients = $em->getRepository('AppBundle:UserProfile')->findAll();
+        $clients = $em->getRepository(UserProfile::class)->listAll();
 
         $pagination = $paginator->paginate(
             $clients, /* query NOT result */

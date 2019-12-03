@@ -5,8 +5,8 @@
     <table class="table table-inbox table-striped">
         <thead>
             <tr>
-                <th>Id</th>
-                <th{% if pagination.isSorted('c.family') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, "Фамилия", "client.family") }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Id', 'up.id') }}</th>
+                <th{% if pagination.isSorted('up.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, "Фамилия", "up.family") }}</th>
                 <th>Имя\Отчество</th>
                 <th>{{'forms.labels.smi'|trans }}</th>
                 <th>e-mail</th>

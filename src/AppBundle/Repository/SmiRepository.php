@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class SmiRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function listAll () {
+        $qb = $this->createQueryBuilder('s')
+            ->orderBy('s.title', 'ASC')
+            ->getQuery();
+
+        return $qb;
+    }
 }

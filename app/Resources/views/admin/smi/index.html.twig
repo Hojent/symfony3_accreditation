@@ -10,7 +10,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th{% if pagination.isSorted('c.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, "Название СМИ", "smi.title") }}</th>
+                <th{% if pagination.isSorted('s.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, "Название СМИ", "s.title") }}</th>
                 <th>{{'tables.body'|trans }}</th>
                 <th>{{'tables.unp'|trans }}</th>
                 <th>{{'tables.region'|trans }}</th>
