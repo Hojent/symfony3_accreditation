@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Список пользователей</h1>
+    <table class="table table-inbox table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th{% if pagination.isSorted('c.family') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, "Фамилия", "client.family") }}</th>
+                <th>Имя\Отчество</th>
+                <th>{{'forms.labels.smi'|trans }}</th>
+                <th>e-mail</th>
+                <th>{{  'forms.labels.phone'|trans }}</th>
+                <th>{{ 'forms.labels.address'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for client in pagination %}
+            <tr>
+                <td>{{ client.id }}<br>
+                    <img src ="{{ client.photo }}" width="100px" />
+                </td>
+                <td><a href="{{ path('admin_user_show', { 'id': client.id }) }}">{{ client.family }}</a></td>
+                <td>{{ client.name }} {{ client.secondname }}</td>
+                <td>{{ client.user.smi }}</td>
+                <td>{{ client.user.email }}</td>
+                <td>{{ client.phone }}</td>
+                <td>{{ client.address }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(pagination) }}
+
+{% endblock %}

@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class SmiController extends Controller
 {
-    private const PER_PAGE = 1;
+    private const PER_PAGE = 10;
 
     /**
      * Lists all smi entities.

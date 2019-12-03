@@ -51,3 +51,4 @@ tables:
     owner: 'Учредитель'
     unp: 'УНП'
     region: 'Регион'
+    smi: 'СМИ'

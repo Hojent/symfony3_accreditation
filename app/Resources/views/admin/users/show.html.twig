@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block name %}
+        <span class="text-info" xmlns="http://www.w3.org/1999/html">
+       <h1>{{ client }}</h1>
+   </span>
+        <hr/>
+    {% endblock name %}
+    {% block fos_user_content %}
+        <div class="col-md-4">
+            <h3 class="card">{{ client.family }} {{ client.name }} {{ client.secondname }} </h3>
+            <p><b>{{ 'forms.labels.databorn' |trans }}</b> {% if client.databorn %}{{ client.databorn|date('Y-m-d') }}{% endif %}</p>
+            <p><b>{{ 'forms.labels.privatenum' | trans}}</b> {{ client.privatenum }}</p>
+            <p><b>{{ 'forms.labels.phone'|trans }}</b> {{ client.phone }}</p>
+            <p><b>{{'forms.labels.address' |trans }}</b> {{ client.address }}</p>
+        </div>
+        <div class="col-md-4">
+            <p><b>{{ 'forms.labels.passportnum'|trans }}</b> {{ client.passportnum }}</p>
+            <p><b>{{ 'forms.labels.issuedata' |trans }}</b> {% if client.issuedata %}{{ app.user.userProfile.issuedata|date('Y-m-d') }}{% endif %}</p>
+            <p><b>{{ 'forms.labels.ruvd' |trans }}</b> {{ client.ruvd }}</p>
+            <p><b>{{ 'forms.labels.enddata' |trans }}</b> {% if client.enddata %}{{ client.enddata|date('Y-m-d') }}{% endif %}</p>
+            <p><b>{{ "forms.labels.place"|trans }}</b> {{ client.place }}</p>
+
+        </div>
+        <div class="col-md-4">
+            <img alt="{{ client }}" src ="{{ asset('img/avatar1.jpg') }}" />
+            {# {{ client.photo }} #}
+            <hr>
+            <p>{{ client.user.smi }}</p>
+        </div>
+    {% endblock %}
+{% endblock %}
