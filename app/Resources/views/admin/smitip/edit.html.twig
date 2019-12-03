@@ -6,16 +6,14 @@
         <li class="list-inline-item">
             {{ form_start(edit_form) }}
             {{ form_widget(edit_form) }}
-            <input type="submit" class="btn btn-secondary" value="{{ 'forms.buttons.edit'|trans }}" />
+            <input type="submit" class="btn btn-secondary" value="{{ 'forms.buttons.save'|trans }}" />
             {{ form_end(edit_form) }}
         </li>
         <li class="list-inline-item">
             {{ form_start(delete_form) }}
             <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
+            <a class="btn btn-info" href="{{ path('admin_smitip_index') }}">{{'forms.buttons.cansel'|trans }}</a>
             {{ form_end(delete_form) }}
         </li>
     </ul>
-    <p><a href="{{ path('admin_smitip_index') }}">{{ 'messages.tolist'|trans }}</a></p>
-
-
 {% endblock %}

@@ -5,7 +5,8 @@
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <input type="submit" class="btn btn-secondary" value="{{'forms.buttons.save' |trans }}" />
+    <input type="submit" class="btn btn-secondary" value="{{'forms.buttons.create' |trans }}" />
+    <a class="btn btn-info" href="{{ path('admin_smitip_index') }}">{{'forms.buttons.cansel'|trans }}</a>
     {{ form_end(form) }}
-    <p><a href="{{ path('admin_smitip_index') }}">{{'messages.tolist'|trans }}</a></p>
+
 {% endblock %}

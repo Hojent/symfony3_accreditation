@@ -25,7 +25,9 @@ class EventType extends AbstractType
                 'label' => 'Для прессы',
                 'required' => 'true'
             ])
-            ->add('organizator', TextareaType::class)
+            ->add('organizator', TextareaType::class, [
+                'label' => 'Организаторы'
+            ])
             ->add('dataStart',TextType::class,[
                 'label' => 'Начало',
                 'required' => 'true',

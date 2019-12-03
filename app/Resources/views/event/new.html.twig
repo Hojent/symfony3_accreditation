@@ -55,9 +55,10 @@
         <hr>
         <div class="col-lg-4">
             <input type="submit" class="btn btn-primary btn-block" value="{{'forms.buttons.create'|trans }}" />
+
         </div>
         <div class="col-sm-6">
-            <b><a href="{{ path('event_index') }}">{{'messages.tolist'|trans }}</a></b>
+            <a class="btn btn-info" href="{{ path('event_index') }}">{{'forms.buttons.cansel'|trans }}</a>
         </div>
     </div>
     {{ form_end(form) }}

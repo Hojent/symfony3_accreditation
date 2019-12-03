@@ -11,9 +11,9 @@
     <br>
             {{ form_start(delete_form) }}
             <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
+            <a class="btn btn-info" href="{{ path('event_index') }}">{{'forms.buttons.cansel'|trans }}</a>
             {{ form_end(delete_form) }}
-    <br>
-    <b><a href="{{ path('event_index') }}">{{'messages.tolist'|trans }}</a></b>
+
 
 
 {% endblock %}

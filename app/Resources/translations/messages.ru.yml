@@ -3,6 +3,7 @@ forms:
         remove: Удалить
         edit: Редактировать
         save: Сохранить
+        cansel: Отменить
         create: Добавить
         login: Войти
         registration: Регистрация

@@ -11,10 +11,7 @@
    <br>
             {{ form_start(delete_form) }}
             <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
+            <a class="btn btn-info" href="{{ path('admin_smi_index') }}">{{'forms.buttons.cansel'|trans }}</a>
             {{ form_end(delete_form) }}
-
-   <br>
-    <p><a href="{{ path('admin_smi_index') }}">{{ 'messages.tolist'|trans }}</a></p>
-
 
 {% endblock %}

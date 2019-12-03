@@ -58,12 +58,13 @@
                 <li class="list-inline-item">
                     {{ form_start(delete_form) }}
                     <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
+                    <a class="btn btn-info" href="{{ path('event_index') }}">{{'forms.buttons.cansel'|trans }}</a>
                     {{ form_end(delete_form) }}
                 </li>
             </ul>
             </div>
        {% endif %}
-       <p><a href="{{ path('event_index') }}">{{'messages.tolist'|trans }}</a></p>
+       </input>
        <hr>
        {% if is_granted ('ROLE_ADMIN') %}
 
