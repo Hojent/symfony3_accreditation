@@ -23,25 +23,7 @@ class RegistrationType extends AbstractType
                     ->orderBy('s.title', 'ASC');
             },
             ])
-            ->add('pict_file_name', FileType::class, [
-                'label' => 'Фото (JPG)',
-                'mapped' => false,
-                'required' => false,
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'images/jpg',
-                            'images/pjpg',
-                            'images/png',
-                        ],
-                        'mimeTypesMessage' => 'Неверный формат файла',
-                    ])
-                ],
-            ])
-            ->add('userprofile', UserProfileOneType::class, ['label' => 'Личные данные']);
+           ->add('userprofile', UserProfileOneType::class, ['label' => 'Личные данные']);
     }
 
     public function getParent()

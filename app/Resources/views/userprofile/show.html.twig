@@ -24,9 +24,9 @@
 
         </div>
         <div class="col-md-4">
-            <img alt="{{ app.user.userprofile }}" src ="{{ asset('uploads/photo/' ~ app.user.userProfile.photo) }}" />
+            <img width="150px" alt="{{ app.user.userprofile }}" src ="{{ asset('uploads/photo/' ~ app.user.pictFileName) }}" />
                         <hr>
-            <p>{{ app.user.smi }}</p>
+            <h4>{{ app.user.smi }}</h4>
         </div>
     {% endblock %}
 {% endblock %}

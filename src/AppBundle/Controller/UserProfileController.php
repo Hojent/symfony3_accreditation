@@ -17,6 +17,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Userprofile controller.
@@ -79,7 +81,24 @@ class UserProfileController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //dump($form->getData()); die();
+            $pictFile = $form['pict_file_name']->getData();
+
+            if ($pictFile) {
+                 $newFilename = $user->getUsername().$user->getId().'.' . $pictFile->guessExtension();
+                 $user->setPictFileName($newFilename);
+                // Move the file to the directory where photos are stored
+                try {
+                    $pictFile->move(
+                        $this->getParameter('clients_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+
+            }
+
             $event = new FormEvent($form, $request);
             $this->eventDispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
 
