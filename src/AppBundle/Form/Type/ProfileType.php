@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Form\UserProfileType;
 use AppBundle\Entity\Smi;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 
 class ProfileType extends AbstractType
@@ -26,6 +28,22 @@ class ProfileType extends AbstractType
                         ->orderBy('s.title', 'ASC');
                 },
                 'attr' => ['class' => 'form-control'],
+            ])
+            ->add('pict_file_name', FileType::class, [
+                'label' => 'Фото (JPG)',
+                'mapped' => false,
+                'required' => false,
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                        ],
+                        'mimeTypesMessage' => 'Неверный формат файла',
+                    ])
+                ],
             ])
             ->add('userprofile', UserProfileType::class, ['label' => 'Личные данные']);
     }

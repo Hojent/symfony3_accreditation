@@ -5,6 +5,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use AppBundle\Entity\UserProfile;
 
 class UserProfileType extends AbstractType
 {
@@ -14,28 +16,40 @@ class UserProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('family',null, ['label' => 'forms.labels.family'])
-            ->add('name', null, ['label'=> 'forms.labels.name' ])
-            ->add('secondname', null, ['label'=> 'forms.labels.secondname'])
-            ->add('databorn', null, ['label' => 'forms.labels.databorn'])
-            ->add('privatenum', null, ['label'=> 'forms.labels.privatenum'])
-            ->add('passportnum', null, ['label'=> 'forms.labels.passportnum'])
-            ->add('issuedata', null, ['label'=> 'forms.labels.issuedata'])
-            ->add('ruvd', null, [
+            ->add('family',TextType::class, ['label' => 'forms.labels.family'])
+            ->add('name', TextType::class, ['label'=> 'forms.labels.name' ])
+            ->add('secondname', TextType::class, ['label'=> 'forms.labels.secondname'])
+            ->add('databorn',TextType::class,[
+                'label' => 'forms.labels.databorn',
+                'attr' => ['id' => 'dpd1', 'class' => 'col-sm-2', 'placeholder' => 'dd.mm.YYYY']
+            ])
+            ->add('privatenum', TextType::class, ['label'=> 'forms.labels.privatenum'])
+            ->add('passportnum', TextType::class, ['label'=> 'forms.labels.passportnum'])
+            ->add('issuedata',TextType::class,[
+                'label' => 'forms.labels.issuedata',
+                'attr' => ['id' => 'dpd2', 'class' => 'col-sm-2', 'placeholder' => 'dd.mm.YYYY']
+            ])
+            ->add('ruvd', TextType::class, [
                 'label'=> 'forms.labels.ruvd',
                 'attr' => ['placeholder' => 'Фрунзенским РУВД г.Минска']
                 ])
-            ->add('enddata', null, ['label'=> 'forms.labels.enddata'])
-            ->add('place', null, ['label'=> 'forms.labels.place'])
-            ->add('phone', null, [
+            ->add('enddata',TextType::class,[
+                'label' => 'forms.labels.enddata',
+                'attr' => ['id' => 'dpd3', 'class' => 'col-sm-2', 'placeholder' => 'dd.mm.YYYY']
+            ])
+            ->add('place', TextType::class, ['label'=> 'forms.labels.place'])
+            ->add('phone', TextType::class, [
                 'label'=> 'forms.labels.phone',
-                'attr' => ['placeholder' => '+375 XX XXX-XX-XX']
+                'attr' => ['placeholder' => '+375XXXXXXXXX']
                 ])
-            ->add('address', null, ['label'=> 'forms.labels.address'])
-            ->add('photo', null, ['label'=> 'forms.labels.photo'])
-            ->add('application', null, ['label'=> 'forms.labels.application']);
-            //->add('user');
-    }/**
+            ->add('address', TextType::class, ['label'=> 'forms.labels.address'])
+            //->add('photo', null, ['label'=> 'forms.labels.photo'])
+            //->add('application', null, ['label'=> 'forms.labels.application']);
+            //->add('user')
+         ;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -43,7 +57,8 @@ class UserProfileType extends AbstractType
         $resolver
             ->setDefined('user')
             ->setDefaults([
-            'data_class' => 'AppBundle\Entity\UserProfile'
+            'data_class' => UserProfile::class,
+            'required' => false
             ]);
     }
 

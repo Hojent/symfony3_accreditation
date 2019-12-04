@@ -50,6 +50,11 @@ class User extends BaseUser implements UserInterface, \Serializable
      */
     protected $isActive;
 
+    /**
+     * @ORM\Column(name="pict_file_name", type="string", length=128, nullable=true)
+     */
+    private $pictFileName;
+
     public function __construct()
     {
         parent::__construct();
@@ -212,5 +217,21 @@ class User extends BaseUser implements UserInterface, \Serializable
             $this->events->removeElement($event);
         }
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPictFileName()
+    {
+        return $this->pictFileName;
+    }
+
+    /**
+     * @param mixed $pictFileName
+     */
+    public function setPictFileName($pictFileName): void
+    {
+        $this->pictFileName = $pictFileName;
     }
 }

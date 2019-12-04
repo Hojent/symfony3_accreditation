@@ -87,9 +87,9 @@ class UserProfile
     protected $ruvd;
 
     /**
-     * @var DateType
+     * @var string
      *
-     * @ORM\Column(name="enddata", type="date", nullable=true)
+     * @ORM\Column(name="enddata", type="string", nullable=true)
      */
     protected $enddata;
 
@@ -103,9 +103,9 @@ class UserProfile
     // user's contacts **************************************************
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="phone", type="integer", nullable=true, unique=true)
+     * @ORM\Column(name="phone", type="string", nullable=true, unique=true)
      */
     protected $phone;
 
@@ -315,7 +315,7 @@ class UserProfile
     /**
      * Set phone
      *
-     * @param integer $phone
+     * @param string $phone
      *
      * @return UserProfile
      */
@@ -328,10 +328,8 @@ class UserProfile
 
     /**
      * Get phone
-     *
-     * @return int
      */
-    public function getPhone()
+    public function getPhone() :?string
     {
         return $this->phone;
     }

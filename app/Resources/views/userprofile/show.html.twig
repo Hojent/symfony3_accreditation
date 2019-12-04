@@ -24,10 +24,8 @@
 
         </div>
         <div class="col-md-4">
-            <img alt="{{ app.user.userprofile }}" src ="{{ asset('img/avatar1.jpg') }}" />
-            {# {{ app.user.userprofile.photo }} #}
-            <hr>
-            <p><b>{{ 'forms.labels.application'|trans }}</b> - {{ app.user.userprofile.application }}</p>
+            <img alt="{{ app.user.userprofile }}" src ="{{ asset('uploads/photo/' ~ app.user.userProfile.photo) }}" />
+                        <hr>
             <p>{{ app.user.smi }}</p>
         </div>
     {% endblock %}
