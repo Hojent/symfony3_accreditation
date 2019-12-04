@@ -26,7 +26,8 @@
         <div class="col-md-4">
             <img width="150px" alt="{{ app.user.userprofile }}" src ="{{ asset('uploads/photo/' ~ app.user.pictFileName) }}" />
                         <hr>
-            <h4>{{ app.user.smi }}</h4>
+            <p>{{ app.user.smi }}</p>
+            <a class="btn btn-info" href="{{ path('user_profile_edit') }}">{{'forms.buttons.edit'|trans }}</a>
         </div>
     {% endblock %}
 {% endblock %}

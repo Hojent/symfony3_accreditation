@@ -30,7 +30,7 @@ class ProfileType extends AbstractType
                 'attr' => ['class' => 'form-control'],
             ])
             ->add('pict_file_name', FileType::class, [
-                'label' => 'Фото (JPG)',
+                'label' => 'Изменить фото (JPG)',
                 'mapped' => false,
                 'required' => false,
                 // unmapped fields can't define their validation using annotations

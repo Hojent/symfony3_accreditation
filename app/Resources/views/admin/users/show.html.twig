@@ -24,9 +24,10 @@
 
         </div>
         <div class="col-md-4">
-            <img alt="{{ client }}" src ="{{ asset('img/avatar1.jpg') }}" />
-            {# {{ client.photo }} #}
-            <hr>
+            {% if client.user.pictFileName %}
+            <img width="150px" src ="{{ asset('uploads/photo/' ~ client.user.pictFileName) }}" />
+            {% endif %}
+             <hr>
             <p>{{ client.user.smi }}</p>
         </div>
     {% endblock %}

@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Userprofile controller.
@@ -86,6 +87,11 @@ class UserProfileController extends Controller
             if ($pictFile) {
                  $newFilename = $user->getUsername().$user->getId().'.' . $pictFile->guessExtension();
                  $user->setPictFileName($newFilename);
+
+                //$user->setPictFileName(
+                //    new File($this->getParameter('clients_directory').'/'.$user->getPictFileName())
+                //);
+
                 // Move the file to the directory where photos are stored
                 try {
                     $pictFile->move(
@@ -119,21 +125,5 @@ class UserProfileController extends Controller
         ));
     }
 
-   /* public function editAction(Request $request, UserProfile $userProfile)
-    {
-        $editForm = $this->createForm('AppBundle\Form\UserProfileType', $userProfile);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('user_profile_edit', array('id' => $userProfile->getId()));
-        }
-
-        return $this->render('userprofile/edit.html.twig', array(
-            'userProfile' => $userProfile,
-            'edit_form' => $editForm->createView(),
-        ));
-    }*/
 }
 

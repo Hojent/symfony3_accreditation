@@ -5,7 +5,7 @@
     <table class="table table-inbox table-striped">
         <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'Id', 'up.id') }}</th>
+                <th>Пользователь</th>
                 <th{% if pagination.isSorted('up.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, "Фамилия", "up.family") }}</th>
                 <th>Имя\Отчество</th>
                 <th>{{'forms.labels.smi'|trans }}</th>
@@ -17,9 +17,11 @@
         <tbody>
         {% for client in pagination %}
             <tr>
-                <td>{{ client.id }}<br>
-                    <img src ="{{ client.photo }}" width="100px" />
-                </td>
+                <td>
+                    {% if client.user.pictFileName %}
+                        <img width="80px" src ="{{ asset('uploads/photo/' ~ client.user.pictFileName) }}" />
+                    {% endif %}
+                 </td>
                 <td><a href="{{ path('admin_user_show', { 'id': client.id }) }}">{{ client.family }}</a></td>
                 <td>{{ client.name }} {{ client.secondname }}</td>
                 <td>{{ client.user.smi }}</td>

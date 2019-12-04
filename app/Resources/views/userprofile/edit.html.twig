@@ -3,14 +3,18 @@
 {% block body %}
     {% block name %}
         <span class="text-info">
-       <h1>Изменить личные данные</h1>
+        <h1>{{ app.user.userprofile  }}</h1>
+        <p>(изменить данные)</p>
    </span>
         <hr/>
     {% endblock name %}
     {% block fos_user_content %}
+        <div class="col-sm-2"><img width="200px" src ="{{ asset('uploads/photo/' ~ app.user.pictFileName) }}" /></div>
+        <div class="col-sm-10">
         {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input class ="btn btn-success" type="submit" value="{{'forms.buttons.save'|trans }}" />
+          {{ form_widget(edit_form) }}
+          <input class ="btn btn-success" type="submit" value="{{'forms.buttons.save'|trans }}" />
         {{ form_end(edit_form) }}
+        </div>
     {% endblock %}
 {% endblock %}
