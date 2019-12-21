@@ -7,11 +7,11 @@
     <div class="col-sm-3">
         <section class="panel">
             <header class="panel-heading">
-                Время и место проведения
+                Дата и место проведения
             </header>
             <div class="panel-body">
-                <p> {{ event.dataStart |date('Y-m-d - H:i')  }} - <br>
-                 {{ event.dataEnd |date('Y-m-d - H:i') }}</p>
+                <p>Начало: {{ event.dataStart |date('d.m.Y')  }}<br>
+                    Окончание: {{ event.dataEnd |date('d.m.Y') }}</p>
                 <p>{{ event.region }}, {{ event.city }}</p>
                 <p>Адрес: {{ event.address }}</p>
             </div>

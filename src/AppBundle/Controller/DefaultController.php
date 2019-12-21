@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Event;
+use AppBundle\Entity\UserEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,10 +22,13 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $this->reRegister = $request->query->get('reRegister');
+                $em = $this->getDoctrine()->getManager();
+        $events = $em->getRepository(Event::class)->findAllOne();
 
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir').DIRECTORY_SEPARATOR),
             'reRegister' => $this->reRegister,
+            'events' => $events,
         ]);
     }
 

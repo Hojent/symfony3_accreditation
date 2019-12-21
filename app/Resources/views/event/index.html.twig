@@ -9,7 +9,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
+
                 <th>Название</th>
                 <th>Место проведения</th>
                 <th>Начало</th>
@@ -23,13 +23,14 @@
         <tbody>
         {% for event in events %}
             <tr>
-                <td><a href="{{ path('event_show', { 'id': event.id }) }}">{{ event.id }}</a></td>
+
                 <td><a href="{{ path('event_show', { 'id': event.id }) }}">{{ event.title }}</a></td>
                 <td>{{ event.region }},<br> {{ event.city }}</td>
-                <td>{{ event.dataStart|date('d.m.Y - H:i') }}</td>
-                <td>{{ event.dataEnd |date('d.m.Y -  H:i') }}</td>
+                <td>{{ event.dataStart|date('d.m.Y') }}</td>
+                <td>{{ event.dataEnd |date('d.m.Y') }}</td>
                 <td>
                     {% for user in event.users if user == app.user %}
+
                         <i>заявка подана</i>
                     {% else %}
                     {% endfor %}

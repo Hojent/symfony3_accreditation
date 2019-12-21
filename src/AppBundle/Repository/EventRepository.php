@@ -10,4 +10,9 @@ namespace AppBundle\Repository;
  */
 class EventRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllOne()
+    {
+         return $this->findBy([], ['dataStart' => 'ASC'], 5);
+
+    }
 }

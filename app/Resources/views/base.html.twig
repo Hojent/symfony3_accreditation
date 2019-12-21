@@ -40,7 +40,7 @@
             <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
         </div>
         <!--logo start-->
-        <a href="{{ path('homepage') }}" class="logo">Event<span class="lite">Logger</span></a>
+        <a href="{{ path('homepage') }}" class="logo">Министерство<span class="lite"> информации</span></a>
         <!--logo end-->
         <div class="nav search-row" id="top_menu">
             <!--  search form start -->
@@ -109,16 +109,7 @@
                         <span>Мероприятия</span>
                     </a>
                 </li>
-                <li class="sub-menu">
-                    <a href="javascript:;" class="">
-                        <i class="icon_table"></i>
-                        <span>Календарь</span>
-                        <span class="menu-arrow arrow_carrot-right"></span>
-                    </a>
-                    <ul class="sub">
-                        <li><a class="" href="#">Basic Table</a></li>
-                    </ul>
-                </li>
+
                 {% if is_granted ('ROLE_ADMIN') %}
                     <li class="sub-menu">
                         <a href="javascript:;" class="">
@@ -156,7 +147,7 @@
             <!--overview start-->
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+                    <p class="page-header"><i class="fa fa-laptop"></i>Веб-сервис электронной аккредитации - Event Logger, version 1.2</p>
                     <ol class="breadcrumb">
                         <li><i class="fa fa-home"></i><a class="" href="{{ path('homepage') }}">Главная</a></li>
                         <li><i class="fa fa-laptop"></i>Рабочий стол</li>
@@ -164,42 +155,33 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-10">
+                <div class="col-lg-9">
                     {% block body %}
                             {% block name %} {% endblock %}
                             {% block fos_user_content %}{% endblock %}
                     {% endblock %}
                 </div>
-                <div class="col-md-2">Баннеры
+                <div class="col-md-3">
                     <!-- List starts -->
                     <ul class="today-datas">
                         <!-- List #1 -->
                         <li>
-                            <!-- Graph -->
-                            <div><span id="todayspark1" class="spark"></span></div>
-                            <!-- Text -->
-                            <div class="datas-text">11,500 visitors/day</div>
+                            <a href="http://mininform.gov.by/meropriyatiya/2018-god-maloy-rodiny/" tabindex="-1">
+                                <img src="http://mininform.gov.by/upload/iblock/767/767e624a57298fca2b464b35389c8b36.jpg" alt="" class="banner-image">
+                                <p>Год малой родины</p>
+                            </a>
                         </li>
                         <li>
-                            <div><span id="todayspark2" class="spark"></span></div>
-                            <div class="datas-text">15,000 Pageviews</div>
-                        </li>
-                        <li>
-                            <div><span id="todayspark3" class="spark"></span></div>
-                            <div class="datas-text">30.55% Bounce Rate</div>
-                        </li>
-                        <li>
-                            <div><span id="todayspark4" class="spark"></span></div>
-                            <div class="datas-text">$16,00 Revenue/Day</div>
-                        </li>
-                        <li>
-                            <div><span id="todayspark5" class="spark"></span></div>
-                            <div class="datas-text">12,000000 visitors every Month</div>
+                            <a href="http://mininform.gov.by/meropriyatiya/belarus-pomnit/" tabindex="0">
+                                <img src="http://mininform.gov.by/upload/iblock/46e/46e0425f93b331d28d635dde5f2bc6f5.jpg" alt="" class="banner-image">
+                                <p>Республиканская акция "Беларусь помнит"</p>
+                            </a>
                         </li>
                     </ul>
                     <div class="text-right">
                         <div class="credits">
                             Разработка <a href="http://web-project.by">Alliance @Web Project</a><br>
+                            ИП Герман<br>
                             Template <a href="https://bootstrapmade.com/">BootstrapMade</a>
                         </div>
                     </div>
