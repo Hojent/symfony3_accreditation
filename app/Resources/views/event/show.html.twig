@@ -89,13 +89,14 @@
                        {% for user in event.users %}
                          <tbody class="table-striped">
                            <tr>
-                               <td>{{ user.userprofile }}</td>
+                               <td><a href="{{ path('admin_user_show', { 'id': user.userprofile.id }) }}">{{ user.userprofile }}</a>
+                                                            </td>
                                <td>{{ user.smi }}</td>
 
                                    {% for userA in userall %}
                                        {% if userA.userId == user.id %}
                                        <td>
-                                           {{ userA.date | date('d.m.Y') }}
+                                           {{ userA.date | date('d.m.Y') }} <br>
                                        </td>
                                         <td>
                                             <p class="confirm{{ userA.status }}">{{ "forms.buttons.confirm#{userA.status}"|trans }}</p>
