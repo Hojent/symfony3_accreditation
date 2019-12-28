@@ -72,7 +72,7 @@ class EvtipController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_evtip_edit', array('id' => $evtip->getId()));
+            return $this->redirectToRoute('admin_evtip_index', array('id' => $evtip->getId()));
         }
 
         return $this->render('admin/evtip/edit.html.twig', [
