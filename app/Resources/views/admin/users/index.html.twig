@@ -18,14 +18,22 @@
         {% for client in pagination %}
             <tr>
                 <td>
-                    {% if client.user.pictFileName %}
+                    {% if client.user.pictFileName is defined and client.user.pictFileName is not null %}
                         <img width="80px" src ="{{ asset('uploads/photo/' ~ client.user.pictFileName) }}" />
                     {% endif %}
                  </td>
                 <td><a href="{{ path('admin_user_show', { 'id': client.id }) }}">{{ client.family }}</a></td>
                 <td>{{ client.name }} {{ client.secondname }}</td>
-                <td>{{ client.user.smi }}</td>
-                <td>{{ client.user.email }}</td>
+                <td>
+                    {% if client.user.smi is defined and client.user.smi is not null %}
+                        {{ client.user.smi }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if client.user.email  is defined and client.user.email  is not null %}
+                        {{ client.user.email  }}
+                    {% endif %}
+                </td>
                 <td>{{ client.phone }}</td>
                 <td>{{ client.address }}</td>
             </tr>
