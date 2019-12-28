@@ -24,11 +24,17 @@
 
         </div>
         <div class="col-md-4">
-            {% if client.user.pictFileName %}
+            {% if client.user is null %}
+            связь не установлена
+            {% endif %}
+
+            {% if client.user.pictFileName is defined and client.user.pictFileName is not null %}
             <img width="150px" src ="{{ asset('uploads/photo/' ~ client.user.pictFileName) }}" />
             {% endif %}
              <hr>
+            {% if client.user.smi is defined and client.user.smi is not null %}
             <p>{{ client.user.smi }}</p>
+            {% endif %}
         </div>
     {% endblock %}
 {% endblock %}

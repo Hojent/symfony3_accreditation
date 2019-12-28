@@ -35,14 +35,20 @@
             <div class="panel-body">
                 <p> {{ event.brief }}</p>
                 <p>Программа (скачать)</p>
-                {% if app.user  %}
-                    {% if user in event.users %}
-                        <h3>Заявка направлена {{ userevent.date | date('d.m.Y - H:i')}}</h3>
-                        <div class= "alert apply{{ userevent.status }}" >{{ "forms.buttons.apply#{userevent.status}"|trans }}</div>
+                {% if app.user %}
+                    {% if user.userprofile.passportnum is not null  %}
+                        {% if user in event.users %}
+                            <h3>Заявка направлена {{ userevent.date | date('d.m.Y - H:i')}}</h3>
+                            <div class= "alert apply{{ userevent.status }}" >{{ "forms.buttons.apply#{userevent.status}"|trans }}</div>
+                        {% else %}
+                            {{ form_start(apply_form) }}
+                            <input type="submit" class="btn btn-info" value="{{'forms.buttons.apply'|trans }}">
+                            {{ form_end(apply_form) }}
+                        {% endif %}
                     {% else %}
-                        {{ form_start(apply_form) }}
-                        <input type="submit" class="btn btn-info" value="{{'forms.buttons.apply'|trans }}">
-                        {{ form_end(apply_form) }}
+                        <p>Чтобы подать заявку на аккредитацию, пожалуйста, введите в систему Ваши личные данные.</p>
+                        <a class="btn btn-info" href="{{ path('user_profile_edit') }}">{{'forms.buttons.cabinet'|trans }}</a>
+                        <p> Персональные данные хранятся в системе в зашифрованном виде</p>
                     {% endif %}
                 {% endif %}
             </div>

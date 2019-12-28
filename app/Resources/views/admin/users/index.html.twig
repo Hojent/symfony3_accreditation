@@ -18,6 +18,11 @@
         {% for client in pagination %}
             <tr>
                 <td>
+                    {% if client.user is not defined or client.user is null %}
+                        связь не установлена
+                    {% else %}
+                        {{ client.user }}<br>
+                    {% endif %}
                     {% if client.user.pictFileName is defined and client.user.pictFileName is not null %}
                         <img width="80px" src ="{{ asset('uploads/photo/' ~ client.user.pictFileName) }}" />
                     {% endif %}

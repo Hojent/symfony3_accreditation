@@ -24,7 +24,7 @@ class UserProfile
 
     /**
      * One UserProfile has One User.
-     * @ORM\OneToOne(targetEntity="User", inversedBy="userprofile", cascade="persist")
+     * @ORM\OneToOne(targetEntity="User", mappedBy="userprofile")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
@@ -54,7 +54,7 @@ class UserProfile
 
     /**
      * @var DateType
-     * @ORM\Column(name="databorn", type="date", nullable=true)
+     * @ORM\Column(name="databorn", type="string", nullable=true)
      */
     protected $databorn;
 
@@ -68,14 +68,14 @@ class UserProfile
     /**
      * @var string
      *
-     * @ORM\Column(name="passportnum", type="string", nullable=true)
+     * @ORM\Column(name="passportnum", type="string",  nullable=false)
      */
     protected $passportnum;
 
     /**
      * @var DateType
      *
-     * @ORM\Column(name="issuedata", type="date", nullable=true)
+     * @ORM\Column(name="issuedata", type="string", nullable=true)
      */
     protected $issuedata;
 
@@ -360,10 +360,7 @@ class UserProfile
 
     /**
      * Set user
-     *
-     * @param integer $user
-     *
-     * @return UserProfile
+     * @param mixed $user
      */
     public function setUser($user)
     {
@@ -374,7 +371,7 @@ class UserProfile
     /**
      * Get user
      *
-     * @return int
+     * @return mixed
      */
     public function getUser()
     {

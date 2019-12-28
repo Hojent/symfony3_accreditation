@@ -18,13 +18,19 @@ class UserProfileType extends AbstractType
         $builder
             ->add('family',TextType::class, ['label' => 'forms.labels.family'])
             ->add('name', TextType::class, ['label'=> 'forms.labels.name' ])
-            ->add('secondname', TextType::class, ['label'=> 'forms.labels.secondname'])
+            ->add('secondname', TextType::class, [
+                'label'=> 'forms.labels.secondname',
+                'required' => false
+            ])
             ->add('databorn',TextType::class,[
                 'label' => 'forms.labels.databorn',
                 'attr' => ['id' => 'dpd1', 'class' => 'col-sm-2', 'placeholder' => 'dd.mm.YYYY']
             ])
             ->add('privatenum', TextType::class, ['label'=> 'forms.labels.privatenum'])
-            ->add('passportnum', TextType::class, ['label'=> 'forms.labels.passportnum'])
+            ->add('passportnum', TextType::class, [
+                'label'=> 'forms.labels.passportnum',
+                'attr' => ['required' => true]
+            ])
             ->add('issuedata',TextType::class,[
                 'label' => 'forms.labels.issuedata',
                 'attr' => ['id' => 'dpd2', 'class' => 'col-sm-2', 'placeholder' => 'dd.mm.YYYY']
@@ -58,7 +64,7 @@ class UserProfileType extends AbstractType
             ->setDefined('user')
             ->setDefaults([
             'data_class' => UserProfile::class,
-            'required' => false
+            'required' => true
             ]);
     }
 

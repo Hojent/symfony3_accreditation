@@ -2,6 +2,7 @@ forms:
     buttons:
         remove: Удалить
         edit: Редактировать
+        cabinet: Заполнить анкету
         save: Сохранить
         cansel: Отменить
         create: Добавить
