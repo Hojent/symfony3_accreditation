@@ -24,6 +24,7 @@
 
         </div>
         <div class="col-md-4">
+            userid== [ {{ app.user.userprofile.userid }} ]<br>
             <a data-toggle="modal" data-target="#pictModal"><img width="150px" alt="{{ app.user.userprofile }}" src ="{{ asset('uploads/photo/' ~ app.user.pictFileName) }}" /></a>
                         <hr>
             <p>{{ app.user.smi }}</p>

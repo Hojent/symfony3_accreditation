@@ -4,6 +4,7 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Form\UserProfileType;
@@ -14,7 +15,7 @@ use Symfony\Component\Validator\Constraints\File;
 
 class ProfileType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)  //edit_form
     {
         $builder
             ->remove('username')
@@ -45,7 +46,12 @@ class ProfileType extends AbstractType
                     ])
                 ],
             ])
-            ->add('userprofile', UserProfileType::class, ['label' => 'Личные данные']);
+            ->add('userprofile', UserProfileType::class, [
+                'label' => 'Личные данные',
+
+            ])
+
+        ;
     }
 
     public function getParent()

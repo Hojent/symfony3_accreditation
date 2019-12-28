@@ -18,25 +18,25 @@
         {% for client in pagination %}
             <tr>
                 <td>
-                    {% if client.user is not defined or client.user is null %}
+                    {% if client.userid is not defined or client.userid is null %}
                         связь не установлена
                     {% else %}
-                        {{ client.user }}<br>
+                        {{ client.userid }}<br>
                     {% endif %}
-                    {% if client.user.pictFileName is defined and client.user.pictFileName is not null %}
-                        <img width="80px" src ="{{ asset('uploads/photo/' ~ client.user.pictFileName) }}" />
+                    {% if client.userid.pictFileName is defined and client.userid.pictFileName is not null %}
+                        <img width="80px" src ="{{ asset('uploads/photo/' ~ client.userid.pictFileName) }}" />
                     {% endif %}
                  </td>
                 <td><a href="{{ path('admin_user_show', { 'id': client.id }) }}">{{ client.family }}</a></td>
                 <td>{{ client.name }} {{ client.secondname }}</td>
                 <td>
-                    {% if client.user.smi is defined and client.user.smi is not null %}
-                        {{ client.user.smi }}
+                    {% if client.userid.smi is defined and client.userid.smi is not null %}
+                        {{ client.userid.smi }}
                     {% endif %}
                 </td>
                 <td>
-                    {% if client.user.email  is defined and client.user.email  is not null %}
-                        {{ client.user.email  }}
+                    {% if client.userid.email  is defined and client.userid.email  is not null %}
+                        {{ client.userid.email  }}
                     {% endif %}
                 </td>
                 <td>{{ client.phone }}</td>

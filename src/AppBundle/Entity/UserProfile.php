@@ -27,7 +27,7 @@ class UserProfile
      * @ORM\OneToOne(targetEntity="User", mappedBy="userprofile")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user;
+    private $userid;
 
     // user's data ******************************************************
 
@@ -360,22 +360,22 @@ class UserProfile
 
     /**
      * Set user
-     * @param mixed $user
+     * @param mixed
      */
-    public function setUser($user)
+    public function setUserid($userid)
     {
-        $this->user = $user;
+        $this->userid = $userid;
         return $this;
     }
 
     /**
      * Get user
      *
-     * @return mixed
+     * @return User
      */
-    public function getUser()
+    public function getUserid()
     {
-        return $this->user;
+        return $this->userid;
     }
 
     /**

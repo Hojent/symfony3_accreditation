@@ -66,6 +66,7 @@ class UserProfileController extends Controller
     public function editAction(Request $request)
     {
         $user = $this->getUser();
+
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
@@ -82,6 +83,14 @@ class UserProfileController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $up = $form['userprofile']->getData();
+            $uid = $up->getUserid();
+            //var_dump($uid); die();
+            $userprofile = $user->getUserprofile();
+            //var_dump($userprofile); die();
+            $userprofile->setUserid($uid);
+
             $pictFile = $form['pict_file_name']->getData();
 
             if ($pictFile) {

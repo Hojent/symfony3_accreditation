@@ -3,10 +3,12 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use AppBundle\Entity\UserProfile;
+
 
 class UserProfileType extends AbstractType
 {
@@ -15,7 +17,7 @@ class UserProfileType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+           $builder
             ->add('family',TextType::class, ['label' => 'forms.labels.family'])
             ->add('name', TextType::class, ['label'=> 'forms.labels.name' ])
             ->add('secondname', TextType::class, [
@@ -49,9 +51,7 @@ class UserProfileType extends AbstractType
                 'attr' => ['placeholder' => '+375XXXXXXXXX']
                 ])
             ->add('address', TextType::class, ['label'=> 'forms.labels.address'])
-            //->add('photo', null, ['label'=> 'forms.labels.photo'])
-            //->add('application', null, ['label'=> 'forms.labels.application']);
-            //->add('user')
+            ->add('userid', TextType::class, ['disabled' => false])
          ;
     }
 

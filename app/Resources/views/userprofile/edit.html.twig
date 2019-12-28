@@ -12,8 +12,25 @@
         <div class="col-sm-2"><img width="100%" src ="{{ asset('uploads/photo/' ~ app.user.pictFileName) }}" /></div>
         <div class="col-sm-10">
         {{ form_start(edit_form) }}
-          {{ form_widget(edit_form) }}
+            {{ form_row(edit_form.smi) }}
+            {{ form_row(edit_form.pict_file_name) }}
+            <hr>
+            <h3>Личные данные</h3>
+            {{ form_row(edit_form.userprofile.family) }}
+            {{ form_row(edit_form.userprofile.name) }}
+            {{ form_row(edit_form.userprofile.secondname) }}
+            {{ form_row(edit_form.userprofile.databorn) }}
+            {{ form_row(edit_form.userprofile.privatenum) }}
+            {{ form_row(edit_form.userprofile.passportnum) }}
+            {{ form_row(edit_form.userprofile.issuedata) }}
+            {{ form_row(edit_form.userprofile.ruvd) }}
+            {{ form_row(edit_form.userprofile.enddata) }}
+            {{ form_row(edit_form.userprofile.place) }}
+            {{ form_row(edit_form.userprofile.phone) }}
+            {{ form_row(edit_form.userprofile.address) }}
+            {{ form_row(edit_form.userprofile.userid, {'value': app.user.id} ) }}
           <input class ="btn btn-success" type="submit" value="{{'forms.buttons.save'|trans }}" />
+
         {{ form_end(edit_form) }}
         </div>
     {% endblock %}
