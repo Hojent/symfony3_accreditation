@@ -24,8 +24,8 @@ class UserProfile
 
     /**
      * One UserProfile has One User.
-     * @ORM\OneToOne(targetEntity="User", mappedBy="userprofile")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="User", mappedBy="userprofile", cascade= {"persist", "remove"})
+     *
      */
     private $userid;
 

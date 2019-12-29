@@ -21,7 +21,6 @@
             <p><b>{{ 'forms.labels.ruvd' |trans }}</b> {{ app.user.userProfile.ruvd }}</p>
             <p><b>{{ 'forms.labels.enddata' |trans }}</b> {% if app.user.userProfile.enddata %}{{ app.user.userProfile.enddata|date('Y-m-d') }}{% endif %}</p>
             <p><b>{{ "forms.labels.place"|trans }}</b> {{ app.user.userProfile.place }}</p>
-
         </div>
         <div class="col-md-4">
             <a data-toggle="modal" data-target="#pictModal"><img width="150px" alt="{{ app.user.userprofile }}" src ="{{ asset('uploads/photo/' ~ app.user.pictFileName) }}" /></a>

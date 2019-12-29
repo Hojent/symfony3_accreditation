@@ -9,6 +9,11 @@
     {% endblock name %}
     {% block fos_user_content %}
         <div class="col-md-4">
+            {% if client.userid.enabled %}
+                <span class="badge green-bg">Активирован</span>
+            {% else %}
+                <span class="badge red-bg">Не активирован</span>
+            {% endif %}
             <h3 class="card">{{ client.family }} {{ client.name }} {{ client.secondname }} </h3>
             <p><b>{{ 'forms.labels.databorn' |trans }}</b> {% if client.databorn %}{{ client.databorn|date('Y-m-d') }}{% endif %}</p>
             <p><b>{{ 'forms.labels.privatenum' | trans}}</b> {{ client.privatenum }}</p>
@@ -21,16 +26,41 @@
             <p><b>{{ 'forms.labels.ruvd' |trans }}</b> {{ client.ruvd }}</p>
             <p><b>{{ 'forms.labels.enddata' |trans }}</b> {% if client.enddata %}{{ client.enddata|date('Y-m-d') }}{% endif %}</p>
             <p><b>{{ "forms.labels.place"|trans }}</b> {{ client.place }}</p>
-
         </div>
         <div class="col-md-4">
             {% if client.userid.pictFileName is defined and client.userid.pictFileName is not null %}
-            <img width="150px" src ="{{ asset('uploads/photo/' ~ client.userid.pictFileName) }}" />
+                <a data-toggle="modal" data-target="#pictModal">
+                    <img width="150px" src ="{{ asset('uploads/photo/' ~ client.userid.pictFileName) }}" />
+                </a>
             {% endif %}
              <hr>
             {% if client.userid.smi is defined and client.userid.smi is not null %}
             <p>{{ client.userid.smi }}</p>
             {% endif %}
+            {{ form_start(delete_form) }}
+            <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
+            {{ form_end(delete_form) }}
+
+        </div>
+        <div class="modal fade" id="pictModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title" id="exampleModalLabel">{{ app.user.userprofile }}
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </p>
+
+                    </div>
+                    <div class="modal-body">
+                        <img src ="{{ asset('uploads/photo/' ~ client.userid.pictFileName) }}" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
     {% endblock %}
 {% endblock %}
