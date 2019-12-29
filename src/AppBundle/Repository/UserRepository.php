@@ -24,5 +24,15 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
             ->getOneOrNullResult(); //Get exactly one result or null.
     }
 
+    //связь пользователя с профайлом для вывода в общем списке (юзер+профайл)
+    public function loadUserByUserprofile($userprofile)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.userprofile = :userprofile')
+            ->setParameter('userprofile', $userprofile)
+            ->getQuery()
+            ->getOneOrNullResult(); //Get exactly one result or null.
+    }
+
 
 }

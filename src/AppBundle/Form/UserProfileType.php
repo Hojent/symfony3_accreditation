@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -51,7 +52,7 @@ class UserProfileType extends AbstractType
                 'attr' => ['placeholder' => '+375XXXXXXXXX']
                 ])
             ->add('address', TextType::class, ['label'=> 'forms.labels.address'])
-            ->add('userid', TextType::class, ['disabled' => false])
+            //->add('userid', TextType::class, ['disabled' => false])
          ;
     }
 

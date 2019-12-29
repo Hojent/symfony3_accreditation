@@ -24,10 +24,6 @@
 
         </div>
         <div class="col-md-4">
-            {% if client.userid is null %}
-            связь не установлена
-            {% endif %}
-
             {% if client.userid.pictFileName is defined and client.userid.pictFileName is not null %}
             <img width="150px" src ="{{ asset('uploads/photo/' ~ client.userid.pictFileName) }}" />
             {% endif %}

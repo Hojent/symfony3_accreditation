@@ -305,7 +305,6 @@ class UserProfile
     /**
      * Get enddata
      *
-     * @return DateType
      */
     public function getEnddata()
     {
@@ -371,7 +370,7 @@ class UserProfile
     /**
      * Get user
      *
-     * @return User
+     * @return mixed
      */
     public function getUserid()
     {
