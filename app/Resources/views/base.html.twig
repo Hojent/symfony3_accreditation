@@ -110,7 +110,28 @@
                     </a>
                 </li>
 
+                <li class="sub-menu">
+                    <a class="" href="#">
+                        <i class="icon_mail"></i>
+                        <span>Администратор</span>
+                    </a>
+                </li>
+
                 {% if is_granted ('ROLE_ADMIN') %}
+
+                    <li class="sub-menu">
+                        <a class="" href="{{ path('admin_smi_index') }}">
+                            <i class="icon_documents_alt"></i>
+                            <span>СМИ</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a class="" href="{{ path('user_list') }}">
+                            <i class="icon_group"></i>
+                            <span>Пользователи</span>
+                        </a>
+                    </li>
+
                     <li class="sub-menu">
                         <a href="javascript:;" class="">
                             <i class="icon_key"></i>
@@ -124,17 +145,8 @@
                             <li><a class="" href="{{ path('admin_evtip_index') }}">Типы мероприятий</a></li>
                         </ul>
                     </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;" class="">
-                            <i class="icon_key"></i>
-                            <span>Таблицы</span>
-                            <span class="menu-arrow arrow_carrot-right"></span>
-                        </a>
-                        <ul class="sub">
-                            <li><a class="" href="{{ path('admin_smi_index') }}">СМИ</a></li>
-                            <li><a class="" href="{{ path('user_list') }}">Пользователи</a></li>
-                        </ul>
-                    </li>
+
+
                 {% endif %}
             </ul>
             <!-- sidebar menu end-->
