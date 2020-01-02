@@ -1,0 +1,23 @@
+﻿{% extends 'base.html.twig' %}
+
+{% block body %}
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <p class="modal-title" id="exampleModalLabel">Письмо администратору системы</p>
+            </div>
+            <div class="modal-body">
+                {{ form_start(contact_form) }}
+                    {{ form_widget(contact_form) }}
+                <input type="hidden" name="token" value="{{ csrf_token('adminemail') }}" />
+                {{ form_end(contact_form) }}
+            </div>
+            <div class="modal-footer">
+
+            </div>
+
+
+        </div>
+
+{% endblock %}
