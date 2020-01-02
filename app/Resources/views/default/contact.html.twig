@@ -10,7 +10,6 @@
             <div class="modal-body">
                 {{ form_start(contact_form) }}
                     {{ form_widget(contact_form) }}
-                <input type="hidden" name="token" value="{{ csrf_token('adminemail') }}" />
                 {{ form_end(contact_form) }}
             </div>
             <div class="modal-footer">
