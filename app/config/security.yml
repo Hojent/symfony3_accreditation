@@ -62,6 +62,8 @@ security:
         - { path: ^/admin, role: ROLE_ADMIN }
         - { path: ^/profile, role: ROLE_USER}
         - { path: ^/event/, role: ROLE_USER}
+        - { path: ^/region, role: ROLE_ADMIN}
+        - { path: ^/city, role: ROLE_ADMIN}
 
     role_hierarchy:
             ROLE_MODERATOR:           [ROLE_USER]
