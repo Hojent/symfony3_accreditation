@@ -77,7 +77,12 @@
        <div class="row">
            <section class="panel">
                <header class="panel-heading">
-                   Заявки на аккредитацию
+                   <div class="row">
+                       <div class="col-sm-10">Заявки на аккредитацию</div>
+                       <div class="col-sm-2">
+                        <a href="{{ path('event_print_users', { 'id': event.id }) }}">Выгрузить в файл</a>
+                       </div>
+                   </div>
                </header>
                <div class="panel-body">
                    <table class="table">
