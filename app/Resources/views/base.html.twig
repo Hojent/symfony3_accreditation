@@ -50,7 +50,8 @@
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="profile-ava">
-                                <img alt="" src="{{ asset('img/avatar1_small.jpg') }}">
+                                <img  height="40px" src ="{{ asset('uploads/photo/' ~ app.user.pictFileName) }}" />
+
                             </span>
                         <span class="username">{{ app.user.userprofile.family }}</span>
                         <b class="caret"></b>
