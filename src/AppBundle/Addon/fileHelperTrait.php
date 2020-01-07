@@ -122,18 +122,18 @@ trait fileHelperTrait
                 mso-bidi-font-size:10.0pt; 
             font-family:"Verdana"; 
             mso-fareast-font-family:"Verdana";} 
-        @page Section1  
-            {          
-            mso-page-orientation:landscape;        
-            size:29см 21см; 
-            margin:3см 1.5см 1.5in 1.5in; 
-            mso-header-margin:1.0см; 
-            mso-footer-margin:1.0см; 
-            mso-paper-source:0;            
-            }        
-           
-        div.Section1 
-            {page:Section1;} 
+          
+            
+         @page WordSection1
+            {size:841.9pt 595.3pt;
+            mso-page-orientation:landscape;
+            margin:3.0cm 2.0cm 42.5pt 2.0cm;
+            mso-header-margin:35.4pt;
+            mso-footer-margin:35.4pt;
+            mso-paper-source:0;}
+        div.WordSection1
+            {page:WordSection1;}     
+                
         --> 
         </style> 
         <!--[if gte mso 9]><xml> 
@@ -145,7 +145,8 @@ trait fileHelperTrait
          </o:shapelayout></xml><![endif]--> 
          $this->htmlHead
          </head>
-         <body> 
+         <body>
+         <div class=WordSection1> 
 HEREDOC;
         return $code;
     }
@@ -156,7 +157,7 @@ HEREDOC;
      * @return String
      */
     function getFotter(){
-        return "</body></html>";
+        return "</div></body></html>";
     }
 
     /**

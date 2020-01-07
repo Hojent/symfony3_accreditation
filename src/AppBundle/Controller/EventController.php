@@ -6,6 +6,7 @@ use AppBundle\Entity\User;
 use AppBundle\Entity\UserEvent;
 use AppBundle\Entity\UserProfile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use AppBundle\Entity\Event;
@@ -13,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+
 
 
 /**
@@ -112,8 +114,8 @@ class EventController extends Controller
         $print = "<h2>";
         $print .= $event->getTitle()."<br>Список журналистов</h2>";
         $print .= "<table border='1' cellspacing='0' cellpadding='4'>";
-        $print .= "<thead><tr><th>N</th><th>ФИО</th><th>СМИ</th><th>Дата рождения</th><th>Личный номер</th>";
-        $print .= "<th>Паспортные данные</th><th>Адрес/Телефон</th><th>Заявка принята</th></tr></thead>";
+        $print .= "<thead><tr><th>N</th><th>ФИО</th><th>СМИ</th><th>Дата<br>рождения</th><th>Личный<br>номер</th>";
+        $print .= "<th>Паспортные<br> данные</th><th>Адрес,<br>Телефон</th><th>Заявка</th></tr></thead>";
         $n = 0;
         $status = ['на рассмотрении','принята','отклонена'];
         foreach ($userall as $ue) {
@@ -145,7 +147,12 @@ class EventController extends Controller
         $file_list = "list-".$event->getTitle();
         $this->createDoc($print, $file_list, 1);
 
-        return $this->redirectToRoute('event_show', ['id' => $event->getId(), 'success' => 'yess!']);
+        //return $this->redirectToRoute('event_show', ['id' => $event->getId()]);
+        return new Response(
+            'Ok',
+            Response::HTTP_OK,
+            ['content-type' => 'text/html']
+        );
     }
 
     /**
