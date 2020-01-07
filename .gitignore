@@ -16,4 +16,5 @@
 /vendor/
 /web/bundles/
 /web/index.php
+/web/uploads/*
 /.idea/*

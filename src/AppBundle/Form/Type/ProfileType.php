@@ -46,6 +46,54 @@ class ProfileType extends AbstractType
                     ])
                 ],
             ])
+            ->add('doc1', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+                'constraints' => [
+                    new File([
+                        'maxSize' => '256k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/msword',
+                        ],
+                        'mimeTypesMessage' => 'Неверный размер или формат файла',
+                    ])
+                ],
+            ])
+            ->add('doc2', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+                'constraints' => [
+                    new File([
+                        'maxSize' => '256k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/msword',
+                        ],
+                        'mimeTypesMessage' => 'Неверный размер или формат файла',
+                    ])
+                ],
+            ])
+            ->add('doc3', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+                'constraints' => [
+                    new File([
+                        'maxSize' => '256k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/msword',
+                        ],
+                        'mimeTypesMessage' => 'Неверный размер или формат файла',
+                    ])
+                ],
+            ])
             ->add('userprofile', UserProfileType::class, [
                 'label' => 'Личные данные',
 

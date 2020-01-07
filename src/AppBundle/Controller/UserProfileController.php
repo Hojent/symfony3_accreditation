@@ -18,8 +18,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Userprofile controller.
@@ -50,8 +48,15 @@ class UserProfileController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
+        $userdir = $this->getParameter('documents_directory').'/'.$user->getUsername().$user->getId();
+        if (!is_dir($userdir)) {
+            mkdir($userdir);
+        }
+        $files = $scanned_directory = array_diff(scandir($userdir), ['..', '.']);
+
         return $this->render('userprofile/show.html.twig', [
             'user' => $user,
+            'files' =>$files,
         ]);
     }
 
@@ -81,6 +86,11 @@ class UserProfileController extends Controller
         $form = $this->createForm('AppBundle\Form\Type\ProfileType');
         $form->setData($user);
         $form->handleRequest($request);
+        $userdir = $this->getParameter('documents_directory').'/'.$user->getUsername().$user->getId();
+        if (!is_dir($userdir)) {
+            mkdir($userdir);
+        }
+        $files = array_diff(scandir($userdir), ['..', '.']);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -90,13 +100,16 @@ class UserProfileController extends Controller
             $userprofile = $user->getUserprofile();
             //var_dump($userprofile); die();
             $userprofile->setUserid($uid);
-
             $pictFile = $form['pict_file_name']->getData();
-
+            $doc1 = $form['doc1']->getData();
+            $doc2 = $form['doc2']->getData();
+            $doc3 = $form['doc3']->getData();
+            $documents = [$doc1,$doc2,$doc3];
+            //----------- files section
+            //user's avatar
             if ($pictFile) {
-                 $newFilename = $user->getUsername().$user->getId().'.' . $pictFile->guessExtension();
-                 $user->setPictFileName($newFilename);
-
+                $newFilename = $user->getUsername().$user->getId().'.' . $pictFile->guessExtension();
+                $user->setPictFileName($newFilename);
                 //$user->setPictFileName(
                 //    new File($this->getParameter('clients_directory').'/'.$user->getPictFileName())
                 //);
@@ -110,9 +123,25 @@ class UserProfileController extends Controller
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
-
-
             }
+            // documents - max 3 files
+            $i =1;
+            foreach ($documents as $document) {
+                if ($document) {
+                    $newFilename = $user->getUsername() . $user->getId().'-doc'.$i.'.'.$document->guessExtension();
+                    // Move the file to the directory where documents are stored
+                    try {
+                        $document->move(
+                            $userdir,
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+                    }
+                }
+                $i += 1;
+            }
+            //----------------------------------------
 
             $event = new FormEvent($form, $request);
             $this->eventDispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
@@ -131,6 +160,7 @@ class UserProfileController extends Controller
 
         return $this->render('userprofile/edit.html.twig', array(
             'edit_form' => $form->createView(),
+            'files' => $files,
         ));
     }
 

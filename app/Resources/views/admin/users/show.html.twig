@@ -19,6 +19,12 @@
             <p><b>{{ 'forms.labels.privatenum' | trans}}</b> {{ client.privatenum }}</p>
             <p><b>{{ 'forms.labels.phone'|trans }}</b> {{ client.phone }}</p>
             <p><b>{{'forms.labels.address' |trans }}</b> {{ client.address }}</p>
+            <hr>
+            <p><b>Файлы пользователя:</b></p>
+            {% for file in files %}
+                <a href="{{ asset('uploads/doc/' ~ client.userid.username ~ client.userid.id ~ '/' ~ file ) }}">{{ file }}</a>,<br>
+            {% endfor %}
+
         </div>
         <div class="col-md-4">
             <p><b>{{ 'forms.labels.passportnum'|trans }}</b> {{ client.passportnum }}</p>

@@ -56,10 +56,17 @@ class UserAdminController extends Controller
         $user = $em->getRepository(User::class)->loadUserByUserprofile($userprofile);
         $uid = $user->getId();
         $deleteForm = $this->createDeleteForm($userprofile);
+        $userdir = $this->getParameter('documents_directory').'/'.$user->getUsername().$user->getId();
+        if (is_dir($userdir)) {
+           $files = array_diff(scandir($userdir), ['..', '.']);
+        } else {
+            $files = [];
+        }
         return $this->render('admin/users/show.html.twig', [
             'client' => $userprofile,
             'uid' => $uid,
             'delete_form' => $deleteForm->createView(),
+            'files' => $files,
         ]);
     }
 

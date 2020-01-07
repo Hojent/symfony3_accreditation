@@ -14,6 +14,19 @@
         {{ form_start(edit_form) }}
             {{ form_row(edit_form.smi) }}
             {{ form_row(edit_form.pict_file_name) }}
+            <div class="row">
+                <p><b>Файлы пользователя:</b> (dir/ {{ app.user.username }}{{ app.user.id }} )</p>
+                <p>
+                    {% for file in files %}
+                        <a href="{{ asset('uploads/doc/' ~ app.user.username ~ app.user.id ~ '/' ~ file ) }}">{{ file }}</a>,
+                    {% endfor %}
+
+                </p>
+                <p>Добавить файлы (PDF, DOC). Размер не более 256 kB. (справки, сканы документов и т.д.)</p>
+                <div class="col-sm-4">{{ form_row(edit_form.doc1) }}</div>
+                <div class="col-sm-4">{{ form_row(edit_form.doc2) }}</div>
+                <div class="col-sm-4">{{ form_row(edit_form.doc3) }}</div>
+            </div>
             <hr>
             <h3>Личные данные</h3>
             {{ form_row(edit_form.userprofile.family) }}

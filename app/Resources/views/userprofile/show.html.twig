@@ -14,6 +14,13 @@
             <p><b>{{ 'forms.labels.privatenum' | trans}}</b> {{ app.user.userProfile.privatenum }}</p>
             <p><b>{{ 'forms.labels.phone'|trans }}</b> {{ app.user.userProfile.phone }}</p>
             <p><b>{{'forms.labels.address' |trans }}</b> {{ app.user.userprofile.address }}</p>
+            <hr>
+            <p>Загруженные файлы:<br>
+                {% for file in files %}
+                    <a href="{{ asset('uploads/doc/' ~ app.user.username ~ app.user.id ~ '/' ~ file ) }}">{{ file }}</a><br>
+                {% endfor %}
+
+            </p>
         </div>
         <div class="col-md-4">
             <p><b>{{ 'forms.labels.passportnum'|trans }}</b> {{ app.user.userProfile.passportnum }}</p>
