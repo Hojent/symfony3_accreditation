@@ -128,7 +128,7 @@ class UserProfileController extends Controller
             $i =1;
             foreach ($documents as $document) {
                 if ($document) {
-                    $newFilename = $user->getUsername() . $user->getId().'-doc'.$i.'.'.$document->guessExtension();
+                    $newFilename = $document->getClientOriginalName();
                     // Move the file to the directory where documents are stored
                     try {
                         $document->move(
@@ -152,9 +152,7 @@ class UserProfileController extends Controller
                 $url = $this->generateUrl('user_profile_show');
                 $response = new RedirectResponse($url);
             }
-
             $this->eventDispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
             return $response;
         }
 
@@ -164,5 +162,24 @@ class UserProfileController extends Controller
         ));
     }
 
+    //----------------------------------
+    /**
+     * Deletes a file.
+     *
+     * @Route("/user/edit/{filename}", name="user_file_delete")
+     *
+     */
+    public function deleteFileAction($filename)
+    {
+        $user = $this->getUser();
+        $realfile = 'uploads/doc/'.$user->getUsername().$user->getId().'/'.$filename;
+        if (file_exists(realpath($realfile))) {
+            unlink(realpath($realfile));
+            $this->addFlash('success', 'Файл ' . $filename . ' удален!');
+        }
+        else {
+                $this->addFlash('error', 'Файл ' . $realfile . ' не найден!');
+          }
+        return $this->redirectToRoute('user_profile_edit');
+    }
 }
-

@@ -71,7 +71,7 @@
                             <a href="{{ path('fos_user_security_logout') }}"><i class="icon_key_alt"></i>Выйти</a>
                         </li>
                         <li>
-                            <a href=""><i class="icon_document"></i>Инструкция</a>
+                            <a href=""><i class="icon_document"></i>Положение</a>
                         </li>
                     </ul>
                 </li>
@@ -105,6 +105,12 @@
                     <a class="" href="{{ path('contact_email') }}">
                         <i class="icon_mail"></i>
                         <span>Администратор</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a class="" href="#">
+                        <i class="icon_documents"></i>
+                        <span>Положение<br> об аккредитации</span>
                     </a>
                 </li>
 
@@ -159,6 +165,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-9">
+                    {% include 'block/flashbag.html.twig' %}
                     {% block body %}
                             {% block name %} {% endblock %}
                             {% block fos_user_content %}{% endblock %}

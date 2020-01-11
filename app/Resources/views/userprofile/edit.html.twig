@@ -15,17 +15,50 @@
             {{ form_row(edit_form.smi) }}
             {{ form_row(edit_form.pict_file_name) }}
             <div class="row">
-                <p><b>Файлы пользователя:</b> (dir/ {{ app.user.username }}{{ app.user.id }} )</p>
+                {% set userdir = app.user.username ~ app.user.id %}
+                <p><b>Файлы пользователя:</b> (dir/{{ userdir }} )</p>
                 <p>
-                    {% for file in files %}
-                        <a href="{{ asset('uploads/doc/' ~ app.user.username ~ app.user.id ~ '/' ~ file ) }}">{{ file }}</a>,
-                    {% endfor %}
+                    {% if files %}
+                        <div class="alert alert-info">
+                            <p>Загруженные файлы:</p>
+                            <ul>
+                                {% set i = 0 %}
+                                {% for file in files %}
+                                    {% set file_path = 'uploads/doc/' ~ userdir ~ '/' ~ file %}
+                                <li><a href="{{ asset(file_path) }}" alt="скачать">
+                                        {{ file }}</a>
+                                    <a data-href="{{ path('user_file_delete', {'filename':file}) }}" alt="удалить" data-toggle="modal" data-target="#confirm-delete{{ i }}">
+                                        <span class="badge red-bg">&times;</span>
+                                    </a></li>
+                                    <div class="modal fade" id="confirm-delete{{ i }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    Удалить файл?
+                                                </div>
+                                                <div class="modal-body">
+                                                    Вы собираетесь удалить файл {{ file }}. Подтвердите свои действия.
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                    <a class="btn btn-danger btn-ok" href="{{ path('user_file_delete', {'filename':file}) }}" >Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% set i = i+1 %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                    {% else %}<div class="alert alert-warning">Нет загруженных файлов.</div>
+                    {% endif %}
 
                 </p>
                 <p>Добавить файлы (PDF, DOC). Размер не более 256 kB. (справки, сканы документов и т.д.)</p>
-                <div class="col-sm-4">{{ form_row(edit_form.doc1) }}</div>
-                <div class="col-sm-4">{{ form_row(edit_form.doc2) }}</div>
-                <div class="col-sm-4">{{ form_row(edit_form.doc3) }}</div>
+                <div >{{ form_row(edit_form.doc1) }}</div>
+                <div >{{ form_row(edit_form.doc2) }}</div>
+                <div >{{ form_row(edit_form.doc3) }}</div>
             </div>
             <hr>
             <h3>Личные данные</h3>
