@@ -11,8 +11,14 @@
         <div class="col-md-4">
             {% if client.userid.enabled %}
                 <span class="badge green-bg">Активирован</span>
+            <a href="{{ path('admin_user_block', {'id':client.id}) }}">
+                <span class="badge orange-bg">Блокировать</span>
+            </a>
             {% else %}
                 <span class="badge red-bg">Не активирован</span>
+                <a href="{{ path('admin_user_unblock', {'id':client.id}) }}">
+                    <span class="badge green-bg">Активировать</span>
+                </a>
             {% endif %}
             <h3 class="card">{{ client.family }} {{ client.name }} {{ client.secondname }} </h3>
             <p><b>{{ 'forms.labels.databorn' |trans }}</b> {% if client.databorn %}{{ client.databorn|date('Y-m-d') }}{% endif %}</p>
@@ -22,7 +28,7 @@
             <hr>
             <p><b>Файлы пользователя:</b></p>
             {% for file in files %}
-                <a href="{{ asset('uploads/doc/' ~ client.userid.username ~ client.userid.id ~ '/' ~ file ) }}">{{ file }}</a>,<br>
+                <a href="{{ asset('uploads/doc/' ~ client.userid.username ~ client.userid.id ~ '/' ~ file ) }}">{{ file }}</a><br>
             {% endfor %}
 
         </div>
@@ -43,10 +49,37 @@
             {% if client.userid.smi is defined and client.userid.smi is not null %}
             <p>{{ client.userid.smi }}</p>
             {% endif %}
-            {{ form_start(delete_form) }}
-            <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
-            {{ form_end(delete_form) }}
+            <div class="row>">
+                <div class="col-sm-6">
+                    <a class="btn btn-danger btn-ok" href="#" data-toggle="modal" data-target="#confirm-delete{{ client.userid.id }}" >{{'forms.buttons.remove'|trans }}</a>
+                </div>
+                <div class="modal fade" id="confirm-delete{{ client.userid.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                Удалить пользователя?
+                            </div>
+                            <div class="modal-body">
+                                Вы собираетесь удалить пользователя {{ client }}. Подтвердите свои действия.
+                            </div>
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                    {{ form_start(delete_form) }}
+                                    <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
+                                    {{ form_end(delete_form) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+
+            </div>
         </div>
         <div class="modal fade" id="pictModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

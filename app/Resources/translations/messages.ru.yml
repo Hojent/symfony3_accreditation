@@ -1,6 +1,7 @@
 forms:
     buttons:
         remove: Удалить
+        block: Блокировать
         edit: Редактировать
         cabinet: Заполнить анкету
         save: Сохранить

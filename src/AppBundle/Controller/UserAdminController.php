@@ -83,6 +83,7 @@ class UserAdminController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            //$event->removeUser($user->getUserid());
             $em->remove($user);
             $em->flush();
         }
@@ -105,6 +106,31 @@ class UserAdminController extends Controller
             ->getForm()
             ;
     }
+
+    /**
+     * Blocks user.
+     * @Route("/{id}/block", name="admin_user_block")
+     */
+    public function blockAction(Request $request, UserProfile $user)
+    {
+            $em = $this->getDoctrine()->getManager();
+            $user->getUserid()->setEnabled(false);
+            $em->flush();
+        return $this->redirectToRoute('user_list');
+    }
+
+    /**
+     * Unblocks user.
+     * @Route("/{id}/unblock", name="admin_user_unblock")
+     */
+    public function unblockAction(Request $request, UserProfile $user)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user->getUserid()->setEnabled(true);
+        $em->flush();
+        return $this->redirectToRoute('user_list');
+    }
+
 
 }
 

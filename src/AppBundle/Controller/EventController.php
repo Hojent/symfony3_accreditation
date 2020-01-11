@@ -115,7 +115,7 @@ class EventController extends Controller
         $print .= $event->getTitle()."<br>Список журналистов</h2>";
         $print .= "<table border='1' cellspacing='0' cellpadding='4'>";
         $print .= "<thead><tr><th>N</th><th>ФИО</th><th>СМИ</th><th>Дата<br>рождения</th><th>Личный<br>номер</th>";
-        $print .= "<th>Паспортные<br> данные</th><th>Адрес,<br>Телефон</th><th>Заявка</th></tr></thead>";
+        $print .= "<th>Паспортные<br> данные</th><th>Адрес,<br>Телефон</th><th>Заявка</th><th>Блок</th></tr></thead>";
         $n = 0;
         $status = ['на рассмотрении','принята','отклонена'];
         foreach ($userall as $ue) {
@@ -140,6 +140,11 @@ class EventController extends Controller
                     break;
                 }
             }
+            $print .= "<td>";
+            if (!$ue->isEnabled()) {
+                $print .= "<h2 align=center style='text-align:center;font-weight: bold'>&times;</h2>";
+            }
+            $print .= "</td>";
             $print .= "</tr>";
         }
         $print .= "</table>";

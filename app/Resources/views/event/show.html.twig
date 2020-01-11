@@ -90,6 +90,7 @@
                        <thead>
                        <tr>
                            <th>Пользователь</th>
+                           <th>Блок</th>
                            <th>СМИ</th>
                            <th>Дата</th>
                            <th>Статус</th>
@@ -102,6 +103,11 @@
                            <tr>
                                <td><a href="{{ path('admin_user_show', { 'id': user.userprofile.id }) }}">{{ user.userprofile }}</a>
                                                             </td>
+                               <td>
+                                   {% if user.enabled == false %}
+                                       <span class="badge red-bg">&times;</span>
+                                   {% endif %}
+                               </td>
                                <td>{{ user.smi }}</td>
 
                                    {% for userA in userall %}
