@@ -44,13 +44,11 @@
                 <a class="btn btn-danger btn-ok" href="#" data-toggle="modal" data-target="#confirm-delete" >{{'forms.buttons.remove'|trans }}</a>
             </div>
         </div>
-
-
         <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        Удалить пользователя?
+                        Удалить СМИ?
                     </div>
                     <div class="modal-body">
                         Вы собираетесь удалить "{{ smi.title }}". Подтвердите свои действия.
@@ -70,8 +68,6 @@
                 </div>
             </div>
         </div>
-
-
     {% endif %}
 </div>
 {% endblock %}
