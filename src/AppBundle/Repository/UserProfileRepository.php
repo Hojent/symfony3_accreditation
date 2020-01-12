@@ -12,9 +12,10 @@ class UserProfileRepository extends \Doctrine\ORM\EntityRepository
 {
     public function listAll () {
         $qb = $this->createQueryBuilder('up')
+            ->where('up.id != :adid')
+            ->setParameter('adid', 4)
             ->orderBy('up.family', 'ASC')
             ->getQuery();
-
         return $qb;
     }
 }
