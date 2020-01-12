@@ -7,11 +7,43 @@
             {{ form_widget(edit_form) }}
             <input type="submit" class="btn btn-primary" value="{{'forms.buttons.save'|trans }}" />
             {{ form_end(edit_form) }}
+<br>
+    <div class="row">
+        <div class="col-sm-2">
+           <a class="btn btn-info" href="{{ path('admin_smi_index') }}">{{'forms.buttons.cansel'|trans }}</a>
+        </div>
+        <div class="col-sm-2">
+          <a class="btn btn-danger btn-ok" href="#" data-toggle="modal" data-target="#confirm-delete" >{{'forms.buttons.remove'|trans }}</a>
+        </div>
+    </div>
 
-   <br>
-            {{ form_start(delete_form) }}
-            <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
-            <a class="btn btn-info" href="{{ path('admin_smi_index') }}">{{'forms.buttons.cansel'|trans }}</a>
-            {{ form_end(delete_form) }}
+        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        Удалить пользователя?
+                    </div>
+                    <div class="modal-body">
+                        Вы собираетесь удалить "{{ smi.title }}". Подтвердите свои действия.
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <button type="button" class="btn btn-info" data-dismiss="modal">{{'forms.buttons.cansel'|trans }}</button>
+                            </div>
+                            <div class="col-sm-6">
+                                {{ form_start(delete_form) }}
+                                <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
+                               {{ form_end(delete_form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
 
 {% endblock %}
