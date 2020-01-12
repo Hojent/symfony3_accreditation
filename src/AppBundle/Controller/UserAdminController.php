@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class UserAdminController extends Controller
 {
-    private const PER_PAGE = 20;
+    private const PER_PAGE = 10;
 
     /**
      * @Route("/", name="user_list")     *
@@ -116,7 +116,7 @@ class UserAdminController extends Controller
             $em = $this->getDoctrine()->getManager();
             $user->getUserid()->setEnabled(false);
             $em->flush();
-        return $this->redirectToRoute('user_list');
+        return $this->redirectToRoute('admin_user_show', ['id' => $user->getId()]);
     }
 
     /**
@@ -128,7 +128,7 @@ class UserAdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user->getUserid()->setEnabled(true);
         $em->flush();
-        return $this->redirectToRoute('user_list');
+        return $this->redirectToRoute('admin_user_show', ['id' => $user->getId()]);
     }
 
 

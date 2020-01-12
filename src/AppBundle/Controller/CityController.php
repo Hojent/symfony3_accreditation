@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  */
 class CityController extends Controller
 {
-    protected const PER_PAGE = 4;
+    protected const PER_PAGE = 15;
 
     /**
      * Lists all city entities.
