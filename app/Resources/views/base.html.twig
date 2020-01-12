@@ -50,8 +50,11 @@
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="profile-ava">
+                                {% if app.user.pictFileName %}
                                 <img  height="40px" src ="{{ asset('uploads/photo/' ~ app.user.pictFileName) }}" />
-
+                                {% else %}
+                                <img  height="40px" src ="{{ asset('uploads/photo/pict' ~ random(1,2) ~'.jpg') }}" />
+                                {%  endif %}
                             </span>
                         <span class="username">{{ app.user.userprofile.family }}</span>
                         <b class="caret"></b>
