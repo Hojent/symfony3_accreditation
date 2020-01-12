@@ -46,9 +46,12 @@
                     <td>{{ event.dataEnd |date('d.m.Y') }}</td>
                     <td>
                         {% for user in event.users if user == app.user %}
-                            <i>заявка подана</i>
+                            <p><i>заявка подана</i></p>
                         {% else %}
                         {% endfor %}
+                        {% if is_granted ('ROLE_ADMIN') %}
+                            {{ event.users|length }} чел.
+                        {% endif %}
                     </td>
                     {% if is_granted ('ROLE_ADMIN') %}
                         <td>

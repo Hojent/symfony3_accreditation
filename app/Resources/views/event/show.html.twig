@@ -35,7 +35,9 @@
             <div class="panel-body">
                 <p> {{ event.brief }}</p>
                 <p>Программа (скачать)</p>
-                {% if app.user %}
+                {% if is_granted ('ROLE_ADMIN') %}<br>
+                    <h4>Поступили заявки от {{ event.users|length }} чел.</h4>
+                {% elseif app.user %}
                     {% if user.userprofile.passportnum is not null  %}
                         {% if user in event.users %}
                             <h3>Заявка направлена {{ userevent.date | date('d.m.Y - H:i')}}</h3>
@@ -50,6 +52,7 @@
                         <a class="btn btn-info" href="{{ path('user_profile_edit') }}">{{'forms.buttons.cabinet'|trans }}</a>
                         <p> Персональные данные хранятся в системе в зашифрованном виде</p>
                     {% endif %}
+
                 {% endif %}
             </div>
         </section>
