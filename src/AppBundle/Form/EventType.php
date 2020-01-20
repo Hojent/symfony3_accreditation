@@ -2,12 +2,16 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\City;
+use AppBundle\Entity\Region;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class EventType extends AbstractType
 {
@@ -41,12 +45,31 @@ class EventType extends AbstractType
             //    'label' => 'создано',
             //    'attr' => ['class' => 'col-sm2']
             //])
-            ->add('region',null, [
-                'label' => 'Область'
+            ->add('region', EntityType::class, [
+                'class' => Region::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('r')
+                        ->orderBy('r.name', 'ASC');
+                },
+                'label' => 'Регион',
+                'attr' => ['class' => 'form-control']
             ])
-            ->add('city', null, [
+            ->add('city', EntityType::class, [
+                'class' => City::class,
+                //'choices' => $builder->getData()->getRegion(),
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                       // ->where('c.region = :region')
+                       // ->setParameter('region', 2)
+
+                        ->orderBy('c.name', 'ASC');
+                },
                 'label' => 'Город',
+                'attr' => ['class' => 'form-control']
             ])
+            /*->add('city', null, [
+                'label' => 'Город',
+            ])*/
             ->add('address', TextType::class, ['label' => 'Адрес'])
             ->add('evtip', null, [
                 'label' => 'Тип мероприятия',
