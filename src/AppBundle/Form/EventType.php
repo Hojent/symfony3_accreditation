@@ -12,11 +12,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class EventType extends AbstractType
 {
     /**
      * {@inheritdoc}
+     * Event|null $event
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -45,37 +48,53 @@ class EventType extends AbstractType
             //    'label' => 'создано',
             //    'attr' => ['class' => 'col-sm2']
             //])
-            ->add('region', EntityType::class, [
-                'class' => Region::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('r')
-                        ->orderBy('r.name', 'ASC');
-                },
-                'label' => 'Регион',
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('city', EntityType::class, [
-                'class' => City::class,
-                //'choices' => $builder->getData()->getRegion(),
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')
-                       // ->where('c.region = :region')
-                       // ->setParameter('region', 2)
-
-                        ->orderBy('c.name', 'ASC');
-                },
-                'label' => 'Город',
-                'attr' => ['class' => 'form-control']
-            ])
-            /*->add('city', null, [
-                'label' => 'Город',
-            ])*/
             ->add('address', TextType::class, ['label' => 'Адрес'])
             ->add('evtip', null, [
                 'label' => 'Тип мероприятия',
             ])
+            ->add('region', EntityType::class, [
+                'class' => Region::class,
+                'placeholder' => 'Выберите регион',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('r')
+                        ->orderBy('r.name', 'ASC');
+                },
+                'required' => false,
+                'label' => 'Регион',
+                'attr' => ['class' => 'form-control']
+            ]);
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) {
+                    $data = $event->getData();
+                if (null == $data->getRegion()) {
+                    return;
+                }
+                else {
+                    $form = $event->getForm();
+                    $region = $data->getRegion()->getId();
+                    $formOptions = [
+                        'class' => City::class,
+                        'placeholder' => 'Where exactly?',
+                        //'choice_label' => 'fullName',
+                        'query_builder' => function (EntityRepository $er) use ($region) {
+                            return $er->createQueryBuilder('c')
+                                ->where('c.region = :region')
+                                ->setParameter('region', $region)
+                                ->orderBy('c.name', 'ASC');
+                        },
+                        'required' => false,
+                        'label' => 'Город',
+                    ];
+
+                }
+                $form->add('city', EntityType::class, $formOptions);
+            })
             ->setMethod('GET');
-    }/**
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -84,6 +103,11 @@ class EventType extends AbstractType
              'data_class' => 'AppBundle\Entity\Event',
 
         ]);
+    }
+
+    public function getCities($region = null)
+    {
+
     }
 
 }
