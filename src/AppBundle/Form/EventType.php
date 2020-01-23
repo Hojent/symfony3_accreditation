@@ -7,6 +7,7 @@ use AppBundle\Entity\Region;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,6 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+
 
 class EventType extends AbstractType
 {
@@ -52,7 +54,10 @@ class EventType extends AbstractType
             ->add('evtip', null, [
                 'label' => 'Тип мероприятия',
             ])
-            ->add('region', EntityType::class, [
+           /* ->add('region', FormType::class,[
+                'data_class' => CityRegionFilterType::class,
+            ])*/
+           ->add('region', EntityType::class, [
                 'class' => Region::class,
                 'placeholder' => 'Выберите регион',
                 'query_builder' => function (EntityRepository $er) {
@@ -62,17 +67,30 @@ class EventType extends AbstractType
                 'required' => false,
                 'label' => 'Регион',
                 'attr' => ['class' => 'form-control']
-            ]);
+            ])
+
+        ;
 
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) {
                     $data = $event->getData();
+                    $form = $event->getForm();
                 if (null == $data->getRegion()) {
-                    return;
+                    $formOptions = [
+                        'class' => City::class,
+                        'placeholder' => 'Where exactly?',
+                        //'choice_label' => 'fullName',
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('c')
+                                ->orderBy('c.name', 'ASC');
+                        },
+                        'required' => false,
+                        'label' => 'Город',
+                    ];
                 }
                 else {
-                    $form = $event->getForm();
+
                     $region = $data->getRegion()->getId();
                     $formOptions = [
                         'class' => City::class,

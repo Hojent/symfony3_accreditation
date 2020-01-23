@@ -16,7 +16,7 @@ class CityFilterEntity
      */
     protected $region;    //to gard form external influence. For child only.
 
-    public function getRegion(): ?Region
+    public function getRegion(): ? Region
     {
         return $this->region;
     }

@@ -19,15 +19,18 @@
             </div>
             <div class="row">
                 <div class="col-sm-6" id="region">
-                {{ form_label(form.region) }}
-                {{ form_widget(form.region) }}
+                    {{ form_row(form.region, {
+                        attr: {
+                            'data-specific_region-url': path('location_select'),
+                            'class': 'js-event-form-region'
+                        }
+                    }) }}
                 </div>
                 <div class="col-sm-6">
-                    <div id="cites">
-                    {% if form.city is defined  %}
-                    {{ form_label(form.city) }}
-                    {{ form_widget(form.city) }}
-                    {% endif %}
+                    <div class="js-specific-region-target">
+                            {%  if form.city is defined %}
+                                {{ form_row(form.city) }}
+                            {% endif %}
                     </div>
                 </div>
             </div>
@@ -66,31 +69,5 @@
         </div>
     </div>
     {{ form_end(form) }}
-
-    <script>
-        var $sport = $('#region');
-        // When sport gets selected ...
-        $sport.change(function() {
-            // ... retrieve the corresponding form.
-            var $form = $(this).closest('form');
-            // Simulate form data, but only include the selected sport value.
-            var data = {};
-            data[$sport.attr('name')] = $sport.val();
-            // Submit data via AJAX to the form's action path.
-            $.ajax({
-                url : $form.attr('action'),
-                type: $form.attr('method'),
-                data : data,
-                success: function(html) {
-                    // Replace current position field ...
-                    $('#cites').replaceWith(
-                        // ... with the returned one from the AJAX response.
-                        $(html).find('#cites')
-                    );
-                    // Position field now displays the appropriate positions.
-                }
-            });
-        });
-    </script>
 
 {% endblock %}
