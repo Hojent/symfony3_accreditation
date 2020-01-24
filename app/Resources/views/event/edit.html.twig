@@ -47,3 +47,35 @@
 
 {% endblock %}
 
+{% block javascripts %}
+
+    <script>
+        $(document).ready(function() {
+            let $locationSelect = $('.js-event-form-region');
+
+            let $specificLocationTarget = $('.js-specific-region-target');
+            $locationSelect.on('change', function(e) {
+                alert($locationSelect.data('specific_region-url'));
+                alert($locationSelect.val());
+                $.ajax({
+                    url: $locationSelect.data('specific_region-url'),
+                    data: {
+                        region: $locationSelect.val()
+                    },
+                    success: function (html) {
+                        if (!html) {
+                            alert ('no html');
+                            //$specificLocationTarget.find('select').remove();
+                            //$specificLocationTarget.addClass('d-none');
+                            return;
+                        }
+                        alert (html);
+                        // Replace the current field and show
+                        //$specificLocationTarget.html(html).removeClass('d-none')
+                    }
+                });
+            });
+        });
+    </script>
+{%  endblock %}
+

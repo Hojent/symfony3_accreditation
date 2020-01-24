@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\EventType;
+use AppBundle\Entity\City;
 
 
 
@@ -298,22 +299,25 @@ class EventController extends Controller
     //--------------------------------
 
     /**
-     * @Route("/location-select", name="location_select")
+     * @Route("/location", name="location_select")
      */
     public function getSpecificLocationSelect(Request $request)
     {
-        //$article = new Event();
-        //$article->setRegion($request->query->get('region'));
+        $eve = new Event();
+        $eve->setRegion($request->query->get('region'));
         $region = $request->get('region');
-        //$form = $this->createForm(EventType::class, $article);
+        $form = $this->createForm(EventType::class, $eve);
         // no field? Return an empty response
-       // if (!$form->has('city')) {
-       //     return new Response(null, 204);
-       // }
-      // return $this->render('event/_specific_location_name.html.twig', [
-      //     'form' => $form->createView(),
-      // ]);
-        return $this->render('event/_specific_location_name.html.twig', [
-           'region' => $region,]);
+        if (!$form->has('city')) {
+            return new Response(null, 204);
+        }
+       return $this->render('event/_specific_location_name.html.twig', [
+           'form' => $form->createView(),
+           'region' => $region,
+       ]);
+      //  return $this->render('event/_specific_location_name.html.twig', [
+        //   'region' => $region,]);
     }
+
+
 }

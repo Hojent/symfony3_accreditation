@@ -23,8 +23,12 @@ class EventType extends AbstractType
      * {@inheritdoc}
      * Event|null $event
      */
+
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add('title',TextType::class, [
                 'label' => 'Название',
@@ -54,9 +58,6 @@ class EventType extends AbstractType
             ->add('evtip', null, [
                 'label' => 'Тип мероприятия',
             ])
-           /* ->add('region', FormType::class,[
-                'data_class' => CityRegionFilterType::class,
-            ])*/
            ->add('region', EntityType::class, [
                 'class' => Region::class,
                 'placeholder' => 'Выберите регион',
@@ -68,15 +69,30 @@ class EventType extends AbstractType
                 'label' => 'Регион',
                 'attr' => ['class' => 'form-control']
             ])
-
+            ->add('city', EntityType::class, [
+                'class' => City::class,
+                'placeholder' => 'Город',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.name', 'ASC');
+                },
+                'required' => false,
+                'label' => 'Город',
+                'attr' => ['class' => 'form-control']
+            ])
         ;
+        $builder->get('region')->addEventListener(FormEvents::POST_SUBMIT,
+                        function(FormEvent $event) {
+                            var_dump($event); die();
+                        });
 
-        $builder->addEventListener(
+
+ /*       $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) {
                     $data = $event->getData();
                     $form = $event->getForm();
-                if (null == $data->getRegion()) {
+                if (null == $region) {
                     $formOptions = [
                         'class' => City::class,
                         'placeholder' => 'Where exactly?',
@@ -108,8 +124,9 @@ class EventType extends AbstractType
 
                 }
                 $form->add('city', EntityType::class, $formOptions);
-            })
-            ->setMethod('GET');
+            });*/
+
+            $builder->setMethod('GET');
     }
 
     /**
@@ -117,15 +134,16 @@ class EventType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver
+            ->setDefaults([
              'data_class' => 'AppBundle\Entity\Event',
-
-        ]);
-    }
-
-    public function getCities($region = null)
-    {
+                ]);
+        //    ->setRequired('entity_manager')
 
     }
+
+
+
+
 
 }
