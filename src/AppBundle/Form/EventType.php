@@ -68,7 +68,7 @@ class EventType extends AbstractType
                 },
                 'required' => false,
                 'label' => 'Регион',
-                'attr' => ['class' => 'form-control']
+                'attr' => ['id' => 'event_region']
             ])
         ;
 
@@ -79,7 +79,7 @@ class EventType extends AbstractType
                 'label' => 'Город',
                 'placeholder' => 'В каком городе',
                 'choices' => $cites,
-                'attr' => ['class' => 'form-control']
+                'attr' => ['id' => 'event_city']
             ]);
         };
 
