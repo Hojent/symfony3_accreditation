@@ -30,6 +30,12 @@ class Region
     private $name;
 
     /**
+     * One region has many cites. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="City", mappedBy="region")
+     */
+    private $cites;
+
+    /**
      * Get id
      *
      * @return int
@@ -61,6 +67,14 @@ class Region
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCites()
+    {
+        return $this->cites;
     }
 
     public function __toString()

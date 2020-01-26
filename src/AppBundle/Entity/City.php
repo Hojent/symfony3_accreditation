@@ -24,7 +24,7 @@ class City
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Region")
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="cites")
      * @ORM\JoinColumn(name="region_id", referencedColumnName="id")
      */
     private $region;

@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
@@ -69,64 +70,38 @@ class EventType extends AbstractType
                 'label' => 'Регион',
                 'attr' => ['class' => 'form-control']
             ])
-            ->add('city', EntityType::class, [
-                'class' => City::class,
-                'placeholder' => 'Город',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')
-                        ->orderBy('c.name', 'ASC');
-                },
-                'required' => false,
-                'label' => 'Город',
-                'attr' => ['class' => 'form-control']
-            ])
         ;
-        $builder->get('region')->addEventListener(FormEvents::POST_SUBMIT,
-                        function(FormEvent $event) {
-                            var_dump($event); die();
-                        });
 
+        $formModifier = function (FormInterface $form, Region $region = null) {
+            $cites = null === $region ? [] : $region->getCites();
+            $form->add('city', EntityType::class, [
+                'class' => City::class,
+                'label' => 'Город',
+                'placeholder' => 'В каком городе',
+                'choices' => $cites,
+                'attr' => ['class' => 'form-control']
+            ]);
+        };
 
- /*       $builder->addEventListener(
+        $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) {
-                    $data = $event->getData();
-                    $form = $event->getForm();
-                if (null == $region) {
-                    $formOptions = [
-                        'class' => City::class,
-                        'placeholder' => 'Where exactly?',
-                        //'choice_label' => 'fullName',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('c')
-                                ->orderBy('c.name', 'ASC');
-                        },
-                        'required' => false,
-                        'label' => 'Город',
-                    ];
-                }
-                else {
-
-                    $region = $data->getRegion()->getId();
-                    $formOptions = [
-                        'class' => City::class,
-                        'placeholder' => 'Where exactly?',
-                        //'choice_label' => 'fullName',
-                        'query_builder' => function (EntityRepository $er) use ($region) {
-                            return $er->createQueryBuilder('c')
-                                ->where('c.region = :region')
-                                ->setParameter('region', $region)
-                                ->orderBy('c.name', 'ASC');
-                        },
-                        'required' => false,
-                        'label' => 'Город',
-                    ];
-
-                }
-                $form->add('city', EntityType::class, $formOptions);
-            });*/
-
-            $builder->setMethod('GET');
+            function (FormEvent $eve) use ($formModifier) {
+                $data = $eve->getData();
+                $formModifier($eve->getForm(), $data->getRegion());
+            }
+        );
+        $builder->get('region')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $evnt) use ($formModifier) {
+                // It's important here to fetch $event->getForm()->getData(), as
+                // $event->getData() will get you the client data (that is, the ID)
+                $region = $evnt->getForm()->getData();
+                // since we've added the listener to the child, we'll have to pass on
+                // the parent to the callback functions!
+                $formModifier($evnt->getForm()->getParent(), $region);
+            }
+        );
+        $builder->setMethod('GET');
     }
 
     /**
@@ -141,9 +116,5 @@ class EventType extends AbstractType
         //    ->setRequired('entity_manager')
 
     }
-
-
-
-
 
 }

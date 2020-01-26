@@ -182,7 +182,7 @@ class EventController extends Controller
 
         return $this->render('event/edit.html.twig', array(
             'event' => $event,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -295,29 +295,5 @@ class EventController extends Controller
             ->getForm()
             ;
     }
-
-    //--------------------------------
-
-    /**
-     * @Route("/location", name="location_select")
-     */
-    public function getSpecificLocationSelect(Request $request)
-    {
-        $eve = new Event();
-        $eve->setRegion($request->query->get('region'));
-        $region = $request->get('region');
-        $form = $this->createForm(EventType::class, $eve);
-        // no field? Return an empty response
-        if (!$form->has('city')) {
-            return new Response(null, 204);
-        }
-       return $this->render('event/_specific_location_name.html.twig', [
-           'form' => $form->createView(),
-           'region' => $region,
-       ]);
-      //  return $this->render('event/_specific_location_name.html.twig', [
-        //   'region' => $region,]);
-    }
-
 
 }
