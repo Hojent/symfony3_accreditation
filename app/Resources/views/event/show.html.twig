@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% block breadcrumbs %}
+    {{ bread('Мероприятия', path('event_index')) }}
+    {{ bread(event.title) }}
+{%  endblock %}
 {% block body %}
    <div class="container">
      <h1>{{ event.title }}</h1>

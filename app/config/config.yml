@@ -27,6 +27,8 @@ framework:
     assets: ~
     php_errors:
         log: true
+    templating:
+        engines: ['twig']
 
 # Twig Configuration
 twig:
@@ -132,3 +134,5 @@ fos_user:
             #profile:
             #     form:
             #        type: AppBundle\Form\Type\ProfileType
+
+white_october_breadcrumbs: ~

@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% block breadcrumbs %}
+    {{ bread('Пользователи', path('user_list')) }}
+    {{ bread(client.family ~ ' ' ~ client.name) }}
+{%  endblock %}
 {% block body %}
     {% block name %}
         <span class="text-info" xmlns="http://www.w3.org/1999/html">

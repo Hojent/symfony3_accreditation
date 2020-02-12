@@ -154,6 +154,7 @@
     </aside>
     <!--sidebar end-->
     <!--main content start-->
+    {% block breadcrumbs %}{% endblock%}
     <section id="main-content">
         <section class="wrapper">
             <!--overview start-->
@@ -163,16 +164,19 @@
                     <ol class="breadcrumb">
                         <li><i class="fa fa-home"></i><a class="" href="{{ path('homepage') }}">Главная</a></li>
                         <li><i class="fa fa-laptop"></i>Рабочий стол</li>
+                        {{ wo_render_breadcrumbs() }}
                     </ol>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-9">
                     {% include 'block/flashbag.html.twig' %}
+
                     {% block body %}
                             {% block name %} {% endblock %}
                             {% block fos_user_content %}{% endblock %}
                     {% endblock %}
+
                 </div>
                 <div class="col-md-3">
                     <!-- List starts -->

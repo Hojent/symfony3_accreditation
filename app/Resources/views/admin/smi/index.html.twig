@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
-
+{% block breadcrumbs %}
+    {{ bread('СМИ')}}
+{%  endblock %}
 {% block body %}
     <h1>Список средств массовой информации
         {% if is_granted ('ROLE_ADMIN') %}
