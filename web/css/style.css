@@ -1949,6 +1949,8 @@ div[data-role="editor-toolbar"] {
 
   background-color : #d95043;
 
+    cursor: pointer;
+
 }
 
 .blue-bg, .apply0 {

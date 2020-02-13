@@ -5,6 +5,7 @@ use AppBundle\Addon\fileHelperTrait;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserEvent;
 use AppBundle\Entity\UserProfile;
+use AppBundle\Form\Type\EventNewType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security;
@@ -14,8 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\EventType;
-use AppBundle\Entity\City;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
 
 
 
@@ -53,7 +54,7 @@ class EventController extends Controller
     public function newAction(Request $request)
     {
         $event = new Event();
-        $form = $this->createForm('AppBundle\Form\EventType', $event);
+        $form = $this->createForm('AppBundle\Form\EventNewType', $event);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -61,12 +62,16 @@ class EventController extends Controller
             $em->persist($event);
             $em->flush();
 
+
+            //----------------------------------------
+
             return $this->redirectToRoute('event_show', array('id' => $event->getId()));
         }
 
         return $this->render('event/new.html.twig', array(
             'event' => $event,
             'form' => $form->createView(),
+            'edit' => false,
         ));
     }
 
@@ -173,17 +178,47 @@ class EventController extends Controller
         $deleteForm = $this->createDeleteForm($event);
         $editForm = $this->createForm('AppBundle\Form\EventType', $event);
         $editForm->handleRequest($request);
+        $evedir = $this->getParameter('event_directory').'/docs'.$event->getId();
+        if (!is_dir($evedir)) {
+            mkdir($evedir);
+        }
+        $files = array_diff(scandir($evedir), ['..', '.']);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('event_edit', array('id' => $event->getId()));
+            $doc1 = $editForm['fil1']->getData();
+            $doc2 = $editForm['fil2']->getData();
+            $documents = [$doc1, $doc2];
+            //var_dump($documents);die();
+            // documents - max 2 files
+            $i =1;
+            foreach ($documents as $document) {
+                if ($document) {
+                    $newFilename = $document->getClientOriginalName();
+                    // Move the file to the directory where documents are stored
+                    try {
+                        $document->move(
+                            $evedir,
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+                    }
+                }
+                $i += 1;
+            }
+            //----------------------------------------
+            return $this->redirectToRoute('event_show', [
+                'id' => $event->getId(),
+            ]);
         }
 
         return $this->render('event/edit.html.twig', array(
             'event' => $event,
             'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'files' => $files,
+            'edit' => true
         ));
     }
 
@@ -294,6 +329,27 @@ class EventController extends Controller
             ->setMethod('POST')
             ->getForm()
             ;
+    }
+
+    //----------------------------------
+    /**
+     * Deletes a file.  To do!!!!!!!!!
+     * @Route("/{id}/edit/{filename}", name="event_file_delete")
+     *
+     */
+    public function deleteFileAction(Event $event, $filename)
+    {
+        $realfile = 'uploads/evdoc/docs'.$event->getId().'/'.$filename;
+        if (file_exists(realpath($realfile))) {
+            unlink(realpath($realfile));
+            $this->addFlash('success', 'Файл ' . $filename . ' удален!');
+        }
+        else {
+            $this->addFlash('error', 'Файл ' . $realfile . ' не найден!');
+        }
+        return $this->redirectToRoute('event_edit', [
+            'id' => $event->getId(),
+        ]);
     }
 
 }

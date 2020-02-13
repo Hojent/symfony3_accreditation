@@ -304,6 +304,4 @@ HEREDOC;
 
         return $this->redirectToRoute('event_show', ['id' => $event->getId(), 'success' => 'yess!']);
     }
-
-
 }

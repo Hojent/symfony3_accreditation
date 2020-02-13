@@ -38,14 +38,74 @@
             <div class="col-sm-6">
 
             </div>
+        </div><br>
+        {% if edit %}
+        <div class="row">
+            <div class="col-sm-12">
+                <p>Добавить файлы (PDF, DOC, DOCX, XLS, XLSX).<br><b>Размер не более 2 MB.</b></p>
+            </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p>{{ form_widget(form.fil1, {'attr': {'class': 'col-sm-12'}}) }}</p>
+                {{ form_errors(form.fil1, {'attr': {'class': 'col-sm-12'}}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p>{{ form_widget(form.fil2, {'attr': {'class': 'col-sm-12'}}) }}</p>
+                {{ form_errors(form.fil2, {'attr': {'class': 'col-sm-12'}}) }}
+            </div>
+        </div>
+        {%  endif %}
     </div>
     <div class="col-sm-8">
         <p>Информация для прессы</p>
         {{ form_widget(form.brief, { 'attr': { 'placeholder': 'Краткий пресс-релиз, другая информации',
-            'rows': '8' }}) }}
+            'rows': '4' }}) }}
+        {% set evedir = 'docs' ~ event.id %}
+        {% if files is defined and files is not empty %}
+        <p><b>Файлы для скачивания:</b> (dir/{{ evedir }} )</p>
+            <div class="alert alert-info">
+                <p>Загруженные файлы:</p>
+                <ul>
+                    {% set i = 0 %}
+                    {% for file in files %}
+                        {% set file_path = 'uploads/evdoc/' ~ evedir ~ '/' ~ file %}
+                        <li><a href="{{ asset(file_path) }}" alt="скачать">
+                                {{ file }}</a>
+                            <a data-href="{{ path('event_file_delete', {'id':1, 'filename':file}) }}" alt="удалить" data-toggle="modal" data-target="#confirm-delete{{ i }}">
+                                <span class="badge red-bg">&times;</span>
+                            </a></li>
+                        <div class="modal fade" id="confirm-delete{{ i }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        Удалить файл?
+                                    </div>
+                                    <div class="modal-body">
+                                        Вы собираетесь удалить файл {{ file }} из директория файлов мероприятия "{{ event.title }}". Подтвердите свои действия.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <a class="btn btn-danger btn-ok" href="{{ path('event_file_delete', {'id': event.id, 'filename':file}) }}" >Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% set i = i+1 %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+        {% else %}<div class="alert alert-warning">Нет загруженных файлов.
+            {% if edit != true   %}
+                <p>Загрузить файлы можно после создания Мероприятия в режиме редактирования.</p>
+            {% endif %}
+        </div>
+        {% endif %}
         <p>Организаторы</p>
-        {{ form_widget(form.organizator, { 'attr': { 'rows': '4' }}) }}
+        {{ form_widget(form.organizator, { 'attr': { 'rows': '2' }}) }}
     </div>
 </div>
 <div class="row">

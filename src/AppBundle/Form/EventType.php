@@ -6,8 +6,6 @@ use AppBundle\Entity\City;
 use AppBundle\Entity\Region;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class EventType extends AbstractType
 {
@@ -59,7 +58,48 @@ class EventType extends AbstractType
             ->add('evtip', null, [
                 'label' => 'Тип мероприятия',
             ])
-           ->add('region', EntityType::class, [
+            ->add('fil1', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                'label' => ' ',
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2056k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/msword',
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                            'application/vnd.ms-excel',
+
+                        ],
+                        'mimeTypesMessage' => 'Неверный размер или формат файла',
+                    ])
+                ],
+            ])
+            ->add('fil2', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                'label' => ' ',
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2056k',
+                        'mimeTypes' => [
+                           'application/pdf',
+                           'application/msword',
+                           'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                           'application/vnd.ms-excel',
+                        ],
+                        'mimeTypesMessage' => 'Неверный размер или формат файла',
+                    ])
+                ],
+            ])
+            ->add('region', EntityType::class, [
                 'class' => Region::class,
                 'placeholder' => 'Выберите регион',
                 'query_builder' => function (EntityRepository $er) {
@@ -101,7 +141,7 @@ class EventType extends AbstractType
                 $formModifier($evnt->getForm()->getParent(), $region);
             }
         );
-        $builder->setMethod('GET');
+        //$builder->setMethod('GET');
     }
 
     /**
