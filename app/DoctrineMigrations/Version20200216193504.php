@@ -1,17 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: User
- * Date: 2020/02/16
- * Time: 16:40
- */
 
 namespace Application\Migrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
-class Version202016021640 extends AbstractMigration
+/**
+ * Auto-generated Migration: Please modify to your needs!
+ */
+class Version20200216193504 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -22,7 +19,8 @@ class Version202016021640 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
         $this->addSql('CREATE SEQUENCE document_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE document (id INT NOT NULL, name VARCHAR(256) NOT NULL, file_name VARCHAR (128), PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE document (id INT NOT NULL, name VARCHAR(256) NOT NULL, file_name VARCHAR(128) DEFAULT NULL, PRIMARY KEY(id))');
+
     }
 
     /**

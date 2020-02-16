@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Region
  *
- * @ORM\Table(name="region")
+ * @ORM\Table(name="document")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\RegionRepository")
  */
 class Document
