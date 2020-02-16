@@ -118,6 +118,7 @@ class EventType extends AbstractType
                 'class' => City::class,
                 'label' => 'Город',
                 'placeholder' => 'В каком городе',
+                'required' => false,
                 'choices' => $cites,
                 'attr' => ['id' => 'event_city']
             ]);
