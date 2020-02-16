@@ -89,6 +89,12 @@ class EventController extends Controller
         $deleteForm = $this->createDeleteForm($event);
         $applyForm = $this->createApplicateForm($event,$user);
 
+        $evedir = $this->getParameter('event_directory').'/docs'.$event->getId();
+        if (!is_dir($evedir)) {
+            mkdir($evedir);
+        }
+        $files = array_diff(scandir($evedir), ['..', '.']);
+
         $userEvent = $repository
             ->loadKeys($user->getId(), $event->getId()
             );
@@ -101,6 +107,7 @@ class EventController extends Controller
             'apply_form' => $applyForm->createView(),
             'userevent' => $userEvent,
             'userall' => $userall,
+            'files' => $files,
         ]);
     }
 

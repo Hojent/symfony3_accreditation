@@ -37,7 +37,19 @@
             </header>
             <div class="panel-body">
                 <p> {{ event.brief }}</p>
-                <p>Программа (скачать)</p>
+                {% set evedir = 'docs' ~ event.id %}
+                {% if files is defined and files is not empty %}
+                    <p><b>Файлы для скачивания:</b></p>
+                    <div class="alert alert-info">
+                        <ul>
+                            {% for file in files %}
+                                {% set file_path = 'uploads/evdoc/' ~ evedir ~ '/' ~ file %}
+                                <li><a href="{{ asset(file_path) }}" alt="скачать">{{ file }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
                 {% if is_granted ('ROLE_ADMIN') %}<br>
                     <h4>Поступили заявки от {{ event.users|length }} чел.</h4>
                 {% elseif app.user %}
