@@ -22,7 +22,7 @@ class Version202016021640 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
         $this->addSql('CREATE SEQUENCE document_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE document (id INT NOT NULL, name VARCHAR(128) NOT NULL, file VARCHAR (128), PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE document (id INT NOT NULL, name VARCHAR(256) NOT NULL, file_name VARCHAR (128), PRIMARY KEY(id))');
     }
 
     /**
