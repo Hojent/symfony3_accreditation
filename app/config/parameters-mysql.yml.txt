@@ -1,0 +1,22 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: 3306
+    database_name: postgres
+    database_user: root
+    database_password: null
+    mailer_auth_mode: login
+    mailer_encryption: ssl
+    mailer_host: smtp.gmail.com
+    mailer_port:  465
+    mailer_transport: gmail
+    mailer_user: irin.german@gmail.com
+    mailer_password: Mercury911Ira
+    secret: ThisTokenIsNotSoSecretChangeIt
+    locale: ru
+    clients_directory: '%kernel.project_dir%/web/uploads/photo'
+    documents_directory: '%kernel.project_dir%/web/uploads/doc'
+    event_directory: '%kernel.project_dir%/web/uploads/evdoc'
+    official_documents: '%kernel.project_dir%/web/documents'
+
+ # DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name" - настроить в файле .env и config.yml не забыть
