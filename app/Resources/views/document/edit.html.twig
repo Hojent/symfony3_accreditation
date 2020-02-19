@@ -1,21 +1,56 @@
 {% extends 'base.html.twig' %}
-
+{% block breadcrumbs %}
+    {{ bread('Документы', path('document_index')) }}
+    {{ bread(document.name) }}
+{%  endblock %}
 {% block body %}
-    <h1>Document edit</h1>
+    <h1>Изменить документ</h1>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4"><a href="{{ document.fileName }}">{{ document.filename }}</a></div>
+        <hr>
+        <div class="col-lg-4">
+            <input type="submit" class="btn btn-primary btn-block" value="{{'forms.buttons.save'|trans }}" />
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-info" href="{{ path('document_index') }}">{{'forms.buttons.cansel'|trans }}</a>
+        </div>
+    </div>
     {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('document_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <br>
+    <div class="row">
+        <div class="col-sm-2">
+            <a class="btn btn-danger btn-ok" href="#" data-toggle="modal" data-target="#confirm-delete" >{{'forms.buttons.remove'|trans }}</a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Удалить документ?
+                </div>
+                <div class="modal-body">
+                    Вы собираетесь удалить "{{ document.name }}". Подтвердите свои действия.
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">{{'forms.buttons.cansel'|trans }}</button>
+                        </div>
+                        <div class="col-sm-6">
+                            {{ form_start(delete_form) }}
+                            <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
+                            {{ form_end(delete_form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

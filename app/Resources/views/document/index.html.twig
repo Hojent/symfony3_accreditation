@@ -1,41 +1,73 @@
 {% extends 'base.html.twig' %}
-
+{% block breadcrumbs %}
+    {{ bread('Документы') }}
+{%  endblock %}
 {% block body %}
-    <h1>Documents list</h1>
+    <h1>Список Документов
+        {% if is_granted ('ROLE_ADMIN') %}
+            <a href="{{ path('document_new') }}" class = "btn btn-primary">{{'forms.buttons.create'|trans }}</a>
+        {% endif %}
+    </h1>
 
-    <table>
+    <table class="table table-inbox table-striped">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Filename</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th class="col-sm-6">Название</th>
+            {% if is_granted ('ROLE_ADMIN') %}
+                <th class="col-sm-3">Действие</th>
+                <th class="col-sm-3"></th>
+            {% endif %}
+        </tr>
         </thead>
         <tbody>
         {% for document in documents %}
             <tr>
-                <td><a href="#">{{ document.id }}</a></td>
-                <td>{{ document.name }}</td>
-                <td>{{ document.fileName }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="#">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('document_edit', { 'id': document.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                <td class="col-sm-6">
+                    {% set file_path = 'documents/' ~ document.fileName %}
+                    <a href="{{ asset(file_path) }}">{{ document.name }}</a>
                 </td>
+                {% if is_granted ('ROLE_ADMIN') %}
+                    <td class="col-sm-3">
+                        <a href="{{ path('document_edit', { 'id': document.id }) }}" class="btn btn-info" >{{'forms.buttons.edit'|trans }}</a>
+                    </td>
+                    <td class="col-sm-3">
+                        {% set target = "confirm-delete"~document.id %}
+                        <a class="btn btn-danger btn-ok" href="{{ path('document_delete', { 'id': document.id }) }}" data-toggle="modal" data-target="#{{ target }}" >{{'forms.buttons.remove'|trans }}</a>
+
+                        <div class="modal fade" id="{{ target }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        Удалить документ?
+                                    </div>
+                                    <div class="modal-body">
+                                        Вы собираетесь удалить "{{ document.name }}" - {{ document.id }}. Подтвердите свои действия.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <button type="button" class="btn btn-info" data-dismiss="modal">{{'forms.buttons.cansel'|trans }}</button>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <form name="form" method="post" action="{{ path('document_delete', {'id':document.id}) }}">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="submit" class="btn btn-danger" value="Удалить">
+                                                    {# хэш соответствует хэшу генерируемому symfony по умолчанию.
+                                                    я не знаю ключевого слова. оно одинаково везде.
+                                                    проверено на других хэшах - не работает#}
+                                                    <input type="hidden" id="form__token" name="form[_token]" value="TnGy7tT1yZxASNqxi_bLM4Um1jX0N-zrm2KYLx5sSck">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('document_new') }}">Create a new document</a>
-        </li>
-    </ul>
+    {{ knp_pagination_render(documents) }}
 {% endblock %}

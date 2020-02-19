@@ -241,6 +241,16 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $evedir = $this->getParameter('event_directory').'/docs'.$event->getId();
+            if (is_dir($evedir)) {
+                $files = array_diff(scandir($evedir), ['..', '.']);
+                if ($files) {
+                    foreach ($files as $item) {
+                        unlink($evedir.'/'.$item);
+                    }
+                }
+                rmdir($evedir);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->remove($event);
             $em->flush();
@@ -340,7 +350,7 @@ class EventController extends Controller
 
     //----------------------------------
     /**
-     * Deletes a file.  To do!!!!!!!!!
+     * Deletes a file.
      * @Route("/{id}/edit/{filename}", name="event_file_delete")
      *
      */

@@ -137,10 +137,8 @@ class DocumentController extends Controller
     {
         $form = $this->createDeleteForm($document);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $filename = $document->getFileName();
-
             $realfile = 'documents/'.$filename;
             if (file_exists(realpath($realfile))) {
                 unlink(realpath($realfile));
@@ -149,7 +147,6 @@ class DocumentController extends Controller
             else {
                 $this->addFlash('error', 'Файл ' . $realfile . ' не найден!');
             }
-
             $em = $this->getDoctrine()->getManager();
             $em->remove($document);
             $em->flush();
