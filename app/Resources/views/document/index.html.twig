@@ -33,7 +33,7 @@
                     <td class="col-sm-3">
                         {% set target = "confirm-delete"~document.id %}
                         <a class="btn btn-danger btn-ok" href="{{ path('document_delete', { 'id': document.id }) }}" data-toggle="modal" data-target="#{{ target }}" >{{'forms.buttons.remove'|trans }}</a>
-
+                        {% set delform = getForm (path("document_delete", {id: document.id}))  %}
                         <div class="modal fade" id="{{ target }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -41,7 +41,7 @@
                                         Удалить документ?
                                     </div>
                                     <div class="modal-body">
-                                        Вы собираетесь удалить "{{ document.name }}" - {{ document.id }}. Подтвердите свои действия.
+                                        Вы собираетесь удалить "{{ document.name }}". Подтвердите свои действия.
                                     </div>
                                     <div class="modal-footer">
                                         <div class="row">
@@ -49,14 +49,14 @@
                                                 <button type="button" class="btn btn-info" data-dismiss="modal">{{'forms.buttons.cansel'|trans }}</button>
                                             </div>
                                             <div class="col-sm-6">
-                                                <form name="form" method="post" action="{{ path('document_delete', {'id':document.id}) }}">
+                                               {#<form action="{{ path('document_delete', {'id':document.id}) }}" method="POST" >
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="submit" class="btn btn-danger" value="Удалить">
-                                                    {# хэш соответствует хэшу генерируемому symfony по умолчанию.
-                                                    я не знаю ключевого слова. оно одинаково везде.
-                                                    проверено на других хэшах - не работает#}
-                                                    <input type="hidden" id="form__token" name="form[_token]" value="TnGy7tT1yZxASNqxi_bLM4Um1jX0N-zrm2KYLx5sSck">
-                                                </form>
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete-item') }}" />
+                                               </form> #}
+                                                {{ form_start(delform, {'method': 'DELETE'}) }}
+                                                <input type="submit" class="btn btn-danger" value="Удалить">
+                                                {{ form_end(delform) }}
                                             </div>
                                         </div>
                                     </div>

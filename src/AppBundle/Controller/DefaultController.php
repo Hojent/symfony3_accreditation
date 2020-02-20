@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class DefaultController extends Controller
 {
@@ -94,6 +96,9 @@ class DefaultController extends Controller
 
     }
 
+
+//administrator function
+
     /**
      * @Route("/admin")
      */
@@ -101,4 +106,6 @@ class DefaultController extends Controller
     {
         return new Response('<html><body>Admin page!</body></html>');
     }
+
+
 }
