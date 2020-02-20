@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\User;
 
 /**
  * UserProfileRepository
@@ -10,10 +11,10 @@ namespace AppBundle\Repository;
  */
 class UserProfileRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function listAll () {
+    public function listAll ($admin) {
         $qb = $this->createQueryBuilder('up')
             ->where('up.id != :adid')
-            ->setParameter('adid', 4)
+            ->setParameter('adid', $admin)
             ->orderBy('up.family', 'ASC')
             ->getQuery();
         return $qb;

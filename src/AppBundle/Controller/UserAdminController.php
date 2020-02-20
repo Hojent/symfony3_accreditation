@@ -26,8 +26,9 @@ class UserAdminController extends Controller
     public function indexAction(Request $request, PaginatorInterface $paginator)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $clients = $em->getRepository(UserProfile::class)->listAll();
+        $user = $this->getUser();
+        $uid = $user->getId();
+        $clients = $em->getRepository(UserProfile::class)->listAll($uid);
 
         $pagination = $paginator->paginate(
             $clients, /* query NOT result */
