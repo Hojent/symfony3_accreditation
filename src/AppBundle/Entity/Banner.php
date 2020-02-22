@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Region
  *
- * @ORM\Table(name="document")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\DocumentRepository")
+ * @ORM\Table(name="banner")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\BannerRepository")
  */
-class Document
+class Banner
 {
     /**
      * @var int
@@ -24,14 +24,20 @@ class Document
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=256, nullable=false)
+     * @ORM\Column(name="title", type="string", nullable=false)
      */
-    private $name;
+    private $title;
 
     /**
      * @ORM\Column(name="file_name", type="string", length=128, nullable=true)
      */
     private $fileName;
+
+    /**
+     * @ORM\Column(name="publish", type="boolean")
+     */
+    private $publish = true;
+
 
     /**
      * Get id
@@ -44,25 +50,25 @@ class Document
     }
 
     /**
-     * Set name
-     * @param string $name
+     * Set title
+     * @param string $title
      * @return string
      */
-    public function setName($name)
+    public function setTitle($title)
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get title
      *
      * @return string
      */
-    public function getName()
+    public function getTitle()
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**
@@ -85,6 +91,19 @@ class Document
     {
         return $this->getName();
     }
+
+    /**
+     * @param boolean $publish
+     */
+    public function setPublish($publish): void
+    {
+        $this->publish = $publish;
+    }
+
+    public function isPublish()
+     {
+         return $this->publish;
+     }
 
 
 
