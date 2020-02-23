@@ -38,6 +38,11 @@ class Banner
      */
     private $publish = true;
 
+    /**
+     * @ORM\Column(name="link", type="string", nullable=true)
+     */
+    private $link;
+
 
     /**
      * Get id
@@ -85,6 +90,22 @@ class Banner
     public function setFileName($fileName): void
     {
         $this->fileName = $fileName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * @param mixed $link
+     */
+    public function setLink($link): void
+    {
+        $this->link = $link;
     }
 
     public function __toString()

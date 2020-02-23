@@ -2,8 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Banner;
 use AppBundle\Entity\Event;
-use AppBundle\Entity\UserEvent;
+use AppBundle\Repository\BannerRepository;
+use AppBundle\Repository\DocumentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,8 +15,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class DefaultController extends Controller
 {
@@ -94,6 +94,16 @@ class DefaultController extends Controller
             'contact_form' => $form->createView(),
         ]);
 
+    }
+
+    public function sidebarAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('AppBundle\Entity\Banner');
+        $banners = $repo->findBy(['publish' => true]);
+        return $this->render('sidebar.html.twig', array(
+            'banners' => $banners
+        ));
     }
 
 

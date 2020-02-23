@@ -39,6 +39,10 @@ class BannerType extends AbstractType
                     ])
                 ],
             ])
+            ->add('link', TextType::class, [
+                'label' => 'Добавить ссылку',
+                'required' => false,
+            ])
             ->add('publish', CheckboxType::class, [
                 'label'    => 'Публиковать',
                 'required' => false,

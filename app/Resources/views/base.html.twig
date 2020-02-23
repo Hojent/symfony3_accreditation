@@ -171,7 +171,6 @@
             <div class="row">
                 <div class="col-lg-9">
                     {% include 'block/flashbag.html.twig' %}
-
                     {% block body %}
                             {% block name %} {% endblock %}
                             {% block fos_user_content %}{% endblock %}
@@ -180,21 +179,10 @@
                 </div>
                 <div class="col-md-3">
                     <!-- List starts -->
-                    <ul class="today-datas">
-                        <!-- List #1 -->
-                        <li>
-                            <a href="http://mininform.gov.by/meropriyatiya/2018-god-maloy-rodiny/" tabindex="-1">
-                                <img src="http://mininform.gov.by/upload/iblock/767/767e624a57298fca2b464b35389c8b36.jpg" alt="" class="banner-image">
-                                <p>Год малой родины</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://mininform.gov.by/meropriyatiya/belarus-pomnit/" tabindex="0">
-                                <img src="http://mininform.gov.by/upload/iblock/46e/46e0425f93b331d28d635dde5f2bc6f5.jpg" alt="" class="banner-image">
-                                <p>Республиканская акция "Беларусь помнит"</p>
-                            </a>
-                        </li>
-                    </ul>
+                    {% block sidebar %}
+                        {{ render(controller('AppBundle:Default:sidebar' ))}}
+                    {% endblock %}
+
                     <div class="text-right">
                         <div class="credits">
                             Разработка <a href="http://web-project.by">Alliance @Web Project</a><br>

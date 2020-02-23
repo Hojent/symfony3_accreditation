@@ -13,12 +13,5 @@ use Doctrine\ORM\EntityRepository;
 class BannerRepository extends EntityRepository
 {
 
-    public function listAll () {
-        $qb = $this->createQueryBuilder('b')
-            ->orderBy('b.title', 'ASC')
-            ->getQuery();
-
-        return $qb;
-    }
 
 }

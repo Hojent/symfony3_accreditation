@@ -19,7 +19,7 @@ class Version20200222195605 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
         $this->addSql('CREATE SEQUENCE banner_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE banner (id INT NOT NULL, title VARCHAR NOT NULL, file_name VARCHAR(128) DEFAULT NULL, publish BOOLEAN DEFAULT TRUE, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE banner (id INT NOT NULL, title VARCHAR NOT NULL, file_name VARCHAR(128) DEFAULT NULL, link varchar NULLABLE, publish BOOLEAN DEFAULT TRUE, PRIMARY KEY(id))');
 
     }
 
