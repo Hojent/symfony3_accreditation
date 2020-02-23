@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block breadcrumbs %}
+    {{ bread('Баннеры', path('banner_index')) }}
+    {{ bread(banner.id) }}
+{%  endblock %}
+{% block body %}
+    <h1>Изменить баннер</h1>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+    <div class="row">
+        <div class="col-sm-2"><img src="{{ asset('uploads/img/' ~ banner.fileName) }}" width="100px" ></div>
+        <div class="col-lg-3">
+            <input type="submit" class="btn btn-primary btn-block" value="{{'forms.buttons.save'|trans }}" />
+        </div>
+        <div class="col-sm-3">
+            <a class="btn btn-info" href="{{ path('banner_index') }}">{{'forms.buttons.cansel'|trans }}</a>
+        </div>
+    </div>
+    {{ form_end(edit_form) }}
+    <br>
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+            <a class="btn btn-danger btn-ok" href="#" data-toggle="modal" data-target="#confirm-delete" >{{'forms.buttons.remove'|trans }}</a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Удалить баннер?
+                </div>
+                <div class="modal-body">
+                    Вы собираетесь удалить баннер ID - "{{ banner.id }}". Подтвердите свои действия.
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">{{'forms.buttons.cansel'|trans }}</button>
+                        </div>
+                        <div class="col-sm-6">
+                            {{ form_start(delete_form) }}
+                            <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
+                            {{ form_end(delete_form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% if banners|length %}
+<ul class="today-datas">
+    {%  for banner in banners %}
+    <li>
+        <a href="{{ banner.link }}">
+            <img src="{{ asset('uploads/img/' ~ banner.fileName) }}" width="100%" alt="" class="banner-image"><br>
+            <p>{{ banner.title }}</p>
+        </a>
+        <hr>
+    </li>
+    {%  endfor %}
+</ul>
+{% endif %}

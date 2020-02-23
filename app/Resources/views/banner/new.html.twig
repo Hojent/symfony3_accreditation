@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block breadcrumbs %}
+    {{ bread('Баннеры', path('banner_index')) }}
+    {{ bread('Новый') }}
+{%  endblock %}
+{% block body %}
+    <h1>Создать баннер</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+    <div class="row">
+    <hr>
+    <div class="col-lg-4">
+        <input type="submit" class="btn btn-primary btn-block" value="{{'forms.buttons.save'|trans }}" />
+    </div>
+    <div class="col-sm-6">
+        <a class="btn btn-info" href="{{ path('banner_index') }}">{{'forms.buttons.cansel'|trans }}</a>
+    </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}
