@@ -2,11 +2,12 @@
     <p>banner length</p>
 <ul class="today-datas">
     {%  for banner in banners %}
-    <li>---{{ banner.id }}<br>
+    <li>
         <a href="{{ banner.link }}">
-            <img src="{{ banner.fileName }}" alt="" class="banner-image">
+            <img src="{{ asset('uploads/img/' ~ banner.fileName) }}" width="100%" alt="" class="banner-image"><br>
             <p>{{ banner.title }}</p>
         </a>
+        <hr>
     </li>
     {%  endfor %}
 </ul>

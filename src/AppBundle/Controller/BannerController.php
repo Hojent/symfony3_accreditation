@@ -88,6 +88,23 @@ class BannerController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $fileName = $editForm['fileName']->getData();
+            if ($fileName) {
+                $newFilename = 'banner'.$banner->getId().'.' . $fileName->guessExtension();
+                $banner->setFileName($newFilename);
+                //$user->setPictFileName(
+                //    new File($this->getParameter('clients_directory').'/'.$user->getPictFileName())
+                //);
+                // Move the file to the directory where photos are stored
+                try {
+                    $fileName->move(
+                        $this->getParameter('img_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('banner_edit', array('id' => $banner->getId()));
