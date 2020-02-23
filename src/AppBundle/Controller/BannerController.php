@@ -66,7 +66,7 @@ class BannerController extends Controller
             $em->persist($banner);
             $em->flush();
 
-            return $this->redirectToRoute('banner_show', array('id' => $banner->getId()));
+            return $this->redirectToRoute('banner_index', array('id' => $banner->getId()));
         }
 
         return $this->render('banner/new.html.twig', array(
@@ -75,21 +75,6 @@ class BannerController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a banner entity.
-     *
-     * @Route("/{id}", name="banner_show")
-     * @Method("GET")
-     */
-    public function showAction(Banner $banner)
-    {
-        $deleteForm = $this->createDeleteForm($banner);
-
-        return $this->render('banner/show.html.twig', array(
-            'banner' => $banner,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
 
     /**
      * Displays a form to edit an existing banner entity.
@@ -123,7 +108,7 @@ class BannerController extends Controller
             }
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('banner_edit', array('id' => $banner->getId()));
+            return $this->redirectToRoute('banner_index', array('id' => $banner->getId()));
         }
 
         return $this->render('banner/edit.html.twig', array(

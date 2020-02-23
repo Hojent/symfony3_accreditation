@@ -22,7 +22,7 @@
         <tbody>
         {% for banner in banners %}
             <tr>
-                <td><a href="{{ path('banner_show', { 'id': banner.id }) }}">{{ banner.title }}</td>
+                <td>{{ banner.title }}</td>
                 <td><img src="{{ asset('uploads/img/' ~ banner.fileName) }}" height="60px" ></td>
                 <td>{% if banner.publish %}Yes{% else %}No{% endif %}</td>
                 <td class="col-sm-3">
