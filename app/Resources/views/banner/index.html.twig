@@ -1,43 +1,64 @@
 {% extends 'base.html.twig' %}
-
+{% block breadcrumbs %}
+    {{ bread('Баннеры') }}
+{%  endblock %}
 {% block body %}
-    <h1>Banners list</h1>
+    <h1>Баннеры в правой колонке
+        {% if is_granted ('ROLE_ADMIN') %}
+            <a href="{{ path('banner_new') }}" class = "btn btn-primary">{{'forms.buttons.create'|trans }}</a>
+        {% endif %}
+    </h1>
 
-    <table>
+    <table class="table table-inbox table-striped">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Filename</th>
-                <th>Publish</th>
-                <th>Actions</th>
+                <th>Заголовок</th>
+                <th>Картинка</th>
+                <th>Опубликован</th>
+                <th>Действия</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for banner in banners %}
             <tr>
-                <td><a href="{{ path('banner_show', { 'id': banner.id }) }}">{{ banner.id }}</a></td>
-                <td>{{ banner.title }}</td>
-                <td>{{ banner.fileName }}</td>
+                <td><a href="{{ path('banner_show', { 'id': banner.id }) }}">{{ banner.title }}</td>
+                <td><img src="{{ asset('uploads/img/' ~ banner.fileName) }}" height="60px" ></td>
                 <td>{% if banner.publish %}Yes{% else %}No{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('banner_show', { 'id': banner.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('banner_edit', { 'id': banner.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                <td class="col-sm-3">
+                    <a href="{{ path('banner_edit', { 'id': banner.id }) }}" class="btn btn-info" >{{'forms.buttons.edit'|trans }}</a>
+                </td>
+                <td class="col-sm-3">
+                    {% set target = "confirm-delete" ~ banner.id %}
+                    <a class="btn btn-danger btn-ok" href="#" data-toggle="modal" data-target="#{{ target }}" >{{'forms.buttons.remove'|trans }}</a>
+                    {% set delform = getForm (path("banner_delete", {id: banner.id}))  %}
+                    <div class="modal fade" id="{{ target }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    Удалить баннер?
+                                </div>
+                                <div class="modal-body">
+                                   Подтвердите свои действия.
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">{{'forms.buttons.cansel'|trans }}</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{ form_start(delform, {'method': 'DELETE'}) }}
+                                            <input type="submit" class="btn btn-danger" value="Удалить">
+                                            {{ form_end(delform) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('banner_new') }}">Create a new banner</a>
-        </li>
-    </ul>
 {% endblock %}

@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Banner controller.
  *
- * @Route("banner")
+ * @Route("admin/banner")
  */
 class BannerController extends Controller
 {
@@ -44,9 +44,25 @@ class BannerController extends Controller
         $banner = new Banner();
         $form = $this->createForm('AppBundle\Form\BannerType', $banner);
         $form->handleRequest($request);
+        $imgdir = $this->getParameter('img_directory');
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $fileName = $form['fileName']->getData();
+            if ($fileName) {
+                $newFilename = $fileName->getClientOriginalName();
+                // Move the file to the directory where documents are stored
+                try {
+                    $fileName->move(
+                        $imgdir,
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $banner->setFileName($newFilename);
+            }
+
             $em->persist($banner);
             $em->flush();
 
@@ -127,13 +143,20 @@ class BannerController extends Controller
     {
         $form = $this->createDeleteForm($banner);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            $filename = $banner->getFileName();
+            $realfile = 'uploads/img/'.$filename;
+            if (file_exists(realpath($realfile))) {
+                unlink(realpath($realfile));
+                $this->addFlash('success', 'Файл ' . $filename . ' удален!');
+            }
+            else {
+                $this->addFlash('error', 'Файл ' . $realfile . ' не найден!');
+            }
             $em = $this->getDoctrine()->getManager();
             $em->remove($banner);
             $em->flush();
         }
-
         return $this->redirectToRoute('banner_index');
     }
 
