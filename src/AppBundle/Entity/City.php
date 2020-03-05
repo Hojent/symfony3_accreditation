@@ -7,7 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * City
  *
- * @ORM\Table(name="city")
+ * @ORM\Table(name="city",
+ * options={"collate":"utf8mb4_general_ci", "charset":"utf8mb4", "engine":"InnoDB"})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CityRepository")
  */
 class City

@@ -8,7 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UserProfile
  *
- * @ORM\Table(name="user_profile")
+ * @ORM\Table(name="user_profile",
+ *     options={"collate":"utf8mb4_general_ci", "charset":"utf8mb4", "engine":"InnoDB"})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserProfileRepository")
  */
 class UserProfile

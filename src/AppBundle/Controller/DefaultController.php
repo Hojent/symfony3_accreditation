@@ -52,9 +52,13 @@ class DefaultController extends Controller
     /**
      * @Route("/contact", name="contact_email")
      */
-    public function contactAction(Request $request, \Swift_Mailer $mailer)
+    public function contactAction(Request $request)
     {
-        $defaultData = ['text' => 'Введите здесь Ваше сообщение. '];
+        $defaultData = ['text' => ' . '];
+
+        $transport = new \Swift_MailTransport('mail.memo.by');
+        $this->mailer = new \Swift_Mailer($transport);
+
         $form = $this->createFormBuilder($defaultData)
             ->add('name', TextType::class, ['label' => 'Ваше имя'])
             ->add('email', EmailType::class, ['label' => 'E-mail'])
@@ -69,11 +73,12 @@ class DefaultController extends Controller
             }
             else {
                 $from = $form->get('email')->getData();
+                $fromadmin = 'admin@memo.by';
                 $myname = $form->get('name')->getData();
                 $text = $form->get('text')->getData();
                 // data is an array with "name", "email", and "message" keys
-                $message = (new \Swift_Message('EvLogger - Hello Admin'))
-                    ->setFrom($from)
+                $message = (new \Swift_Message('EvLogger - Hello Admin: From: '.$myname))
+                    ->setFrom($fromadmin)
                     ->setTo('irin_german@yahoo.com')
                     ->setBody(
                         $this->renderView(
@@ -85,7 +90,6 @@ class DefaultController extends Controller
                     );
 
                 $this->mailer->send($message);
-
                 return $this->render('default/sent.html.twig', ['name' => $myname, 'from' => $from, 'text' => $text]);
             }
 

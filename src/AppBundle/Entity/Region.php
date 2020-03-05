@@ -8,7 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Region
  *
- * @ORM\Table(name="region")
+ * @ORM\Table(name="region",
+ *     options={"collate":"utf8mb4_general_ci", "charset":"utf8mb4", "engine":"InnoDB"})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\RegionRepository")
  */
 class Region

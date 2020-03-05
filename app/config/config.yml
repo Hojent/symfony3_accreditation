@@ -43,14 +43,17 @@ doctrine:
         default_connection: default
         connections:
               default:
-                server_version: 5.7
-                driver: pdo_mysql
+                server_version: '%server_version%'
+                driver: '%database_driver%'
                 host: '%database_host%'
                 port: '%database_port%'
                 dbname: '%database_name%'
                 user: '%database_user%'
                 password: '%database_password%'
-                charset: UTF8
+                charset: '%charset%'
+                default_table_options:
+                            charset: '%charset%'
+                            collate: '%collate%'
 
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
@@ -115,22 +118,22 @@ fos_user:
             service:
                 mailer: 'fos_user.mailer.twig_swift'
             from_email:
-                address: "%mailer_user%"
-                sender_name: "Logger"
+                address: %mailer_user%
+                sender_name: "Event Logger - fos-user"
             registration:
                 confirmation:
                     enabled: true
                     from_email:
-                          address:        "%mailer_user%"
-                          sender_name:    "Event Logger 1.2 - подтверждение регистрации"
-                    template:   '@FOSUser/Registration/email.txt.twig'
+                          address: %mailer_user%
+                          sender_name: "Event Logger 1.2 - подтверждение регистрации"
+                    template: '@FOSUser/Registration/email.txt.twig'
                 form:
                     type: AppBundle\Form\Type\RegistrationType
             resetting:
                  email:
                     from_email:
-                         address:        'resetting@example.com'
-                         sender_name:    'Event Logger 1.2 - сброс пароля'
+                         address: %mailer_user%
+                         sender_name: 'Event Logger 1.2 - сброс пароля'
             #profile:
             #     form:
             #        type: AppBundle\Form\Type\ProfileType

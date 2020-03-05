@@ -7,7 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Smitip
  *
- * @ORM\Table(name="smitip")
+ * @ORM\Table(name="smitip",
+ *     options={"collate":"utf8mb4_general_ci", "charset":"utf8mb4", "engine":"InnoDB"})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SmitipRepository")
  */
 class Smitip

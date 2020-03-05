@@ -7,7 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Region
  *
- * @ORM\Table(name="banner")
+ * @ORM\Table(name="banner",
+ * options={"collate":"utf8_general_ci", "charset":"utf8", "engine":"InnoDB"})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BannerRepository")
  */
 class Banner
@@ -24,7 +25,7 @@ class Banner
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", nullable=false)
+     * @ORM\Column(name="title", type="string", nullable=false, )
      */
     private $title;
 

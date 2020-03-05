@@ -1,0 +1,25 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: localhost
+    database_port: 3306
+    database_name: user2020576_demo
+    database_user: ups
+    database_password: 4p5CTWdv
+    charset: utf8mb4
+    collate: utf8mb4_general_ci
+    server_version: 5.6
+    driver: pdo_mysql
+    mailer_auth_mode: login
+    mailer_encryption: ssl
+    mailer_host: mail.memo.by
+    mailer_port:  465
+    mailer_transport: smtp
+    mailer_user: admin@memo.by
+    mailer_password: G911bhbyf
+    locale: ru
+    clients_directory: '%kernel.project_dir%/web/uploads/photo'
+    documents_directory: '%kernel.project_dir%/web/uploads/doc'
+    event_directory: '%kernel.project_dir%/web/uploads/evdoc'
+    official_documents: '%kernel.project_dir%/web/documents'
+    img_directory: '%kernel.project_dir%/web/uploads/img'
+    secret: c57283697627a71f7bfd7fb8d20e5e6e

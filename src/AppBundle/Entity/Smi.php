@@ -8,7 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Smi
  *
- * @ORM\Table(name="smi")
+ * @ORM\Table(name="smi",
+ *     options={"collate":"utf8mb4_general_ci", "charset":"utf8mb4", "engine":"InnoDB"})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SmiRepository")
  */
 class Smi
