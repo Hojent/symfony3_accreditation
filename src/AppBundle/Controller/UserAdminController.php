@@ -27,8 +27,9 @@ class UserAdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $uid = $user->getId();
-        $clients = $em->getRepository(UserProfile::class)->listAll($uid);
+        $upid = $user->getUserprofile()->getId();
+        //var_dump(' -- '.$upid.' =='); die();
+        $clients = $em->getRepository(UserProfile::class)->listAll($upid);
 
         $pagination = $paginator->paginate(
             $clients, /* query NOT result */
