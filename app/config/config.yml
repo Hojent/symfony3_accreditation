@@ -118,22 +118,23 @@ fos_user:
             service:
                 mailer: 'fos_user.mailer.twig_swift'
             from_email:
-                address: %mailer_user%
-                sender_name: "Event Logger - fos-user"
+                address: 'admin@memo.by'
+                sender_name: "Event Logger message"
             registration:
                 confirmation:
                     enabled: true
                     from_email:
-                          address: %mailer_user%
-                          sender_name: "Event Logger 1.2 - подтверждение регистрации"
-                    template: '@FOSUser/Registration/email.txt.twig'
+                          address: "admin@memo.by"
+                          sender_name:    "Registration Confirmation"
+                    template:   '@FOSUser/Registration/email.txt.twig'
                 form:
                     type: AppBundle\Form\Type\RegistrationType
             resetting:
                  email:
                     from_email:
-                         address: %mailer_user%
-                         sender_name: 'Event Logger 1.2 - сброс пароля'
+                          address: 'admin@memo.by'
+                          sender_name:    'Password Reset'
+                    template:   '@FOSUser/Resetting/email.txt.twig'
             #profile:
             #     form:
             #        type: AppBundle\Form\Type\ProfileType
