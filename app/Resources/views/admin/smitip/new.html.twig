@@ -4,7 +4,12 @@
     <h1>{{'headers.admin.smitip' |trans}}</h1>
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <div class="row">
+        <div class="col-sm-12">
+            <p>{{ form_widget(form.name, {'attr': {'class': 'col-sm-12'}}) }}</p>
+            {{ form_errors(form.name, {'attr': {'class': 'col-sm-12'}}) }}
+        </div>
+    </div>
     <input type="submit" class="btn btn-primary" value="{{'forms.buttons.create' |trans }}" />
     <a class="btn btn-info" href="{{ path('admin_smitip_index') }}">{{'forms.buttons.cansel'|trans }}</a>
     {{ form_end(form) }}

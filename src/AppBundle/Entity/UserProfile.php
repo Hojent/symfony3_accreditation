@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\DBAL\Types\DateType;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * UserProfile
@@ -11,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user_profile",
  *     options={"collate":"utf8mb4_general_ci", "charset":"utf8mb4", "engine":"InnoDB"})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserProfileRepository")
+ * @UniqueEntity("privatenum")
  */
 class UserProfile
 {
@@ -61,8 +64,13 @@ class UserProfile
 
      /**
      * @var string
-     *
-     * @ORM\Column(name="privatenum", type="string", nullable=true, unique=true)
+     * @ORM\Column(name="privatenum", type="string", length=128, unique=true, nullable=false)
+     * @Assert\Length( groups={"Registration"},
+      *      min = 20,
+      *      max = 50,
+      *      minMessage = "Your first name must be at least {{ limit }} characters long",
+      *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+      * )
      */
     protected $privatenum;
 
@@ -106,14 +114,14 @@ class UserProfile
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", nullable=true, unique=true)
+     * @ORM\Column(name="phone", type="string", nullable=true)
      */
     protected $phone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=255, nullable=true)
+     * @ORM\Column(name="address", type="string", nullable=true)
      */
     protected $address;
 
@@ -122,14 +130,14 @@ class UserProfile
     /**
      * @var string
      *
-     * @ORM\Column(name="photo", type="string", length=255, nullable=true, unique=true)
+     * @ORM\Column(name="photo", type="string", nullable=true)
      */
     private $photo;  //link to file
 
     /**
      * @var string
      *
-     * @ORM\Column(name="application", type="string", length=255, nullable=true)
+     * @ORM\Column(name="application", type="string", nullable=true)
      */
     private $application;  //link to file   - application pdf file
 

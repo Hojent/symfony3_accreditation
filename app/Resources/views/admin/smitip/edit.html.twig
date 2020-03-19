@@ -2,18 +2,29 @@
 
 {% block body %}
     <h1>Тип СМИ</h1>
-    <ul class="list-inline">
-        <li class="list-inline-item">
-            {{ form_start(edit_form) }}
-            {{ form_widget(edit_form) }}
+{{ form_start(edit_form) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_widget(edit_form.name) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_errors(edit_form.name) }}
+        </div>
+    </div>
+    <br>
+    <div class="btn-row">
+        <div class="col-sm-1">
             <input type="submit" class="btn btn-primary" value="{{ 'forms.buttons.save'|trans }}" />
-            {{ form_end(edit_form) }}
-        </li>
-        <li class="list-inline-item">
+        </div>
+
+{{ form_end(edit_form) }}
+
             {{ form_start(delete_form) }}
+        <div class="col-sm-4">
             <input type="submit" class="btn btn-danger" value="{{'forms.buttons.remove'|trans }}">
             <a class="btn btn-info" href="{{ path('admin_smitip_index') }}">{{'forms.buttons.cansel'|trans }}</a>
+        </div>
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    </div>
+
 {% endblock %}

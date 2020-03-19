@@ -42,3 +42,7 @@ services:
 
     #AppBundle\Form\Type\ProfileType:
 
+    AppBundle\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+
