@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\Collection;
 /**
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
- * @UniqueEntity(fields="username", message="Username already taken")
+ *
  *
  */
 class User extends BaseUser implements UserInterface, \Serializable

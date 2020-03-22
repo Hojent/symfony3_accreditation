@@ -38,11 +38,11 @@ services:
     app.form.type.registration:
         class: AppBundle\Form\Type\RegistrationType
         tags:
-            - { name: form.type, aliase: app_user_registration2}
+            - { name: form.type, aliase: app_user_registration}
 
     #AppBundle\Form\Type\ProfileType:
 
-    AppBundle\EventListener\ExceptionListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.exception }
+  #  AppBundle\EventListener\ExceptionListener:
+  #      tags:
+  #          - { name: kernel.event_listener, event: kernel.exception }
 

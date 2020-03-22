@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="user_profile",
  *     options={"collate":"utf8mb4_general_ci", "charset":"utf8mb4", "engine":"InnoDB"})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserProfileRepository")
- * @UniqueEntity("privatenum")
+ * @UniqueEntity(fields="privatenum", message="Number already taken")
  */
 class UserProfile
 {
@@ -65,7 +65,8 @@ class UserProfile
      /**
      * @var string
      * @ORM\Column(name="privatenum", type="string", length=128, unique=true, nullable=false)
-     * @Assert\Length( groups={"Registration"},
+     * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
+     * @Assert\Length( groups={"Registration", "Profile"},
       *      min = 20,
       *      max = 50,
       *      minMessage = "Your first name must be at least {{ limit }} characters long",

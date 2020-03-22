@@ -29,6 +29,19 @@ class UserProfileOneType extends AbstractType
 
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver
+            ->setDefined('user')
+            ->setDefaults([
+                 'validation_groups' => ["Registration"],
+            ]);
+    }
+
+
     public function getParent()
     {
         return 'AppBundle\Form\UserProfileType';
