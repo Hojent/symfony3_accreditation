@@ -36,9 +36,7 @@ class UserProfileOneType extends AbstractType
     {
         $resolver
             ->setDefined('user')
-            ->setDefaults([
-                 'validation_groups' => ["Registration"],
-            ]);
+            ;
     }
 
 

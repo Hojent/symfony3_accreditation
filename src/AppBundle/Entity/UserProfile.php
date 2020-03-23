@@ -65,13 +65,6 @@ class UserProfile
      /**
      * @var string
      * @ORM\Column(name="privatenum", type="string", length=128, unique=true, nullable=false)
-     * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
-     * @Assert\Length( groups={"Registration", "Profile"},
-      *      min = 20,
-      *      max = 50,
-      *      minMessage = "Your first name must be at least {{ limit }} characters long",
-      *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
-      * )
      */
     protected $privatenum;
 

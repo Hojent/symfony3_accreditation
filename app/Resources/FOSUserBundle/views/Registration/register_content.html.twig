@@ -2,8 +2,6 @@
 
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
     {{ form_widget(form) }}
-                  widget {{ form_widget(form.userprofile.privatenum) }}<br>
-                  err {{ form_errors(form.userprofile.privatenum) }}
     <div>
         <button class= "btn btn-info btn-block" type="submit">{{'registration.submit'|trans }}</button>
     </div>

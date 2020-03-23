@@ -11,6 +11,7 @@ use AppBundle\Form\UserProfileType;
 use AppBundle\Entity\Smi;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 class ProfileType extends AbstractType
@@ -96,6 +97,14 @@ class ProfileType extends AbstractType
             ])
             ->add('userprofile', UserProfileType::class, [
                 'label' => 'Личные данные',
+                'constraints' => [
+                    new UniqueEntity(
+                        [
+                            'fields' => 'privatenum',
+                            'message' => 'Номер уже используется.',
+                        ]
+                    )
+                ]
 
             ])
 

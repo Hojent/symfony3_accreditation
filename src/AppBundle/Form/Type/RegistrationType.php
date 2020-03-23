@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 class RegistrationType extends AbstractType
 {
@@ -23,7 +24,19 @@ class RegistrationType extends AbstractType
                     ->orderBy('s.title', 'ASC');
             },
             ])
-           ->add('userprofile', UserProfileOneType::class, ['label' => 'Личные данные']);
+           ->add('userprofile', UserProfileOneType::class,
+               [
+                   'label' => 'Личные данные',
+                   'constraints' => [
+                       new UniqueEntity(
+                           [
+                               'fields' => 'privatenum',
+                               'message' => 'This number is already in use.',
+                           ]
+                       )
+                   ]
+               ]
+           );
     }
 
     public function getParent()
