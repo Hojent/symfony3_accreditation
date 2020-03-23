@@ -53,8 +53,11 @@
             <p>{{ client.userid.smi }}</p>
             {% endif %}
             <div class="row>">
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                     <a class="btn btn-danger btn-ok" href="#" data-toggle="modal" data-target="#confirm-delete{{ client.userid.id }}" >{{'forms.buttons.remove'|trans }}</a>
+                </div>
+                <div class="col-sm-3">
+                    <a class="btn btn-info" href="{{ path('user_list') }}">{{'forms.buttons.cansel'|trans }}</a>
                 </div>
                 <div class="modal fade" id="confirm-delete{{ client.userid.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">

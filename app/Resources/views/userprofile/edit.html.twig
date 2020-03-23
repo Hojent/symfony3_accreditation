@@ -76,7 +76,7 @@
             {{ form_row(edit_form.userprofile.address) }}
 
           <input class ="btn btn-success" type="submit" value="{{'forms.buttons.save'|trans }}" />
-
+        <a class="btn btn-info" href="{{ path('homepage') }}">{{'forms.buttons.cansel'|trans }}</a>
         {{ form_end(edit_form) }}
         </div>
     {% endblock %}
