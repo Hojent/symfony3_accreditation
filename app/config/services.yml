@@ -46,3 +46,12 @@ services:
   #      tags:
   #          - { name: kernel.event_listener, event: kernel.exception }
 
+    doctrine.user_listener:
+        class: AppBundle\Doctrine\UserListener
+        arguments: []
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate, method: preUpdate, entity: 'AppBundle\Entity\UserProfile' }
+            - { name: doctrine.event_listener, event: prePersist, method: prePersist, entity: 'AppBundle\Entity\UserProfile' }
+            - { name: doctrine.event_listener, event: postLoad, method: postLoad, entity: 'AppBundle\Entity\UserProfile' }
+
+

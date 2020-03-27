@@ -127,7 +127,7 @@ class EventController extends Controller
 
         $print = "<h2>";
         $print .= $event->getTitle()."<br>Список журналистов</h2>";
-        $print .= "<table border='1' cellspacing='0' cellpadding='4'>";
+        $print .= "<table border='0' cellspacing='0' cellpadding='4' width='100%'>";
         $print .= "<thead><tr><th>N</th><th>ФИО</th><th>СМИ</th><th>Дата<br>рождения</th><th>Личный<br>номер</th>";
         $print .= "<th>Паспортные<br> данные</th><th>Адрес,<br>Телефон</th><th>Заявка</th><th>Блок</th></tr></thead>";
         $n = 0;
