@@ -131,7 +131,7 @@ class BannerController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $filename = $banner->getFileName();
             $realfile = 'uploads/img/'.$filename;
-            if (file_exists(realpath($realfile))) {
+            if ($filename) {
                 unlink(realpath($realfile));
                 $this->addFlash('success', 'Файл ' . $filename . ' удален!');
             }
