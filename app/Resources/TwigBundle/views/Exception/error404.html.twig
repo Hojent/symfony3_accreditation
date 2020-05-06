@@ -1,0 +1,10 @@
+{# app/Resources/TwigBundle/views/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Страница не найдена</h1>
+
+    <p>
+        Запрашиваемая Вами страница не существует или перенесена. Пожалуйста, проверьте адрес страницы или <a href="{{ path('homepage') }}">вернитесь на главную</a>.
+    </p>
+{% endblock %}

@@ -1,7 +1,8 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
-
+    resource: '@Resources/TwigBundle/views/Exception/error404.html.twig'
+    resource: '@Resources/TwigBundle/views/Exception/error.html.twig'
 logout:
     path: /logout
 
