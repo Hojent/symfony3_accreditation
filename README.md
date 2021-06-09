@@ -11,4 +11,7 @@ Basic function:
  
  Personal information is stored in an encrypted form.
  
+ Demo:
+ http://elog.web-project.by
+ 
  
